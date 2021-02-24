@@ -19,9 +19,6 @@ public class SearchObjectScript : MonoBehaviour
 
     public string crossTag;
 
-    public TextMeshPro scoreText;
-    private int actualScore = 1;
-
     private void Awake()
     {
         screenshotCam.orthographicSize = topViewCamFOVSizeStart;
@@ -31,7 +28,6 @@ public class SearchObjectScript : MonoBehaviour
     {
         PlaceCameraAndCross();
         StartCoroutine(TakeScreenshot());
-        scoreText.text = actualScore + " / " + InstantiateObjectsScript.instance.maxScore;
     }
 
     void Update()
@@ -47,7 +43,7 @@ public class SearchObjectScript : MonoBehaviour
                     GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.Euler(90, 0, 0));
                     newHole.transform.position = new Vector3(newHole.transform.position.x, 0.01f, newHole.transform.position.z);
 
-                    UpdateScore();
+                    // MAKE THE CHEST APPEARS
                 }
 
                 else
@@ -59,26 +55,14 @@ public class SearchObjectScript : MonoBehaviour
         }
     }
 
-    public void UpdateScore()
+    public void Win()
     {
-        actualScore++;        
+        transform.parent.transform.GetComponent<MeshRenderer>().enabled = false;
+        transform.parent.transform.GetComponent<CapsuleCollider>().enabled = false;
 
-        if (actualScore <= InstantiateObjectsScript.instance.maxScore) //If wtill other treasures to find
-        {
-            scoreText.text = actualScore + " / " + InstantiateObjectsScript.instance.maxScore;
-            PlaceCameraAndCross();
-            StartCoroutine(TakeScreenshot());
-        }
-
-        else //If win (all treasures found)
-        {
-            transform.parent.transform.GetComponent<MeshRenderer>().enabled = false;
-            transform.parent.transform.GetComponent<CapsuleCollider>().enabled = false;
-
-            GetComponent<MovementScript>().canTheAvatarMove = false;
-            GetComponent<CameraControlScript>().switchCursorVisible();
-            StartCoroutine(WinCinematic(3f));
-        }
+        GetComponent<MovementScript>().canTheAvatarMove = false;
+        GetComponent<CameraControlScript>().switchCursorVisible();
+        StartCoroutine(WinCinematic(3f));
     }
 
     public void PlaceCameraAndCross()
