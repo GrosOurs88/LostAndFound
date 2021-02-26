@@ -8,6 +8,8 @@ TagManager:
   - CrossPlayer2
   - CrossPlayer3
   - CrossPlayer4
+  - Death
+  - Chest
   layers:
   - Default
   - TransparentFX
@@ -18,10 +20,10 @@ TagManager:
   - 
   - 
   - Cross
-  - 
-  - 
-  - 
-  - 
+  - Floor
+  - Map
+  - Structure
+  - Chest
   - 
   - 
   - 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6723279720048002260}
   - component: {fileID: 1606002470170221771}
   - component: {fileID: 7241984997008187548}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hole_Sand_Win
   m_TagString: Untagged
   m_Icon: {fileID: 0}
