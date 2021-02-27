@@ -9,7 +9,7 @@ public class MovementScript : MonoBehaviour
     public float speedRun;
     private bool isAvatarRunning;
 
-    public Transform avatarStartPositionAndRotation;
+    private GameObject avatar;
 
     public bool canTheAvatarMove;
 
@@ -25,8 +25,10 @@ public class MovementScript : MonoBehaviour
 
     public void Awake()
     {
-        transform.parent.transform.position = avatarStartPositionAndRotation.transform.position; //Replace avatar at the specific transform in the editor
-        transform.parent.transform.rotation = avatarStartPositionAndRotation.transform.rotation; //Reoriente avatar at the specific transform in the editor
+        avatar = transform.parent.gameObject;
+
+        //transform.parent.transform.position = avatarStartPositionAndRotation.transform.position; //Replace avatar at the specific transform in the editor
+        //transform.parent.transform.rotation = avatarStartPositionAndRotation.transform.rotation; //Reoriente avatar at the specific transform in the editor
     }
 
     private void Start()
@@ -34,29 +36,35 @@ public class MovementScript : MonoBehaviour
         staminaBarImage.fillAmount = 1f;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        RaiseStaminaBar();
-
         if (canTheAvatarMove)
         {
-            if(isAvatarRunning)
+            if (isAvatarRunning)
             {
-                staminaBarImage.fillAmount -= runStaminaDecreaseValueAmount * Time.deltaTime;
+                staminaBarImage.fillAmount -= runStaminaDecreaseValueAmount * Time.fixedDeltaTime;
 
                 float movX = Input.GetAxis(inputHorizontalAxis) * speedRun;
                 float movZ = Input.GetAxis(inputVerticalAxis) * speedRun;
 
-                transform.parent.transform.Translate(movX * Time.deltaTime, 0, movZ * Time.deltaTime);
+                transform.parent.transform.Translate(movX * Time.fixedDeltaTime, 0, movZ * Time.fixedDeltaTime);
             }
             else
             {
                 float movX = Input.GetAxis(inputHorizontalAxis) * speed;
                 float movZ = Input.GetAxis(inputVerticalAxis) * speed;
 
-                transform.parent.transform.Translate(movX * Time.deltaTime, 0, movZ * Time.deltaTime);
+                transform.parent.transform.Translate(movX * Time.fixedDeltaTime, 0, movZ * Time.fixedDeltaTime);
             }
+        }
+    }
 
+    void Update()
+    {
+        RaiseStaminaBar();
+
+        if (canTheAvatarMove)
+        {      
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 isAvatarRunning = true;

@@ -9,11 +9,6 @@ public class SearchObjectScript : MonoBehaviour
 {
     public float raycastLength;
 
-    public Camera screenshotCam;
-    public float topViewCamFOVSizeStart = 5;
-    public float topViewCamFOVSizeEnd = 25;
-    public GameObject cross;
-
     public GameObject hole;
     public GameObject holeWin;
 
@@ -38,11 +33,6 @@ public class SearchObjectScript : MonoBehaviour
 
     MovementScript movementScript;
 
-    private void Awake()
-    {
-        screenshotCam.orthographicSize = topViewCamFOVSizeStart;
-    }
-
     private void Start()
     {
         movementScript = gameObject.GetComponent<MovementScript>();
@@ -58,11 +48,6 @@ public class SearchObjectScript : MonoBehaviour
             LayerMask layerFloor = LayerMask.GetMask("Floor");
             LayerMask layerMap = LayerMask.GetMask("Map");
             LayerMask layerChest = LayerMask.GetMask("Chest");
-
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength))
-            {
-                print(hit.collider.name);
-            }
 
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerDefault))
             {
@@ -138,14 +123,14 @@ public class SearchObjectScript : MonoBehaviour
         {
             if (launchObjectForce < maxLaunchObjectForce)
             {
-                launchObjectForce += launchObjectIncreaseValueAmount;
+                launchObjectForce += launchObjectIncreaseValueAmount * Time.deltaTime;
             }
             if (launchObjectForce > maxLaunchObjectForce)
             {
                 launchObjectForce = maxLaunchObjectForce;
             }
 
-            launchObjectBar.fillAmount = (launchObjectForce / maxLaunchObjectForce) /*- minLaunchObjectForce*/;
+            launchObjectBar.fillAmount = (launchObjectForce / maxLaunchObjectForce);
         }
 
         if (Input.GetMouseButtonUp(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove)
@@ -184,21 +169,5 @@ public class SearchObjectScript : MonoBehaviour
         }
 
         PanelLaunchObjectForce.gameObject.SetActive(false);
-    }
-
-    public void Win()
-    {
-        transform.parent.transform.GetComponent<MeshRenderer>().enabled = false;
-        transform.parent.transform.GetComponent<CapsuleCollider>().enabled = false;
-
-        GetComponent<MovementScript>().canTheAvatarMove = false;
-        GetComponent<CameraControlScript>().switchCursorVisible();
-        StartCoroutine(WinCinematic(3f));
-    }    
-
-    public IEnumerator WinCinematic(float _transitionTime)
-    {
-        
-        yield return null;
     }
 }

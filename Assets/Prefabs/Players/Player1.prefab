@@ -132,13 +132,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   speedRun: 8
-  avatarStartPositionAndRotation: {fileID: 0}
   canTheAvatarMove: 1
   inputHorizontalAxis: HorizontalJ1
   inputVerticalAxis: VerticalJ1
   staminaMaxValue: 10
   staminaBarImage: {fileID: 0}
-  staminaIncreaseValueAmount: 0.1
+  staminaIncreaseValueAmount: 0.15
   runStaminaDecreaseValueAmount: 0.5
 --- !u!114 &394873148
 MonoBehaviour:
@@ -153,24 +152,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastLength: 3
-  screenshotCam: {fileID: 0}
-  topViewCam: {fileID: 0}
-  topViewCamFOVSizeStart: 5
-  topViewCamFOVSizeEnd: 25
-  cross: {fileID: 0}
   hole: {fileID: 2936971265122613430, guid: 98edcdd3a56d480478307acf92a6f509, type: 3}
   holeWin: {fileID: 2936971265122613430, guid: ae98079f67f6e9f4cbd98526a22b2e7b, type: 3}
   chest: {fileID: 2476306706555744521, guid: 33dcdfbc105b1a746932742af1eb3d20, type: 3}
   avatarHandMap: {fileID: 2616642609592060327}
   avatarHandChest: {fileID: 605452381}
-  digStaminaDecreaseValueAmount: 0.25
-  isTakingSomething: 0
-  takenObjectIsAMap: 0
-  takenObjectIsAChest: 0
-  takenObject: {fileID: 0}
-  instantiateObjectsScript: {fileID: 0}
+  digStaminaDecreaseValueAmount: 0.15
   launchObjectForce: 400
-  crossTag: CrossPlayer1
+  minLaunchObjectForce: 200
+  maxLaunchObjectForce: 1000
+  launchObjectIncreaseValueAmount: 650
+  PanelLaunchObjectForce: {fileID: 0}
+  launchObjectBar: {fileID: 0}
 --- !u!114 &394873149
 MonoBehaviour:
   m_ObjectHideFlags: 0

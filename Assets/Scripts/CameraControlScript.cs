@@ -51,6 +51,18 @@ public class CameraControlScript : MonoBehaviour
                 transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape)) //Working in build, but not in editor
+        {
+            if(Cursor.visible == true)
+            {
+                switchCursorNotVisible();
+            }
+            else if (Cursor.visible == false)
+            {
+                switchCursorVisible();
+            }
+        }       
     }
 
     public void switchCursorVisible()
