@@ -59,6 +59,11 @@ public class SearchObjectScript : MonoBehaviour
             LayerMask layerMap = LayerMask.GetMask("Map");
             LayerMask layerChest = LayerMask.GetMask("Chest");
 
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength))
+            {
+                print(hit.collider.name);
+            }
+
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerDefault))
             {
                 return;
