@@ -61,8 +61,6 @@ public class MovementScript : MonoBehaviour
 
     void Update()
     {
-        RaiseStaminaBar();
-
         if (canTheAvatarMove)
         {      
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -79,6 +77,8 @@ public class MovementScript : MonoBehaviour
                 isAvatarRunning = false;
             }
         }
+
+        RaiseStaminaBar();
     }
 
     public void RaiseStaminaBar()
