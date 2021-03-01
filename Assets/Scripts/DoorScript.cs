@@ -42,7 +42,7 @@ public class DoorScript : MonoBehaviour
     public IEnumerator OpenDoor(float time)
     {
         Vector3 startingPos = door.transform.position;
-        Vector3 finalPos = door.transform.position + (transform.up * 9);
+        Vector3 finalPos = door.transform.position + (-transform.forward * 15);
         float elapsedTime = 0;
 
         while (elapsedTime < time)

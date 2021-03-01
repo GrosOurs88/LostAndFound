@@ -90,13 +90,13 @@ public class SearchObjectScript : MonoBehaviour
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
 
                     GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.Euler(90, 0, 0));
-                    newHole.transform.position = new Vector3(newHole.transform.position.x, 0.01f, newHole.transform.position.z);
+                    newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + 0.01f, newHole.transform.position.z);
 
                     Destroy(hit.collider.gameObject); //Destroy cross
 
                     GameObject newChest = Instantiate(chest, hit.point, Quaternion.Euler(0, 0, 0));
                     newChest.GetComponent<Rigidbody>().isKinematic = true;
-                    newChest.transform.position = new Vector3(newChest.transform.position.x, -0.4f, newChest.transform.position.z);
+                    newChest.transform.position = new Vector3(newChest.transform.position.x, hit.point.y, newChest.transform.position.z);
                 }
             }
 
@@ -107,7 +107,7 @@ public class SearchObjectScript : MonoBehaviour
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
 
                     GameObject newHole = Instantiate(hole, hit.point, Quaternion.Euler(90, 0, 0));
-                    newHole.transform.position = new Vector3(newHole.transform.position.x, 0.01f, newHole.transform.position.z);
+                    newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + 0.01f, newHole.transform.position.z);
                 }
             }
         }

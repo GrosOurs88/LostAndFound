@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stylize Tile Diffuse Wall
+  m_Name: Stylize Tile Diffuse Wall 1
   m_Shader: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _NORMALMAP _PARALLAXMAP _SPECGLOSSMAP
   m_LightmapFlags: 4
@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 2c9e57518c7c0a644925b34eb07cb386, type: 3}
-        m_Scale: {x: 6, y: 2}
+        m_Scale: {x: 3, y: 2}
         m_Offset: {x: 0.09, y: 0.18}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}

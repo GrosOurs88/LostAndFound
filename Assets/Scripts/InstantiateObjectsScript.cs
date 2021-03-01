@@ -6,9 +6,10 @@ public class InstantiateObjectsScript : MonoBehaviour
 {
     public GameObject objectToInstantiateObjectsInto;
     public int numberOfObjectsToInstantiate;
-    public float instantiationOffsetX;
-    public float instantiationOffsetY;
-    public float instantiationOffsetZ;
+    public float instantiationOffsetMaxX;
+   // public float instantiationOffsetMaxY;
+    public float instantiationOffsetMaxZ;
+
 
     public float instantiationOffsetCameraX;
     public float instantiationOffsetCameraZ;
@@ -27,9 +28,6 @@ public class InstantiateObjectsScript : MonoBehaviour
     public List<Material> mapMaterialList = new List<Material>();
     public List<Camera> cameraList = new List<Camera>();
     public List<GameObject> crossList = new List<GameObject>();
-
-    public float maxScore;
-
 
     void Start()
     {
@@ -58,9 +56,9 @@ public class InstantiateObjectsScript : MonoBehaviour
             nextObjectToInstantiate = objectsToInstantiate[x];
 
             //Choose a random position to spawn the object
-            nextObjectToInstanciatePosition = new Vector3(Random.Range(objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetX, objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetX),
-                                                          Random.Range(objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.y + instantiationOffsetY, objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y - instantiationOffsetY),
-                                                          Random.Range(objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetZ, objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetZ));
+            nextObjectToInstanciatePosition = new Vector3(Random.Range(objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetMaxX, objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetMaxX),
+                                                          objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y,
+                                                          Random.Range(objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetMaxZ, objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetMaxZ));
 
             //Instantiate the object and rotate it randmly
             if (randomizeRotationX)

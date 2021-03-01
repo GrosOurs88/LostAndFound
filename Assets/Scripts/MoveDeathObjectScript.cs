@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MoveDeathObjectScript : MonoBehaviour
 {
-    public GameObject deathObject;
     public float speed;
     public float materialScrollSpeed;
     public Vector3 movement;
@@ -14,13 +13,13 @@ public class MoveDeathObjectScript : MonoBehaviour
 
     private void Start()
     {
-        deathObjectStartPosition = deathObject.transform.position;
-        mat = deathObject.GetComponent<Renderer>().material;
+        deathObjectStartPosition = transform.position;
+        mat = GetComponent<Renderer>().material;
     }
 
     void Update()
     {
-        deathObject.transform.position += movement * speed * Time.deltaTime;
+        transform.position += movement * speed * Time.deltaTime;
 
         float offset = Time.time * materialScrollSpeed;
         mat.SetTextureOffset("_MainTex", new Vector2(0, offset));
@@ -28,6 +27,6 @@ public class MoveDeathObjectScript : MonoBehaviour
 
     public void ResetPosition()
     {
-        deathObject.transform.position = deathObjectStartPosition;
+        transform.position = deathObjectStartPosition;
     }
 }
