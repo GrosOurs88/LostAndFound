@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class InstantiateObjectsScript : MonoBehaviour
 {
-    public GameObject objectToInstantiateObjectsInto;
+    public List<GameObject> objectToInstantiateObjectsInto = new List<GameObject>();
+    private int randomBoxToInstantiateObjectsInto;
+    private int actualBoxToInstantiateObjectsInto = 0;
+
+
     public int numberOfObjectsToInstantiate;
     public float instantiationOffsetMaxX;
    // public float instantiationOffsetMaxY;
     public float instantiationOffsetMaxZ;
-
+    public float cameraOrthographicSize = 5;
 
     public float instantiationOffsetCameraX;
     public float instantiationOffsetCameraZ;
@@ -51,14 +55,16 @@ public class InstantiateObjectsScript : MonoBehaviour
         //Loop for all the objects that havce to be placed
         for (int i = 0; i < numberOfObjectsToInstantiate; i++)
         {
+            randomBoxToInstantiateObjectsInto = Random.Range(0, objectToInstantiateObjectsInto.Count);
+
             //Choose an object to instantiate randomly
             x = Random.Range(0, objectsToInstantiate.Count-1);
             nextObjectToInstantiate = objectsToInstantiate[x];
 
             //Choose a random position to spawn the object
-            nextObjectToInstanciatePosition = new Vector3(Random.Range(objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetMaxX, objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetMaxX),
-                                                          objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y,
-                                                          Random.Range(objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetMaxZ, objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetMaxZ));
+            nextObjectToInstanciatePosition = new Vector3(Random.Range(objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.min.x + instantiationOffsetMaxX, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.x - instantiationOffsetMaxX),
+                                                          objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.y,
+                                                          Random.Range(objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.min.z + instantiationOffsetMaxZ, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.z - instantiationOffsetMaxZ));
 
             //Instantiate the object and rotate it randmly
             if (randomizeRotationX)
@@ -78,13 +84,17 @@ public class InstantiateObjectsScript : MonoBehaviour
 
     public void PlaceCameraAndCross(int _cameraIndex, int _crossIndex)
     {
+        randomBoxToInstantiateObjectsInto = Random.Range(0, objectToInstantiateObjectsInto.Count);
+
+        cameraList[_cameraIndex].orthographicSize = cameraOrthographicSize;
+
         //Place the screenshot camera in a random X-Z position inside the floor gameobject box
-        cameraList[_cameraIndex].transform.position = new Vector3(Random.Range(objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
+        cameraList[_cameraIndex].transform.position = new Vector3(Random.Range(objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
                                                     (cameraList[_cameraIndex].transform.position.y),
-                                                    Random.Range(objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
+                                                    Random.Range(objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
 
         //Place a new cross under the random X-Z screenshot camera position
-        crossList[_crossIndex].transform.position = new Vector3(cameraList[_cameraIndex].transform.position.x, objectToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + 0.1f, cameraList[_cameraIndex].transform.position.z);
+        crossList[_crossIndex].transform.position = new Vector3(cameraList[_cameraIndex].transform.position.x, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.y + 0.1f, cameraList[_cameraIndex].transform.position.z);
     }
 
     public IEnumerator TakeScreenshot(int _materialIndex, int _mapIndex, int _cameraIndex, int _crossIndex)
