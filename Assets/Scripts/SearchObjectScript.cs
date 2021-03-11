@@ -33,6 +33,8 @@ public class SearchObjectScript : MonoBehaviour
 
     MovementScript movementScript;
 
+    private IEnumerator openDoorCoroutine;
+
     private void Start()
     {
         movementScript = gameObject.GetComponent<MovementScript>();
@@ -67,20 +69,26 @@ public class SearchObjectScript : MonoBehaviour
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerChest) && isTakingSomething == false)
             {
-                hit.collider.transform.parent.parent = avatarHandChest;
-                hit.collider.transform.parent.SetPositionAndRotation(avatarHandChest.position, avatarHandChest.rotation);
-                hit.collider.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
-                foreach (Transform trans in hit.collider.transform.parent)
-                {
-                    if (trans.GetComponent<Collider>())
-                    {
-                        trans.GetComponent<Collider>().enabled = false;
-                    }
-                }
+                hit.collider.transform.parent = avatarHandChest;
+                hit.collider.transform.SetPositionAndRotation(avatarHandChest.position, avatarHandChest.rotation);
+                hit.collider.GetComponent<Rigidbody>().isKinematic = true;
+                hit.collider.GetComponent<Collider>().enabled = false;
+
                 isTakingSomething = true;
                 takenObjectIsAChest = true;
                 takenObject = hit.collider.gameObject;
-                hit.collider.transform.parent.GetComponent<ChestScript>().isTaken = true;
+                hit.collider.GetComponent<ChestScript>().isTaken = true;
+
+                if(hit.collider.GetComponent<ChestScript>().emitterLinked != null)
+                {
+                    hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().canAChestBePlaced = true;
+                    hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn--;
+
+                    if(hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().activatorsNeeded.Count-1)
+                    {                     
+                        hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
+                    }
+                }                
             }
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerCross))
@@ -153,19 +161,13 @@ public class SearchObjectScript : MonoBehaviour
 
         else if (takenObjectIsAChest == true)
         {
-            takenObject.transform.parent.parent = null;
-            takenObject.transform.parent.GetComponent<Rigidbody>().isKinematic = false;
-            foreach (Transform trans in takenObject.transform.parent)
-            {
-                if (trans.GetComponent<Collider>())
-                {
-                    trans.GetComponent<Collider>().enabled = true;
-                }
-            }
-            takenObject.transform.parent.GetComponent<Rigidbody>().AddForce(transform.forward * launchObjectForce);
+            takenObject.transform.parent = null;
+            takenObject.GetComponent<Rigidbody>().isKinematic = false;
+            takenObject.GetComponent<Collider>().enabled = true;
+            takenObject.GetComponent<Rigidbody>().AddForce(transform.forward * launchObjectForce);
             takenObjectIsAChest = false;
             isTakingSomething = false;
-            takenObject.transform.parent.GetComponent<ChestScript>().isTaken = false;
+            takenObject.GetComponent<ChestScript>().isTaken = false;
         }
 
         PanelLaunchObjectForce.gameObject.SetActive(false);

@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class ChestScript : MonoBehaviour
 {
-    public bool isTaken = false;    
+    public bool isTaken = false;
+
+    public GameObject emitterLinked;
 }
