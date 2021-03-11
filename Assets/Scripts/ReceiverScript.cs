@@ -15,8 +15,16 @@ public class ReceiverScript : MonoBehaviour
     Vector3 closedPosition;
     Vector3 openPosition;
 
+    public bool isItLockedWhenActivated;
+
     private Coroutine OpenCoroutine = null;
     private Coroutine CloseCoroutine = null;
+
+    public Vector3 openPositionVector;
+    private Vector3 openPositionVectorLocal;
+    public float openPositionDistance;
+    public float closeTime;
+    public float openTime;
 
     private void Start()
     {
@@ -25,23 +33,26 @@ public class ReceiverScript : MonoBehaviour
             gO.GetComponent<EmitterScript>().receiverToActivate = gameObject;
         }
 
-        OpenCoroutine = StartCoroutine(Open(3f));
-        CloseCoroutine = StartCoroutine(Close(1f));
+        openPositionVectorLocal = transform.TransformDirection(openPositionVector);
 
         closedPosition = transform.position;
-        openPosition = transform.position + (transform.up * 15);
+        openPosition = transform.position + (openPositionVectorLocal * openPositionDistance);
+
+        OpenCoroutine = StartCoroutine(Open(openTime));
+        StopCoroutine(OpenCoroutine);
+        CloseCoroutine = StartCoroutine(Close(closeTime));
     }
 
     public void SwitchToClose()
     {
         StopCoroutine(OpenCoroutine);
-        CloseCoroutine = StartCoroutine(Close(1f));
+        CloseCoroutine = StartCoroutine(Close(closeTime));
     }
 
     public void SwitchToOpen()
     {
         StopCoroutine(CloseCoroutine);
-        OpenCoroutine = StartCoroutine(Open(3f));
+        OpenCoroutine = StartCoroutine(Open(openTime));
     }
 
     public IEnumerator Open(float time)

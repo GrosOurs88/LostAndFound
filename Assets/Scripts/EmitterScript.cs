@@ -20,7 +20,7 @@ public class EmitterScript : MonoBehaviour
             PlaceObjectOnEmitter();              
         }
 
-        else if (other.CompareTag("Player") && canAChestBePlaced == true)
+        if (other.CompareTag("Player") && canAChestBePlaced == true)
         {
             objectOnEmitter = other.gameObject;
 
@@ -35,7 +35,8 @@ public class EmitterScript : MonoBehaviour
             canAChestBePlaced = true;
             receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn--;
 
-            if (receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == receiverToActivate.GetComponent<ReceiverScript>().activatorsNeeded.Count - 1)
+            if (receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == receiverToActivate.GetComponent<ReceiverScript>().activatorsNeeded.Count - 1
+                && receiverToActivate.GetComponent<ReceiverScript>().isItLockedWhenActivated == false)
             {
                 receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
             }

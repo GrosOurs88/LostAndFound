@@ -177,7 +177,7 @@ Transform:
   m_GameObject: {fileID: 5690700684644560557}
   m_LocalRotation: {x: 0.4999993, y: -0.5000007, z: 0.4999993, w: 0.5000007}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 0.9}
+  m_LocalScale: {x: 10, y: 10, z: 1.9}
   m_Children:
   - {fileID: 5690700685062223190}
   m_Father: {fileID: 0}
@@ -260,6 +260,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   numberOfActivatorsOn: 0
+  openPositionVector: {x: 0, y: -1, z: 0}
+  openPositionDistance: 15
+  closeTime: 1
+  openTime: 3
 --- !u!1 &5690700685062223194
 GameObject:
   m_ObjectHideFlags: 0

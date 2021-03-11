@@ -15,6 +15,8 @@ public class InstantiateObjectsScript : MonoBehaviour
     public float instantiationOffsetMaxZ;
     public float cameraOrthographicSize = 5;
 
+    public float crossPlacementYOffset;
+
     public float instantiationOffsetCameraX;
     public float instantiationOffsetCameraZ;
 
@@ -94,7 +96,7 @@ public class InstantiateObjectsScript : MonoBehaviour
                                                     Random.Range(objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
 
         //Place a new cross under the random X-Z screenshot camera position
-        crossList[_crossIndex].transform.position = new Vector3(cameraList[_cameraIndex].transform.position.x, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.y + 0.1f, cameraList[_cameraIndex].transform.position.z);
+        crossList[_crossIndex].transform.position = new Vector3(cameraList[_cameraIndex].transform.position.x, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.y + crossPlacementYOffset, cameraList[_cameraIndex].transform.position.z);
     }
 
     public IEnumerator TakeScreenshot(int _materialIndex, int _mapIndex, int _cameraIndex, int _crossIndex)

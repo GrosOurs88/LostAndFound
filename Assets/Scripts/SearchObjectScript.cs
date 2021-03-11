@@ -33,7 +33,8 @@ public class SearchObjectScript : MonoBehaviour
 
     MovementScript movementScript;
 
-    private IEnumerator openDoorCoroutine;
+    public float holePlacementYOffset;
+    public float holeCrossPlacementYOffset;
 
     private void Start()
     {
@@ -84,7 +85,8 @@ public class SearchObjectScript : MonoBehaviour
                     hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().canAChestBePlaced = true;
                     hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn--;
 
-                    if(hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().activatorsNeeded.Count-1)
+                    if(hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().activatorsNeeded.Count-1 
+                        && hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().isItLockedWhenActivated == false)
                     {                     
                         hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
                     }
@@ -98,7 +100,7 @@ public class SearchObjectScript : MonoBehaviour
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
 
                     GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.Euler(90, 0, 0));
-                    newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + 0.01f, newHole.transform.position.z);
+                    newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + holeCrossPlacementYOffset, newHole.transform.position.z);
 
                     Destroy(hit.collider.gameObject); //Destroy cross
 
@@ -115,7 +117,7 @@ public class SearchObjectScript : MonoBehaviour
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
 
                     GameObject newHole = Instantiate(hole, hit.point, Quaternion.Euler(90, 0, 0));
-                    newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + 0.01f, newHole.transform.position.z);
+                    newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + holePlacementYOffset, newHole.transform.position.z);
                 }
             }
         }

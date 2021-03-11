@@ -5,28 +5,23 @@ using UnityEngine;
 public class MoveDeathObjectScript : MonoBehaviour
 {
     public float speed;
-    public float materialScrollSpeed;
     public Vector3 movement;
-    private Material mat;
-    private Vector3 deathObjectStartPosition;
+    public bool isFalling = false;
 
 
-    private void Start()
-    {
-        deathObjectStartPosition = transform.position;
-        mat = GetComponent<Renderer>().material;
+    private void OnTriggerEnter(Collider other)
+    { 
+        if (other.gameObject.CompareTag("Floor"))
+        {
+            isFalling = false;
+        }    
     }
 
     void Update()
     {
-        transform.position += movement * speed * Time.deltaTime;
-
-        float offset = Time.time * materialScrollSpeed;
-        mat.SetTextureOffset("_MainTex", new Vector2(0, offset));
-    }
-
-    public void ResetPosition()
-    {
-        transform.position = deathObjectStartPosition;
+        if(isFalling)
+        {
+            transform.position += movement * speed * Time.deltaTime;
+        }
     }
 }
