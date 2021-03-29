@@ -11,7 +11,7 @@ public class MoveDeathObjectScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     { 
-        if (other.gameObject.CompareTag("Floor"))
+        if (other.gameObject.CompareTag("SpikesStopZone"))
         {
             isFalling = false;
         }    

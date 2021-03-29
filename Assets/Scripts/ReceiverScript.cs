@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ReceiverScript : MonoBehaviour
 {
@@ -8,16 +9,19 @@ public class ReceiverScript : MonoBehaviour
 
     public Type type;
 
-    public List<GameObject> activatorsNeeded = new List<GameObject>();
+    public List<GameObject> activators = new List<GameObject>();
 
+    public int numberOfActivatorsNeeded;
+
+    [HideInInspector]
     public int numberOfActivatorsOn;
 
     Vector3 closedPosition;
     Vector3 openPosition;
 
-    public bool isItLockedWhenActivated;
+    public Image doorLevel;
 
-    public Light lightToActivate;
+    public bool isItLockedWhenActivated;
 
     private Coroutine OpenCoroutine = null;
     private Coroutine CloseCoroutine = null;
@@ -30,9 +34,14 @@ public class ReceiverScript : MonoBehaviour
 
     private void Start()
     {
-        foreach (GameObject gO in activatorsNeeded)
+        foreach (GameObject gO in activators)
         {
             gO.GetComponent<EmitterScript>().receiverToActivate = gameObject;
+        }
+
+        for (int i = 0; i < numberOfActivatorsNeeded; i++)
+        {
+            activators[i].gameObject.SetActive(true);
         }
 
         openPositionVectorLocal = transform.TransformDirection(openPositionVector);
@@ -60,14 +69,11 @@ public class ReceiverScript : MonoBehaviour
         OpenCoroutine = StartCoroutine(Open(openTime));
     }
 
-    public void SwitchToLightOff()
+    public void UpdateDoorLevel()
     {
-        lightToActivate.GetComponent<Light>().enabled = false;
-    }
+        print("ON" + numberOfActivatorsOn);
 
-    public void SwitchToLightOn()
-    {
-        lightToActivate.GetComponent<Light>().enabled = true;
+        doorLevel.fillAmount = (float)numberOfActivatorsOn / (float)numberOfActivatorsNeeded;
     }
 
     public IEnumerator Open(float time)

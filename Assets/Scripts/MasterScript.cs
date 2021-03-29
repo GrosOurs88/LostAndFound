@@ -11,10 +11,10 @@ public class MasterScript : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(GLobalEnvironmentInstantiation());
+        StartCoroutine(GlobalEnvironmentInstantiation());
     }
 
-    public IEnumerator GLobalEnvironmentInstantiation()
+    public IEnumerator GlobalEnvironmentInstantiation()
     {
         globalLight.GetComponent<Light>().enabled = true;
         foreach(Light l in lights)

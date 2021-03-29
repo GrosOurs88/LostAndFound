@@ -34,8 +34,9 @@ public class EmitterScript : MonoBehaviour
         {
             canAChestBePlaced = true;
             receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn--;
+            receiverToActivate.GetComponent<ReceiverScript>().UpdateDoorLevel();
 
-            if (receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == receiverToActivate.GetComponent<ReceiverScript>().activatorsNeeded.Count - 1
+            if (receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsNeeded - 1
                 && receiverToActivate.GetComponent<ReceiverScript>().isItLockedWhenActivated == false)
             {
                 switch (receiverToActivate.GetComponent<ReceiverScript>().type)
@@ -44,9 +45,6 @@ public class EmitterScript : MonoBehaviour
                         receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
                         break;
                     case ReceiverScript.Type.Stairs:
-                        break;
-                    case ReceiverScript.Type.Light:
-                        receiverToActivate.GetComponent<ReceiverScript>().SwitchToLightOff();
                         break;
                     default:
                         Debug.Log("NOTHING");
@@ -62,6 +60,8 @@ public class EmitterScript : MonoBehaviour
         objectOnEmitter.transform.SetPositionAndRotation(objectPlacedPosition, transform.rotation);
 
         receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn++;
+        receiverToActivate.GetComponent<ReceiverScript>().UpdateDoorLevel();
+
         objectOnEmitter.transform.GetComponent<Rigidbody>().isKinematic = true;
 
         if(objectOnEmitter.GetComponent<ChestScript>())
@@ -70,7 +70,7 @@ public class EmitterScript : MonoBehaviour
             objectOnEmitter.transform.GetComponent<ChestScript>().emitterLinked = gameObject;
         }       
 
-        if (receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == receiverToActivate.GetComponent<ReceiverScript>().activatorsNeeded.Count)
+        if (receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsNeeded)
         {
             switch (receiverToActivate.GetComponent<ReceiverScript>().type)
             {
@@ -78,9 +78,6 @@ public class EmitterScript : MonoBehaviour
                     receiverToActivate.GetComponent<ReceiverScript>().SwitchToOpen();
                     break;
                 case ReceiverScript.Type.Stairs:                    
-                    break;
-                case ReceiverScript.Type.Light:
-                    receiverToActivate.GetComponent<ReceiverScript>().SwitchToLightOn();
                     break;
                 default:
                     Debug.Log("NOTHING");
@@ -94,8 +91,9 @@ public class EmitterScript : MonoBehaviour
     public void PlaceAvatarOnEmitter()
     {
         receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn++;
+        receiverToActivate.GetComponent<ReceiverScript>().UpdateDoorLevel();
 
-        if (receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == receiverToActivate.GetComponent<ReceiverScript>().activatorsNeeded.Count)
+        if (receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsNeeded)
         {
             switch (receiverToActivate.GetComponent<ReceiverScript>().type)
             {
@@ -104,9 +102,6 @@ public class EmitterScript : MonoBehaviour
                     break;
                 case ReceiverScript.Type.Stairs:
                     Debug.Log("Stairs");
-                    break;
-                case ReceiverScript.Type.Light:
-                    receiverToActivate.GetComponent<ReceiverScript>().SwitchToLightOn();
                     break;
                 default:
                     Debug.Log("NOTHING");
