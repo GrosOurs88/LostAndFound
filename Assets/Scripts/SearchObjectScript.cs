@@ -87,8 +87,21 @@ public class SearchObjectScript : MonoBehaviour
 
                     if(hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().activatorsNeeded.Count-1 
                         && hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().isItLockedWhenActivated == false)
-                    {                     
-                        hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
+                    {
+                        switch (hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().type)
+                        {
+                            case ReceiverScript.Type.Door:
+                                hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
+                                break;
+                            case ReceiverScript.Type.Stairs:
+                                break;
+                            case ReceiverScript.Type.Light:
+                                hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().SwitchToLightOff();
+                                break;
+                            default:
+                                Debug.Log("NOTHING");
+                                break;
+                        }
                     }
                 }                
             }

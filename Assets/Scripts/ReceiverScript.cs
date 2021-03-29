@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ReceiverScript : MonoBehaviour
 {
-    public enum Type { Door, Stairs };
+    public enum Type { Door, Stairs, Light };
 
     public Type type;
 
@@ -17,6 +17,8 @@ public class ReceiverScript : MonoBehaviour
 
     public bool isItLockedWhenActivated;
 
+    public Light lightToActivate;
+
     private Coroutine OpenCoroutine = null;
     private Coroutine CloseCoroutine = null;
 
@@ -28,19 +30,22 @@ public class ReceiverScript : MonoBehaviour
 
     private void Start()
     {
-        foreach(GameObject gO in activatorsNeeded)
+        foreach (GameObject gO in activatorsNeeded)
         {
             gO.GetComponent<EmitterScript>().receiverToActivate = gameObject;
         }
 
         openPositionVectorLocal = transform.TransformDirection(openPositionVector);
 
-        closedPosition = transform.position;
-        openPosition = transform.position + (openPositionVectorLocal * openPositionDistance);
+        if(openTime > 0f)
+        {
+            closedPosition = transform.position;
+            openPosition = transform.position + (openPositionVectorLocal * openPositionDistance);
 
-        OpenCoroutine = StartCoroutine(Open(openTime));
-        StopCoroutine(OpenCoroutine);
-        CloseCoroutine = StartCoroutine(Close(closeTime));
+            OpenCoroutine = StartCoroutine(Open(openTime));
+            StopCoroutine(OpenCoroutine);
+            CloseCoroutine = StartCoroutine(Close(closeTime));
+        }
     }
 
     public void SwitchToClose()
@@ -53,6 +58,16 @@ public class ReceiverScript : MonoBehaviour
     {
         StopCoroutine(CloseCoroutine);
         OpenCoroutine = StartCoroutine(Open(openTime));
+    }
+
+    public void SwitchToLightOff()
+    {
+        lightToActivate.GetComponent<Light>().enabled = false;
+    }
+
+    public void SwitchToLightOn()
+    {
+        lightToActivate.GetComponent<Light>().enabled = true;
     }
 
     public IEnumerator Open(float time)

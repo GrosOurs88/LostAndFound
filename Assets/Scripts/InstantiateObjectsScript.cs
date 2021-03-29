@@ -8,7 +8,6 @@ public class InstantiateObjectsScript : MonoBehaviour
     private int randomBoxToInstantiateObjectsInto;
     private int actualBoxToInstantiateObjectsInto = 0;
 
-
     public int numberOfObjectsToInstantiate;
     public float instantiationOffsetMaxX;
    // public float instantiationOffsetMaxY;
@@ -37,6 +36,17 @@ public class InstantiateObjectsScript : MonoBehaviour
 
     void Start()
     {
+        //InstantiateEnvironment();
+
+        //for (int i = 0; i < mapList.Count; i++)
+        //{
+        //    PlaceCameraAndCross(i, i);
+        //    StartCoroutine(TakeScreenshot(i, i, i, i));
+        //}
+    }   
+
+    public void SetupEnvironment()
+    {
         InstantiateEnvironment();
 
         for (int i = 0; i < mapList.Count; i++)
@@ -44,7 +54,7 @@ public class InstantiateObjectsScript : MonoBehaviour
             PlaceCameraAndCross(i, i);
             StartCoroutine(TakeScreenshot(i, i, i, i));
         }
-    }   
+    }
 
     public void InstantiateEnvironment()
     {

@@ -12,6 +12,8 @@ public class TrapTriggerScript : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             trap.GetComponent<MoveDeathObjectScript>().isFalling = true;
+
+            gameObject.SetActive(false);
         }
     }
 }

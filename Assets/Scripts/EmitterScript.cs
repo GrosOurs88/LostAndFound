@@ -38,7 +38,20 @@ public class EmitterScript : MonoBehaviour
             if (receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == receiverToActivate.GetComponent<ReceiverScript>().activatorsNeeded.Count - 1
                 && receiverToActivate.GetComponent<ReceiverScript>().isItLockedWhenActivated == false)
             {
-                receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
+                switch (receiverToActivate.GetComponent<ReceiverScript>().type)
+                {
+                    case ReceiverScript.Type.Door:
+                        receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
+                        break;
+                    case ReceiverScript.Type.Stairs:
+                        break;
+                    case ReceiverScript.Type.Light:
+                        receiverToActivate.GetComponent<ReceiverScript>().SwitchToLightOff();
+                        break;
+                    default:
+                        Debug.Log("NOTHING");
+                        break;
+                }
             }
         }
     }
@@ -64,8 +77,10 @@ public class EmitterScript : MonoBehaviour
                 case ReceiverScript.Type.Door:
                     receiverToActivate.GetComponent<ReceiverScript>().SwitchToOpen();
                     break;
-                case ReceiverScript.Type.Stairs:
-                    Debug.Log("Stairs");
+                case ReceiverScript.Type.Stairs:                    
+                    break;
+                case ReceiverScript.Type.Light:
+                    receiverToActivate.GetComponent<ReceiverScript>().SwitchToLightOn();
                     break;
                 default:
                     Debug.Log("NOTHING");
@@ -89,6 +104,9 @@ public class EmitterScript : MonoBehaviour
                     break;
                 case ReceiverScript.Type.Stairs:
                     Debug.Log("Stairs");
+                    break;
+                case ReceiverScript.Type.Light:
+                    receiverToActivate.GetComponent<ReceiverScript>().SwitchToLightOn();
                     break;
                 default:
                     Debug.Log("NOTHING");
