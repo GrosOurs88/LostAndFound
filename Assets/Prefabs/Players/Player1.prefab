@@ -721,7 +721,7 @@ MonoBehaviour:
   avatarHandMap: {fileID: 2616642609592060327}
   avatarHandChest: {fileID: 605452381}
   digStaminaDecreaseValueAmount: 0.15
-  launchObjectForce: 400
+  launchObjectForce: 500
   minLaunchObjectForce: 200
   maxLaunchObjectForce: 2000
   launchObjectIncreaseValueAmount: 600

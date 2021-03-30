@@ -71,9 +71,10 @@ public class ReceiverScript : MonoBehaviour
 
     public void UpdateDoorLevel()
     {
-        print("ON" + numberOfActivatorsOn);
-
-        doorLevel.fillAmount = (float)numberOfActivatorsOn / (float)numberOfActivatorsNeeded;
+        if(doorLevel)
+        {
+            doorLevel.fillAmount = (float)numberOfActivatorsOn / (float)numberOfActivatorsNeeded;
+        }
     }
 
     public IEnumerator Open(float time)

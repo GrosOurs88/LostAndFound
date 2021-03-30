@@ -132,6 +132,21 @@ PrefabInstance:
       propertyPath: numberOfObjectsToInstantiate
       value: 110
       objectReference: {fileID: 0}
+    - target: {fileID: 6791828804037651774, guid: b758b3e3a0eab84498feb9cdb11fbe1c,
+        type: 3}
+      propertyPath: cameraOrthographicSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791828804037651774, guid: b758b3e3a0eab84498feb9cdb11fbe1c,
+        type: 3}
+      propertyPath: instantiationOffsetCameraX
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791828804037651774, guid: b758b3e3a0eab84498feb9cdb11fbe1c,
+        type: 3}
+      propertyPath: instantiationOffsetCameraZ
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6791828804037651775, guid: b758b3e3a0eab84498feb9cdb11fbe1c,
         type: 3}
       propertyPath: m_LocalPosition.x
