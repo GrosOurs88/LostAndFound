@@ -203,8 +203,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 605452381}
+  - component: {fileID: 5066289202465352416}
   m_Layer: 0
-  m_Name: Hand_Chest
+  m_Name: Hand_smallChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,12 +219,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 605452380}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -1.05, z: 1.25}
+  m_LocalPosition: {x: 0, y: -1, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3351590950211229211}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!54 &5066289202465352416
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605452380}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1445366459
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +610,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2900965618204325913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8592593202979429007}
+  m_Layer: 0
+  m_Name: Hand_bigChest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8592593202979429007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2900965618204325913}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0, y: -1.05, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3351590950211229211}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &3351590950211229214
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,6 +651,7 @@ GameObject:
   - component: {fileID: 3351590950211229211}
   - component: {fileID: 3351590950211229212}
   - component: {fileID: 3351590950211229213}
+  - component: {fileID: 641681116989194611}
   - component: {fileID: 394873147}
   - component: {fileID: 394873148}
   - component: {fileID: 394873149}
@@ -627,6 +675,8 @@ Transform:
   m_Children:
   - {fileID: 2616642609592060327}
   - {fileID: 605452381}
+  - {fileID: 8592593202979429007}
+  - {fileID: 5974808271126536198}
   m_Father: {fileID: 3351590950770031147}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -653,15 +703,15 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
-  field of view: 60
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 7735
+    m_Bits: 65079
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -681,6 +731,66 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3351590950211229214}
   m_Enabled: 0
+--- !u!114 &641681116989194611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3351590950211229214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 3351590950211229211}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!114 &394873147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,7 +811,7 @@ MonoBehaviour:
   staminaMaxValue: 10
   staminaBarImage: {fileID: 1445366461}
   staminaIncreaseValueAmount: 0.15
-  runStaminaDecreaseValueAmount: 0.5
+  runStaminaDecreaseValueAmount: 0.3
 --- !u!114 &394873148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,18 +827,24 @@ MonoBehaviour:
   raycastLength: 3
   hole: {fileID: 2936971265122613430, guid: 98edcdd3a56d480478307acf92a6f509, type: 3}
   holeWin: {fileID: 2936971265122613430, guid: ae98079f67f6e9f4cbd98526a22b2e7b, type: 3}
-  chest: {fileID: 2476306706555744521, guid: 3034d70d4e86ed5479a845c510672b2b, type: 3}
+  chest: {fileID: 2476306706555744521, guid: 33dcdfbc105b1a746932742af1eb3d20, type: 3}
   avatarHandMap: {fileID: 2616642609592060327}
-  avatarHandChest: {fileID: 605452381}
+  avatarHandSmallChest: {fileID: 605452381}
+  avatarHandBigChest: {fileID: 8592593202979429007}
+  avatarHandGiantChest: {fileID: 5974808271126536198}
   digStaminaDecreaseValueAmount: 0.15
   launchObjectForce: 500
   minLaunchObjectForce: 200
   maxLaunchObjectForce: 2000
-  launchObjectIncreaseValueAmount: 600
+  launchObjectIncreaseValueAmount: 700
   PanelLaunchObjectForce: {fileID: 1954008017}
   launchObjectBar: {fileID: 2117778326}
-  holePlacementYOffset: 0.2
-  holeCrossPlacementYOffset: 0
+  smallChestWeight: 1
+  bigChestWeight: 3
+  giantChestWeight: 10
+  holePlacementYOffset: 0.1
+  holeCrossPlacementYOffset: -0.15
+  chestSpawnedYOffset: -0.75
 --- !u!114 &394873149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,7 +880,7 @@ GameObject:
   - component: {fileID: 3351590950770031149}
   - component: {fileID: 3351590950770031151}
   - component: {fileID: 3351590950770031150}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Player1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -842,9 +958,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3351590950770031184}
   serializedVersion: 2
-  m_Mass: 50
+  m_Mass: 5
   m_Drag: 0
-  m_AngularDrag: 10
+  m_AngularDrag: 5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -894,3 +1010,33 @@ Transform:
   m_Father: {fileID: 3351590950211229211}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -75, y: 0, z: 0}
+--- !u!1 &8016727145961643195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5974808271126536198}
+  m_Layer: 0
+  m_Name: Hand_giantChest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5974808271126536198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8016727145961643195}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: -1.05, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3351590950211229211}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}

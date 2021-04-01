@@ -700,6 +700,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2505033287423007650}
     m_Modifications:
+    - target: {fileID: 2976314317049775376, guid: 18fff86b68c3ee248b589ac74262ffa6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976314317736794574, guid: 18fff86b68c3ee248b589ac74262ffa6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -111.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976314317736794673, guid: 18fff86b68c3ee248b589ac74262ffa6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2976314318488160623, guid: 18fff86b68c3ee248b589ac74262ffa6,
         type: 3}
       propertyPath: speed
@@ -764,6 +779,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SpikyCeilingLong
+      objectReference: {fileID: 0}
+    - target: {fileID: 3236374411412468365, guid: 18fff86b68c3ee248b589ac74262ffa6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18fff86b68c3ee248b589ac74262ffa6, type: 3}

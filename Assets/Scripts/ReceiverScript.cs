@@ -9,12 +9,12 @@ public class ReceiverScript : MonoBehaviour
 
     public Type type;
 
-    public List<GameObject> activators = new List<GameObject>();
+    public List<GameObject> emitters = new List<GameObject>();
 
-    public int numberOfActivatorsNeeded;
+    public int numberOfEmittersNeeded;
 
     [HideInInspector]
-    public int numberOfActivatorsOn;
+    public int numberOfEmittersOn;
 
     Vector3 closedPosition;
     Vector3 openPosition;
@@ -34,38 +34,43 @@ public class ReceiverScript : MonoBehaviour
 
     private void Start()
     {
-        foreach (GameObject gO in activators)
+        SetupEmitters();
+    }
+
+    public void SetupEmitters()
+    {
+        foreach (GameObject gO in emitters)
         {
             gO.GetComponent<EmitterScript>().receiverToActivate = gameObject;
         }
 
-        for (int i = 0; i < numberOfActivatorsNeeded; i++)
+        for (int i = numberOfEmittersNeeded; i < emitters.Count; i++)
         {
-            activators[i].gameObject.SetActive(true);
+            emitters[i].gameObject.SetActive(false);
         }
 
         openPositionVectorLocal = transform.TransformDirection(openPositionVector);
 
-        if(openTime > 0f)
-        {
-            closedPosition = transform.position;
-            openPosition = transform.position + (openPositionVectorLocal * openPositionDistance);
+        //if (openTime > 0f)
+        //{
+        //    closedPosition = transform.position;
+        //    openPosition = transform.position + (openPositionVectorLocal * openPositionDistance);
 
-            OpenCoroutine = StartCoroutine(Open(openTime));
-            StopCoroutine(OpenCoroutine);
-            CloseCoroutine = StartCoroutine(Close(closeTime));
-        }
+        //    OpenCoroutine = StartCoroutine(Open(openTime));
+        //    StopCoroutine(OpenCoroutine);
+        //    CloseCoroutine = StartCoroutine(Close(closeTime));
+        //}
     }
 
-    public void SwitchToClose()
-    {
-        StopCoroutine(OpenCoroutine);
-        CloseCoroutine = StartCoroutine(Close(closeTime));
-    }
+    //public void SwitchToClose()
+    //{
+    //    StopCoroutine(OpenCoroutine);
+    //    CloseCoroutine = StartCoroutine(Close(closeTime));
+    //}
 
     public void SwitchToOpen()
     {
-        StopCoroutine(CloseCoroutine);
+        //StopCoroutine(CloseCoroutine);
         OpenCoroutine = StartCoroutine(Open(openTime));
     }
 
@@ -73,14 +78,14 @@ public class ReceiverScript : MonoBehaviour
     {
         if(doorLevel)
         {
-            doorLevel.fillAmount = (float)numberOfActivatorsOn / (float)numberOfActivatorsNeeded;
+            doorLevel.fillAmount = (float)numberOfEmittersOn / (float)numberOfEmittersNeeded;
         }
     }
 
     public IEnumerator Open(float time)
     {
         Vector3 startingPos = transform.position;
-        Vector3 finalPos = openPosition;
+        Vector3 finalPos = transform.position + (openPositionVectorLocal * openPositionDistance); ;
         float elapsedTime = 0;
 
         while (elapsedTime < time)
@@ -91,17 +96,17 @@ public class ReceiverScript : MonoBehaviour
         }
     }
 
-    public IEnumerator Close(float time)
-    {
-        Vector3 startingPos = transform.position;
-        Vector3 finalPos = closedPosition;
-        float elapsedTime = 0;
+    //public IEnumerator Close(float time)
+    //{
+    //    Vector3 startingPos = transform.position;
+    //    Vector3 finalPos = closedPosition;
+    //    float elapsedTime = 0;
 
-        while (elapsedTime<time)
-        {
-            transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
+    //    while (elapsedTime<time)
+    //    {
+    //        transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
+    //        elapsedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //}
 }

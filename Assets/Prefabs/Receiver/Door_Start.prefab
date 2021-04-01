@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: isItLockedWhenActivated
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2260877220721194646, guid: c638351a9710f814c974495f4206d278,
+        type: 3}
+      propertyPath: numberOfEmittersNeeded
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2794099260404725908, guid: c638351a9710f814c974495f4206d278,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -15,7 +15,9 @@ public class SearchObjectScript : MonoBehaviour
     public GameObject chest;
 
     public Transform avatarHandMap;
-    public Transform avatarHandChest;
+    public Transform avatarHandSmallChest;
+    public Transform avatarHandBigChest;
+    public Transform avatarHandGiantChest;
 
     public float digStaminaDecreaseValueAmount;
 
@@ -31,10 +33,16 @@ public class SearchObjectScript : MonoBehaviour
     public GameObject PanelLaunchObjectForce;
     public Image launchObjectBar;
 
+    public float smallChestWeight;
+    public float bigChestWeight;
+    public float giantChestWeight;
+
     MovementScript movementScript;
 
     public float holePlacementYOffset;
     public float holeCrossPlacementYOffset;
+
+    public float chestSpawnedYOffset;
 
     private void Start()
     {
@@ -45,6 +53,8 @@ public class SearchObjectScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && GetComponent<MovementScript>().canTheAvatarMove)
         {
+            print("AAA");
+
             RaycastHit hit;
             LayerMask layerDefault = LayerMask.GetMask("Default");
             LayerMask layerCross = LayerMask.GetMask("Cross");
@@ -54,6 +64,7 @@ public class SearchObjectScript : MonoBehaviour
 
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerDefault))
             {
+                print("BBB");
                 return;
             }
 
@@ -62,7 +73,6 @@ public class SearchObjectScript : MonoBehaviour
                 hit.collider.transform.parent = avatarHandMap;
                 hit.collider.transform.SetPositionAndRotation(avatarHandMap.position, avatarHandMap.rotation);
                 hit.collider.GetComponent<Rigidbody>().isKinematic = true;
-                hit.collider.GetComponent<BoxCollider>().enabled = false;
                 isTakingSomething = true;
                 takenObjectIsAMap = true;
                 takenObject = hit.collider.gameObject;
@@ -70,34 +80,50 @@ public class SearchObjectScript : MonoBehaviour
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerChest) && isTakingSomething == false)
             {
-                hit.collider.transform.parent = avatarHandChest;
-                hit.collider.transform.SetPositionAndRotation(avatarHandChest.position, avatarHandChest.rotation);
-                hit.collider.GetComponent<Rigidbody>().isKinematic = true;
-                hit.collider.GetComponent<Collider>().enabled = false;
-
-                isTakingSomething = true;
-                takenObjectIsAChest = true;
-                takenObject = hit.collider.gameObject;
-                hit.collider.GetComponent<ChestScript>().isTaken = true;
-
-                if(hit.collider.GetComponent<ChestScript>().emitterLinked != null)
+                if(hit.collider.transform.GetComponent<ChestScript>().canBeTaken)
                 {
-                    hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().canAChestBePlaced = true;
-                    hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn--;
-
-                    if(hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfActivatorsOn == hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().activators.Count-1 
-                        && hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().isItLockedWhenActivated == false)
+                    if (hit.collider.GetComponent<Rigidbody>().mass == smallChestWeight)
                     {
-                        switch (hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().type)
+                        hit.collider.transform.parent = avatarHandSmallChest;
+                        hit.collider.transform.SetPositionAndRotation(avatarHandSmallChest.position, avatarHandSmallChest.rotation);
+                    }
+                    else if (hit.collider.GetComponent<Rigidbody>().mass == bigChestWeight)
+                    {
+                        hit.collider.transform.parent = avatarHandBigChest;
+                        hit.collider.transform.SetPositionAndRotation(avatarHandBigChest.position, avatarHandBigChest.rotation);
+                    }
+                    else if (hit.collider.GetComponent<Rigidbody>().mass == giantChestWeight)
+                    {
+                        hit.collider.transform.parent = avatarHandGiantChest;
+                        hit.collider.transform.SetPositionAndRotation(avatarHandGiantChest.position, avatarHandGiantChest.rotation);
+                    }
+
+                    hit.collider.GetComponent<Rigidbody>().isKinematic = true;
+
+                    isTakingSomething = true;
+                    takenObjectIsAChest = true;
+                    takenObject = hit.collider.gameObject;
+                    hit.collider.GetComponent<ChestScript>().isTaken = true;
+
+                    if (hit.collider.GetComponent<ChestScript>().emitterLinked != null)
+                    {
+                        hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().canAChestBePlaced = true;
+                        hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfEmittersOn--;
+
+                        if (hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfEmittersOn == hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().emitters.Count - 1
+                            && hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().isItLockedWhenActivated == false)
                         {
-                            case ReceiverScript.Type.Door:
-                                hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
-                                break;
-                            case ReceiverScript.Type.Stairs:
-                                break;
-                            default:
-                                Debug.Log("NOTHING");
-                                break;
+                            switch (hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().type)
+                            {
+                                case ReceiverScript.Type.Door:
+                                    //hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
+                                    break;
+                                case ReceiverScript.Type.Stairs:
+                                    break;
+                                default:
+                                    Debug.Log("NOTHING");
+                                    break;
+                            }
                         }
                     }
                 }                
@@ -116,12 +142,14 @@ public class SearchObjectScript : MonoBehaviour
 
                     GameObject newChest = Instantiate(chest, hit.point, Quaternion.Euler(0, 0, 0));
                     newChest.GetComponent<Rigidbody>().isKinematic = true;
-                    newChest.transform.position = new Vector3(newChest.transform.position.x, hit.point.y, newChest.transform.position.z);
+                    newChest.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
                 }
             }
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerFloor))
             {
+                print("CCC");
+
                 if (movementScript.staminaBarImage.fillAmount >= digStaminaDecreaseValueAmount)
                 {
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
@@ -165,7 +193,6 @@ public class SearchObjectScript : MonoBehaviour
         {
             takenObject.transform.parent = null;
             takenObject.GetComponent<Rigidbody>().isKinematic = false;
-            takenObject.GetComponent<BoxCollider>().enabled = true;
             takenObject.GetComponent<Rigidbody>().AddForce(transform.forward * launchObjectForce);
             takenObjectIsAMap = false;
             isTakingSomething = false;
@@ -175,7 +202,6 @@ public class SearchObjectScript : MonoBehaviour
         {
             takenObject.transform.parent = null;
             takenObject.GetComponent<Rigidbody>().isKinematic = false;
-            takenObject.GetComponent<Collider>().enabled = true;
             takenObject.GetComponent<Rigidbody>().AddForce(transform.forward * launchObjectForce);
             takenObjectIsAChest = false;
             isTakingSomething = false;

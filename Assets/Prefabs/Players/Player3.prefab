@@ -19,21 +19,6 @@ PrefabInstance:
       propertyPath: mapMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 811c2de9b7eda1243911a9f9debe57da, type: 2}
-    - target: {fileID: 3351590950211229212, guid: 13cdc49a144f65746ac6950bfd1b1c88,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.width
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3351590950211229212, guid: 13cdc49a144f65746ac6950bfd1b1c88,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.height
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3351590950211229212, guid: 13cdc49a144f65746ac6950bfd1b1c88,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3351590950770031147, guid: 13cdc49a144f65746ac6950bfd1b1c88,
         type: 3}
       propertyPath: m_LocalPosition.x
