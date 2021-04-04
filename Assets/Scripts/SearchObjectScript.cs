@@ -53,8 +53,6 @@ public class SearchObjectScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && GetComponent<MovementScript>().canTheAvatarMove)
         {
-            print("AAA");
-
             RaycastHit hit;
             LayerMask layerDefault = LayerMask.GetMask("Default");
             LayerMask layerCross = LayerMask.GetMask("Cross");
@@ -64,7 +62,6 @@ public class SearchObjectScript : MonoBehaviour
 
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerDefault))
             {
-                print("BBB");
                 return;
             }
 
@@ -148,8 +145,6 @@ public class SearchObjectScript : MonoBehaviour
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerFloor))
             {
-                print("CCC");
-
                 if (movementScript.staminaBarImage.fillAmount >= digStaminaDecreaseValueAmount)
                 {
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;

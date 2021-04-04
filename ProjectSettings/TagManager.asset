@@ -13,6 +13,9 @@ TagManager:
   - Cross
   - Floor
   - SpikesStopZone
+  - Lava
+  - Decor
+  - Map
   layers:
   - Default
   - TransparentFX

@@ -4,54 +4,64 @@ using UnityEngine;
 
 public class InstantiateObjectsScript : MonoBehaviour
 {
-    public List<GameObject> objectToInstantiateObjectsInto = new List<GameObject>();
-    private int randomBoxToInstantiateObjectsInto;
-    private int actualBoxToInstantiateObjectsInto = 0;
+    [Header("InstantiatedElementParents")]
+    public GameObject floorToInstantiateObjectsInto;
+    public GameObject decorInstiatedFolder;
+    public GameObject screenshotCamerasInstiatedFolder;
+    public GameObject crossesInstiatedFolder;
 
+    [Header("Decor")]
     public int numberOfObjectsToInstantiate;
-    public float instantiationOffsetMaxX;
-   // public float instantiationOffsetMaxY;
-    public float instantiationOffsetMaxZ;
-    public float cameraOrthographicSize = 5;
-
-    public float crossPlacementYOffset;
-
-    public float instantiationOffsetCameraX;
-    public float instantiationOffsetCameraZ;
-
     public bool randomizeRotationX = false;
     public bool randomizeRotationY = false;
     public bool randomizeRotationZ = false;
-
     public List<GameObject> objectsToInstantiate = new List<GameObject>();
     private GameObject nextObjectToInstantiate;
     private Vector3 nextObjectToInstanciatePosition;
-    public GameObject ObjectsInstiatedFolder;
     private int x;
 
+    [Header("Maps")]
     public List<GameObject> mapList = new List<GameObject>();
     public List<Material> mapMaterialList = new List<Material>();
-    public List<Camera> cameraList = new List<Camera>();
-    public List<GameObject> crossList = new List<GameObject>();
+
+    [Header("Cameras")]
+    public GameObject screenshotCamera;
+    private List<GameObject> cameraList = new List<GameObject>();
+    public int numberOfScreenshotCamera;
+    public float cameraOrthographicSize = 5;
+    public float instantiationOffsetCameraHeight = 50f;
+    public float instantiationOffsetCameraX;
+    public float instantiationOffsetCameraZ;
+
+    [Header("Crosses")]
+    public float crossPlacementYOffset;
+    private List<GameObject> crossList = new List<GameObject>();
+    public GameObject crossChestCommon;
+    public int numberOfCrossChestCommon;
+    public GameObject crossChestBig;
+    public int numberOfCrossChestBig;
+    public GameObject crossChestGiant;
+    public int numberOfCrossChestGiant;
+    public GameObject crossChestRare;
+    public int numberOfCrossChestRare;
+    public GameObject crossChestSpecial;
+    public int numberOfCrossChestSpecial;
 
     void Start()
     {
-        //InstantiateEnvironment();
-
-        //for (int i = 0; i < mapList.Count; i++)
-        //{
-        //    PlaceCameraAndCross(i, i);
-        //    StartCoroutine(TakeScreenshot(i, i, i, i));
-        //}
     }   
 
     public void SetupEnvironment()
     {
         InstantiateEnvironment();
 
-        for (int i = 0; i < mapList.Count; i++)
+        CreateCrossesList();
+        CreateScreenshotCamerasList();
+
+        for (int i = 0; i < crossList.Count; i++)
         {
-            PlaceCameraAndCross(i, i);
+            PlaceCamera(i);
+            PlaceCross(i, i);
             StartCoroutine(TakeScreenshot(i, i, i, i));
         }
     }
@@ -59,7 +69,7 @@ public class InstantiateObjectsScript : MonoBehaviour
     public void InstantiateEnvironment()
     {
         //Remove previous objects if exists
-        foreach(Transform trans in ObjectsInstiatedFolder.transform)
+        foreach(Transform trans in decorInstiatedFolder.transform)
         {
             Destroy(trans.gameObject);
         }
@@ -67,47 +77,85 @@ public class InstantiateObjectsScript : MonoBehaviour
         //Loop for all the objects that havce to be placed
         for (int i = 0; i < numberOfObjectsToInstantiate; i++)
         {
-            randomBoxToInstantiateObjectsInto = Random.Range(0, objectToInstantiateObjectsInto.Count);
-
             //Choose an object to instantiate randomly
             x = Random.Range(0, objectsToInstantiate.Count-1);
             nextObjectToInstantiate = objectsToInstantiate[x];
 
             //Choose a random position to spawn the object
-            nextObjectToInstanciatePosition = new Vector3(Random.Range(objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.min.x + instantiationOffsetMaxX, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.x - instantiationOffsetMaxX),
-                                                          objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.y,
-                                                          Random.Range(objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.min.z + instantiationOffsetMaxZ, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.z - instantiationOffsetMaxZ));
+            nextObjectToInstanciatePosition = new Vector3(Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x),
+                                                          floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y,
+                                                          Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z));
 
             //Instantiate the object and rotate it randmly
             if (randomizeRotationX)
             {
-                Instantiate(nextObjectToInstantiate, nextObjectToInstanciatePosition, Quaternion.Euler(Random.Range(0.0f, 360.0f), 0.0f, 0.0f), ObjectsInstiatedFolder.transform);
+                Instantiate(nextObjectToInstantiate, nextObjectToInstanciatePosition, Quaternion.Euler(Random.Range(0.0f, 360.0f), 0.0f, 0.0f), decorInstiatedFolder.transform);
             }
             if (randomizeRotationY)
             {
-                Instantiate(nextObjectToInstantiate, nextObjectToInstanciatePosition, Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f), ObjectsInstiatedFolder.transform);
+                Instantiate(nextObjectToInstantiate, nextObjectToInstanciatePosition, Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f), decorInstiatedFolder.transform);
             }
             if (randomizeRotationZ)
             {
-                Instantiate(nextObjectToInstantiate, nextObjectToInstanciatePosition, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)), ObjectsInstiatedFolder.transform);
+                Instantiate(nextObjectToInstantiate, nextObjectToInstanciatePosition, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)), decorInstiatedFolder.transform);
             }
         }
     }
 
-    public void PlaceCameraAndCross(int _cameraIndex, int _crossIndex)
+    private void CreateCrossesList()
     {
-        randomBoxToInstantiateObjectsInto = Random.Range(0, objectToInstantiateObjectsInto.Count);
+        for(int i = 0; i < numberOfCrossChestCommon; i++)
+        {
+            GameObject nextCross = Instantiate(crossChestCommon, Vector3.zero, Quaternion.Euler(90.0f, Random.Range(0.0f, 360.0f), 0.0f), crossesInstiatedFolder.transform);
+            crossList.Add(nextCross);
+        }
+        for (int i = 0; i < numberOfCrossChestBig; i++)
+        {
+            GameObject nextCross = Instantiate(crossChestBig, Vector3.zero, Quaternion.Euler(90.0f, Random.Range(0.0f, 360.0f), 0.0f), crossesInstiatedFolder.transform);
+            crossList.Add(nextCross);
+        }
+        for (int i = 0; i < numberOfCrossChestGiant; i++)
+        {
+            GameObject nextCross = Instantiate(crossChestGiant, Vector3.zero, Quaternion.Euler(90.0f, Random.Range(0.0f, 360.0f), 0.0f), crossesInstiatedFolder.transform);
+            crossList.Add(nextCross);
+        }
+        for (int i = 0; i < numberOfCrossChestRare; i++)
+        {
+            GameObject nextCross = Instantiate(crossChestRare, Vector3.zero, Quaternion.Euler(90.0f, Random.Range(0.0f, 360.0f), 0.0f), crossesInstiatedFolder.transform);
+            crossList.Add(nextCross);
+        }
+        for (int i = 0; i < numberOfCrossChestSpecial; i++)
+        {
+            GameObject nextCross = Instantiate(crossChestSpecial, Vector3.zero, Quaternion.Euler(90.0f, Random.Range(0.0f, 360.0f), 0.0f), crossesInstiatedFolder.transform);
+            crossList.Add(nextCross);
+        }
+    }
 
-        cameraList[_cameraIndex].orthographicSize = cameraOrthographicSize;
+    private void CreateScreenshotCamerasList()
+    {
+        for (int i = 0; i < numberOfScreenshotCamera; i++)
+        {
+            GameObject nextCamera = Instantiate(screenshotCamera, Vector3.zero, Quaternion.Euler(Vector3.right*90), screenshotCamerasInstiatedFolder.transform);
+            cameraList.Add(nextCamera);
+        }
+    }
+
+    public void PlaceCamera(int _cameraIndex)
+    {
+        cameraList[_cameraIndex].GetComponent<Camera>().orthographicSize = cameraOrthographicSize;
 
         //Place the screenshot camera in a random X-Z position inside the floor gameobject box
-        cameraList[_cameraIndex].transform.position = new Vector3(Random.Range(objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
-                                                    (cameraList[_cameraIndex].transform.position.y),
-                                                    Random.Range(objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
-
-        //Place a new cross under the random X-Z screenshot camera position
-        crossList[_crossIndex].transform.position = new Vector3(cameraList[_cameraIndex].transform.position.x, objectToInstantiateObjectsInto[randomBoxToInstantiateObjectsInto].GetComponent<Collider>().bounds.max.y + crossPlacementYOffset, cameraList[_cameraIndex].transform.position.z);
+        cameraList[_cameraIndex].transform.position = new Vector3(Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
+                                                                 (cameraList[_cameraIndex].transform.position.y + instantiationOffsetCameraHeight),
+                                                                  Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
     }
+
+    public void PlaceCross(int _crossIndex, int _cameraIndex)
+    {
+        //Place a new cross under the random X-Z screenshot camera position
+        crossList[_crossIndex].transform.position = new Vector3(cameraList[_cameraIndex].transform.position.x, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + crossPlacementYOffset, cameraList[_cameraIndex].transform.position.z);
+    }
+
 
     public IEnumerator TakeScreenshot(int _materialIndex, int _mapIndex, int _cameraIndex, int _crossIndex)
     {
@@ -117,11 +165,11 @@ public class InstantiateObjectsScript : MonoBehaviour
         cameraList[_cameraIndex].gameObject.SetActive(true);
 
         RenderTexture renderTexture = null;
-        cameraList[_cameraIndex].targetTexture = renderTexture;
+        cameraList[_cameraIndex].GetComponent<Camera>().targetTexture = renderTexture;
         RenderTexture.active = renderTexture;
-        cameraList[_cameraIndex].Render();
+        cameraList[_cameraIndex].GetComponent<Camera>().Render();
 
-        Texture2D texture = new Texture2D(cameraList[_cameraIndex].pixelWidth, cameraList[_cameraIndex].pixelHeight, TextureFormat.RGB24, true);
+        Texture2D texture = new Texture2D(cameraList[_cameraIndex].GetComponent<Camera>().pixelWidth, cameraList[_cameraIndex].GetComponent<Camera>().pixelHeight, TextureFormat.RGB24, true);
         texture.ReadPixels(new Rect(0f, 0f, texture.width, texture.height), 0, 0);
         texture.Apply();
         mapMaterialList[_materialIndex].SetTexture("_MainTex", texture);
@@ -129,7 +177,7 @@ public class InstantiateObjectsScript : MonoBehaviour
         mapList[_mapIndex].GetComponent<Renderer>().material = mapMaterialList[_materialIndex];
 
         RenderTexture.active = null;
-        cameraList[_cameraIndex].targetTexture = null;
+        cameraList[_cameraIndex].GetComponent<Camera>().targetTexture = null;
 
         cameraList[_cameraIndex].gameObject.SetActive(false);
 

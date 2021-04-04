@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8700759360776499816}
   m_Layer: 0
   m_Name: Mixed_Bone_02
-  m_TagString: Untagged
+  m_TagString: Decor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
