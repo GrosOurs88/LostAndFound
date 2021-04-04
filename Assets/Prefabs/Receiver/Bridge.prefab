@@ -113,7 +113,7 @@ MonoBehaviour:
   - {fileID: 2372064295581331724}
   - {fileID: 1832114890038893323}
   - {fileID: 8775805699884780807}
-  numberOfEmittersNeeded: 1
+  numberOfEmittersNeeded: 2
   numberOfEmittersOn: 0
   doorLevel: {fileID: 0}
   isItLockedWhenActivated: 1

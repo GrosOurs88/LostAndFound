@@ -21,13 +21,14 @@ public class InstantiateObjectsScript : MonoBehaviour
     private int x;
 
     [Header("Maps")]
-    public List<GameObject> mapList = new List<GameObject>();
-    public List<Material> mapMaterialList = new List<Material>();
+    public Shader shader;
+    public Color color;
+    public GameObject mapsFolder;
+    private List<GameObject> mapList = new List<GameObject>();
 
     [Header("Cameras")]
     public GameObject screenshotCamera;
     private List<GameObject> cameraList = new List<GameObject>();
-    public int numberOfScreenshotCamera;
     public float cameraOrthographicSize = 5;
     public float instantiationOffsetCameraHeight = 50f;
     public float instantiationOffsetCameraX;
@@ -54,9 +55,9 @@ public class InstantiateObjectsScript : MonoBehaviour
     public void SetupEnvironment()
     {
         InstantiateEnvironment();
-
+        CreateMapsList();
         CreateCrossesList();
-        CreateScreenshotCamerasList();
+        CreateScreenshotCamerasList(); //number of screenshotCameras = number of crosses
 
         for (int i = 0; i < crossList.Count; i++)
         {
@@ -102,6 +103,19 @@ public class InstantiateObjectsScript : MonoBehaviour
         }
     }
 
+    private void CreateMapsList()
+    {
+        Transform[] childrens = GetComponentsInChildren<Transform>();
+
+        foreach (Transform tr in childrens)
+        {
+            if (tr.CompareTag("Map"))
+            {
+                mapList.Add(tr.gameObject);
+            }
+        }
+    }
+
     private void CreateCrossesList()
     {
         for(int i = 0; i < numberOfCrossChestCommon; i++)
@@ -133,7 +147,7 @@ public class InstantiateObjectsScript : MonoBehaviour
 
     private void CreateScreenshotCamerasList()
     {
-        for (int i = 0; i < numberOfScreenshotCamera; i++)
+        for (int i = 0; i < crossList.Count; i++)
         {
             GameObject nextCamera = Instantiate(screenshotCamera, Vector3.zero, Quaternion.Euler(Vector3.right*90), screenshotCamerasInstiatedFolder.transform);
             cameraList.Add(nextCamera);
@@ -172,9 +186,11 @@ public class InstantiateObjectsScript : MonoBehaviour
         Texture2D texture = new Texture2D(cameraList[_cameraIndex].GetComponent<Camera>().pixelWidth, cameraList[_cameraIndex].GetComponent<Camera>().pixelHeight, TextureFormat.RGB24, true);
         texture.ReadPixels(new Rect(0f, 0f, texture.width, texture.height), 0, 0);
         texture.Apply();
-        mapMaterialList[_materialIndex].SetTexture("_MainTex", texture);
 
-        mapList[_mapIndex].GetComponent<Renderer>().material = mapMaterialList[_materialIndex];
+        Renderer rend = mapList[_mapIndex].GetComponent<Renderer>();
+        rend.material = new Material(shader);
+        rend.material.mainTexture = texture;
+        rend.material.color = color;
 
         RenderTexture.active = null;
         cameraList[_cameraIndex].GetComponent<Camera>().targetTexture = null;
