@@ -5,14 +5,13 @@ using UnityEngine;
 public class EscapeTriggerScript : MonoBehaviour
 {
     public bool canEscape;
-    private int numberOfPlayerInTheBoatEscapeZone = 0;
+    public int numberOfPlayerInTheBoatEscapeZone = 0;
     public Canvas escapeCanvas;
     public Canvas scoreCanvas;
     public Canvas playerCanvas;
     private bool canBoatMove;
     public GameObject boat;
     public float boatSpeed;
-    public GameObject avatar;
     public Camera escapeCamera;
 
     private void Start()
@@ -27,7 +26,6 @@ public class EscapeTriggerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.KeypadEnter) && canEscape == true)
         {
             escapeCamera.enabled = true;
-            avatar.transform.GetChild(0).GetComponent<MovementScript>().canTheAvatarMove = false;
             playerCanvas.enabled = false;
             escapeCanvas.enabled = false;
             scoreCanvas.enabled = true;

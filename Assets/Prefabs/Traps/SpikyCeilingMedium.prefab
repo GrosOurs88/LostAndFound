@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 1187930842427260256, guid: b21c41ba1f9671c44bb46271c03a48b7,
         type: 3}
       propertyPath: m_Name
-      value: SpikyCeiling
+      value: SpikyCeilingMedium
       objectReference: {fileID: 0}
     - target: {fileID: 1210397005855929478, guid: b21c41ba1f9671c44bb46271c03a48b7,
         type: 3}
@@ -66,6 +66,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574139692785683196, guid: b21c41ba1f9671c44bb46271c03a48b7,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574139692785683196, guid: b21c41ba1f9671c44bb46271c03a48b7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -86.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574139692785683196, guid: b21c41ba1f9671c44bb46271c03a48b7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -47.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b21c41ba1f9671c44bb46271c03a48b7, type: 3}
