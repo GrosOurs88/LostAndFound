@@ -92,7 +92,7 @@ public class ReceiverScript : MonoBehaviour
         {
             transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
             elapsedTime += Time.deltaTime;
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
 
