@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6652668173546042281}
   m_Layer: 11
-  m_Name: MapsSupport
+  m_Name: MapsSupport_5Maps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 2088119057756288512, guid: 37cbe3028621fb449aba9cc747e9040e,
         type: 3}
       propertyPath: m_Name
-      value: Map (5)
+      value: Map_3
       objectReference: {fileID: 0}
     - target: {fileID: 2088119057756288512, guid: 37cbe3028621fb449aba9cc747e9040e,
         type: 3}
@@ -229,7 +229,7 @@ PrefabInstance:
     - target: {fileID: 2088119057756288512, guid: 37cbe3028621fb449aba9cc747e9040e,
         type: 3}
       propertyPath: m_Name
-      value: Map (7)
+      value: Map_4
       objectReference: {fileID: 0}
     - target: {fileID: 2088119057756288512, guid: 37cbe3028621fb449aba9cc747e9040e,
         type: 3}
@@ -319,7 +319,7 @@ PrefabInstance:
     - target: {fileID: 2088119057756288512, guid: 37cbe3028621fb449aba9cc747e9040e,
         type: 3}
       propertyPath: m_Name
-      value: Map (9)
+      value: Map_5
       objectReference: {fileID: 0}
     - target: {fileID: 2088119057756288512, guid: 37cbe3028621fb449aba9cc747e9040e,
         type: 3}
@@ -409,7 +409,7 @@ PrefabInstance:
     - target: {fileID: 2088119057756288512, guid: 37cbe3028621fb449aba9cc747e9040e,
         type: 3}
       propertyPath: m_Name
-      value: Map (3)
+      value: Map_2
       objectReference: {fileID: 0}
     - target: {fileID: 2088119057756288512, guid: 37cbe3028621fb449aba9cc747e9040e,
         type: 3}
@@ -499,7 +499,7 @@ PrefabInstance:
     - target: {fileID: 2088119057756288512, guid: 37cbe3028621fb449aba9cc747e9040e,
         type: 3}
       propertyPath: m_Name
-      value: Map (1)
+      value: Map_1
       objectReference: {fileID: 0}
     - target: {fileID: 2088119057756288512, guid: 37cbe3028621fb449aba9cc747e9040e,
         type: 3}

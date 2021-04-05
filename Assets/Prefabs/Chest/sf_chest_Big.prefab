@@ -17,6 +17,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: sf_chest_Big
       objectReference: {fileID: 0}
+    - target: {fileID: 2534385446951723854, guid: 33dcdfbc105b1a746932742af1eb3d20,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f28bd0579d115984380fd80005be5542, type: 2}
     - target: {fileID: 7432961501595272219, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_LocalPosition.x

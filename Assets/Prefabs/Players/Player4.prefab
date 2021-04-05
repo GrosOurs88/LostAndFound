@@ -19,6 +19,16 @@ PrefabInstance:
       propertyPath: mapMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 3a8d00a5e4ac96e488e59e73d0e31edb, type: 2}
+    - target: {fileID: 394873148, guid: 13cdc49a144f65746ac6950bfd1b1c88, type: 3}
+      propertyPath: hole
+      value: 
+      objectReference: {fileID: 2936971265122613430, guid: 428b8ed63c24a20408db74767019cd5e,
+        type: 3}
+    - target: {fileID: 1636751500819317496, guid: 13cdc49a144f65746ac6950bfd1b1c88,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 199c4f956652a96488a4581b64739edf, type: 2}
     - target: {fileID: 3351590950770031147, guid: 13cdc49a144f65746ac6950bfd1b1c88,
         type: 3}
       propertyPath: m_LocalPosition.x

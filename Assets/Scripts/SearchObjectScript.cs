@@ -12,7 +12,11 @@ public class SearchObjectScript : MonoBehaviour
     public GameObject hole;
     public GameObject holeWin;
 
-    public GameObject chest;
+    public GameObject chestCommon;
+    public GameObject chestBig;
+    public GameObject chestGiant;
+    public GameObject chestRare;
+    public GameObject chestSpecial;
 
     public Transform avatarHandMap;
     public Transform avatarHandSmallChest;
@@ -40,7 +44,7 @@ public class SearchObjectScript : MonoBehaviour
     MovementScript movementScript;
 
     public float holePlacementYOffset;
-    public float holeCrossPlacementYOffset;
+    public float holeWinPlacementYOffset;
 
     public float chestSpawnedYOffset;
 
@@ -137,13 +141,41 @@ public class SearchObjectScript : MonoBehaviour
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
 
                     GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.Euler(90, 0, 0));
-                    newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + holeCrossPlacementYOffset, newHole.transform.position.z);
+                    newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + holeWinPlacementYOffset, newHole.transform.position.z);
 
                     Destroy(hit.collider.gameObject); //Destroy cross
 
-                    GameObject newChest = Instantiate(chest, hit.point, Quaternion.Euler(0, 0, 0));
-                    newChest.GetComponent<Rigidbody>().isKinematic = true;
-                    newChest.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                    switch (hit.collider.GetComponent<CrossChestTypeScript>().type)
+                    {
+                        case CrossChestTypeScript.Type.Common:
+                            GameObject newChestCommon = Instantiate(chestCommon, hit.point, Quaternion.Euler(0, 0, 0));
+                            newChestCommon.GetComponent<Rigidbody>().isKinematic = true;
+                            newChestCommon.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                            break;
+                        case CrossChestTypeScript.Type.Big:
+                            GameObject newChestBig = Instantiate(chestBig, hit.point, Quaternion.Euler(0, 0, 0));
+                            newChestBig.GetComponent<Rigidbody>().isKinematic = true;
+                            newChestBig.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                            break;
+                        case CrossChestTypeScript.Type.Giant:
+                            GameObject newChestGiant = Instantiate(chestGiant, hit.point, Quaternion.Euler(0, 0, 0));
+                            newChestGiant.GetComponent<Rigidbody>().isKinematic = true;
+                            newChestGiant.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                            break;
+                        case CrossChestTypeScript.Type.Rare:
+                            GameObject newChestRare = Instantiate(chestRare, hit.point, Quaternion.Euler(0, 0, 0));
+                            newChestRare.GetComponent<Rigidbody>().isKinematic = true;
+                            newChestRare.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                            break;
+                        case CrossChestTypeScript.Type.Special:
+                            GameObject newChestSpecial = Instantiate(chestSpecial, hit.point, Quaternion.Euler(0, 0, 0));
+                            newChestSpecial.GetComponent<Rigidbody>().isKinematic = true;
+                            newChestSpecial.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                            break;
+                        default:
+                            Debug.Log("NOTHING");
+                            break;
+                    }
                 }
             }
 
