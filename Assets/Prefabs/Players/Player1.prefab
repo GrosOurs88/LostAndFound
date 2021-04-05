@@ -349,7 +349,7 @@ RectTransform:
   - {fileID: 566149760}
   - {fileID: 1954008018}
   m_Father: {fileID: 3351590950770031147}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -678,7 +678,7 @@ Transform:
   - {fileID: 8592593202979429007}
   - {fileID: 5974808271126536198}
   m_Father: {fileID: 3351590950770031147}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &3351590950211229212
 Camera:
@@ -711,7 +711,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 196151
+    m_Bits: 3866167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -907,9 +907,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: -28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8035190298562542564}
   - {fileID: 3351590950211229211}
   - {fileID: 1655852667}
+  - {fileID: 8035190298562542564}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1002,7 +1002,7 @@ GameObject:
   - component: {fileID: 4871375844789325025}
   - component: {fileID: 1636751500819317496}
   - component: {fileID: 8698055285418805697}
-  m_Layer: 15
+  m_Layer: 18
   m_Name: Glasses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1021,7 +1021,7 @@ Transform:
   m_LocalScale: {x: 0.6, y: 0.2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 3351590950770031147}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4871375844789325025
 MeshFilter:
