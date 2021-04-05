@@ -12,9 +12,9 @@ public class InstantiateObjectsScript : MonoBehaviour
 
     [Header("Decor")]
     public int numberOfObjectsToInstantiate;
-    public bool randomizeRotationX = false;
-    public bool randomizeRotationY = false;
-    public bool randomizeRotationZ = false;
+   // public bool randomizeRotationX = false;
+    public bool randomizeRotationY = true;
+   // public bool randomizeRotationZ = false;
     public List<GameObject> objectsToInstantiate = new List<GameObject>();
     private GameObject nextObjectToInstantiate;
     private Vector3 nextObjectToInstanciatePosition;
@@ -28,11 +28,12 @@ public class InstantiateObjectsScript : MonoBehaviour
 
     [Header("Cameras")]
     public GameObject screenshotCamera;
+    private int randomSectionToPutSpecialChestOn; //Used only for SectionStart chests instantiation
     private List<GameObject> cameraList = new List<GameObject>();
     public float cameraOrthographicSize = 5;
     public float instantiationOffsetCameraHeight = 50f;
-    public float instantiationOffsetCameraX;
-    public float instantiationOffsetCameraZ;
+    private float instantiationOffsetCameraX; //automatically calculated relatively to the cameraOrthographicSize
+    private float instantiationOffsetCameraZ; //automatically calculated relatively to the cameraOrthographicSize
 
     [Header("Crosses")]
     public float crossPlacementYOffset;
@@ -50,6 +51,8 @@ public class InstantiateObjectsScript : MonoBehaviour
 
     void Start()
     {
+        instantiationOffsetCameraX = cameraOrthographicSize / 2;
+        instantiationOffsetCameraZ = cameraOrthographicSize / 2;
     }   
 
     public void SetupEnvironment()
@@ -67,6 +70,21 @@ public class InstantiateObjectsScript : MonoBehaviour
         }
     }
 
+    public void StartSectionSetupEnvironment(List<GameObject> _sectionsList)
+    {
+        InstantiateEnvironment(); //OK
+        CreateMapsList(); //OK
+        CreateCrossesList(); //OK
+        CreateScreenshotCamerasList(); //number of screenshotCameras = number of crosses //OK
+
+        for (int i = 0; i < crossList.Count; i++)
+        {
+            PlaceCameraOnRandomSection(i, _sectionsList);
+            PlaceCross(i, i);
+            StartCoroutine(TakeScreenshot(i, i, i, i));
+        }
+    }
+
     public void InstantiateEnvironment()
     {
         //Remove previous objects if exists
@@ -75,7 +93,7 @@ public class InstantiateObjectsScript : MonoBehaviour
             Destroy(trans.gameObject);
         }
 
-        //Loop for all the objects that havce to be placed
+        //Loop for all the objects that have to be placed
         for (int i = 0; i < numberOfObjectsToInstantiate; i++)
         {
             //Choose an object to instantiate randomly
@@ -87,18 +105,10 @@ public class InstantiateObjectsScript : MonoBehaviour
                                                           floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y,
                                                           Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z));
 
-            //Instantiate the object and rotate it randmly
-            if (randomizeRotationX)
-            {
-                Instantiate(nextObjectToInstantiate, nextObjectToInstanciatePosition, Quaternion.Euler(Random.Range(0.0f, 360.0f), 0.0f, 0.0f), decorInstiatedFolder.transform);
-            }
+            //Instantiate the object and rotate it randomly
             if (randomizeRotationY)
             {
                 Instantiate(nextObjectToInstantiate, nextObjectToInstanciatePosition, Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f), decorInstiatedFolder.transform);
-            }
-            if (randomizeRotationZ)
-            {
-                Instantiate(nextObjectToInstantiate, nextObjectToInstanciatePosition, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)), decorInstiatedFolder.transform);
             }
         }
     }
@@ -154,9 +164,23 @@ public class InstantiateObjectsScript : MonoBehaviour
         }
     }
 
-    public void PlaceCamera(int _cameraIndex)
+    public void PlaceCameraOnRandomSection(int _cameraIndex, List<GameObject> _sectionsList)
     {
         cameraList[_cameraIndex].GetComponent<Camera>().orthographicSize = cameraOrthographicSize;
+
+        //Take random section from sectionsList
+        randomSectionToPutSpecialChestOn = Random.Range(0, _sectionsList.Count);
+ 
+
+        //Place the screenshot camera in a random X-Z position inside the floor gameobject box
+        cameraList[_cameraIndex].transform.position = new Vector3(Random.Range(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
+                                                                 (cameraList[_cameraIndex].transform.position.y + instantiationOffsetCameraHeight),
+                                                                  Random.Range(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
+    }
+
+    public void PlaceCamera(int _cameraIndex)
+    {
+        cameraList[_cameraIndex].GetComponent<Camera>().orthographicSize = cameraOrthographicSize;        
 
         //Place the screenshot camera in a random X-Z position inside the floor gameobject box
         cameraList[_cameraIndex].transform.position = new Vector3(Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),

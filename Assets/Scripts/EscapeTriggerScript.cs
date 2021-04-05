@@ -5,17 +5,31 @@ using UnityEngine;
 public class EscapeTriggerScript : MonoBehaviour
 {
     public bool canEscape;
-    public int numberOfPlayerInTheBoatEscapeZone = 0;
+    public int numberOfPlayersInTheBoatEscapeZone = 0;
+    public List<GameObject> playersInTheBoat = new List<GameObject>();
+    public List<ParticleSystem> fXsBoatWater = new List<ParticleSystem>();
+    private List<GameObject> players = new List<GameObject>();
     public Canvas escapeCanvas;
     public Canvas scoreCanvas;
-    public Canvas playerCanvas;
     private bool canBoatMove;
     public GameObject boat;
     public float boatSpeed;
-    public Camera escapeCamera;
+    public Camera escapeCamera;    
+
+    public static EscapeTriggerScript instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
+        foreach (GameObject gO in SwitchPlayerScript.instance.players)
+        {
+            players.Add(gO);
+        }
+
         escapeCamera.enabled = false;
         escapeCanvas.enabled = false;
         scoreCanvas.enabled = false;
@@ -25,8 +39,18 @@ public class EscapeTriggerScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.KeypadEnter) && canEscape == true)
         {
+            foreach (GameObject gO in players)
+            {
+                gO.transform.GetChild(1).gameObject.SetActive(false);
+                gO.transform.GetChild(0).GetComponent<MovementScript>().canTheAvatarMove = false;
+            }
+
+            foreach(ParticleSystem pS in fXsBoatWater)
+            {
+                pS.Play();
+            }
+
             escapeCamera.enabled = true;
-            playerCanvas.enabled = false;
             escapeCanvas.enabled = false;
             scoreCanvas.enabled = true;
             canBoatMove = true;
@@ -37,6 +61,16 @@ public class EscapeTriggerScript : MonoBehaviour
     {
         if (canBoatMove)
         {
+            foreach(GameObject gO in playersInTheBoat)
+            {
+                gO.transform.parent = boat.transform;
+            }
+
+            foreach (GameObject gO in BoatCargoScript.instance.chestsInTheBoat)
+            {
+                gO.transform.parent = boat.transform;
+            }
+
             boat.transform.Translate(Vector3.left * boatSpeed * Time.fixedDeltaTime);
         }
     }
@@ -45,7 +79,8 @@ public class EscapeTriggerScript : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            numberOfPlayerInTheBoatEscapeZone++;
+            numberOfPlayersInTheBoatEscapeZone++;
+            playersInTheBoat.Add(other.gameObject);
             escapeCanvas.enabled = true;
             canEscape = true;
         }
@@ -55,9 +90,10 @@ public class EscapeTriggerScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            numberOfPlayerInTheBoatEscapeZone--;
+            numberOfPlayersInTheBoatEscapeZone--;
+            playersInTheBoat.Remove(other.gameObject);
 
-            if(numberOfPlayerInTheBoatEscapeZone == 0)
+            if (numberOfPlayersInTheBoatEscapeZone == 0)
             {
                 escapeCanvas.enabled = false;
                 canEscape = false;

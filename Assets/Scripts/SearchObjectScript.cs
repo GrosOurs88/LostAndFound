@@ -66,13 +66,11 @@ public class SearchObjectScript : MonoBehaviour
 
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerDefault))
             {
-                print("AAA");
                 return;
             }
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerMap) && isTakingSomething == false)
             {
-                print("BBB");
                 hit.collider.transform.parent = avatarHandMap;
                 hit.collider.transform.SetPositionAndRotation(avatarHandMap.position, avatarHandMap.rotation);
                 hit.collider.GetComponent<Rigidbody>().isKinematic = true;
@@ -83,7 +81,6 @@ public class SearchObjectScript : MonoBehaviour
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerChest) && isTakingSomething == false)
             {
-                print("CCC");
                 if (hit.collider.transform.GetComponent<ChestScript>().canBeTaken)
                 {
                     if (hit.collider.GetComponent<Rigidbody>().mass == smallChestWeight)
@@ -135,7 +132,6 @@ public class SearchObjectScript : MonoBehaviour
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerCross))
             {
-                print("DDD");
                 if (movementScript.staminaBarImage.fillAmount >= digStaminaDecreaseValueAmount)
                 {
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
@@ -181,7 +177,6 @@ public class SearchObjectScript : MonoBehaviour
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerFloor))
             {
-                print("EEE");
                 if (movementScript.staminaBarImage.fillAmount >= digStaminaDecreaseValueAmount)
                 {
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;

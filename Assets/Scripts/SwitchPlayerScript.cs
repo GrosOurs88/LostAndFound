@@ -8,6 +8,13 @@ public class SwitchPlayerScript : MonoBehaviour
 
     int index = 0;
 
+    public static SwitchPlayerScript instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         ActivateSpecificPlayer(index);

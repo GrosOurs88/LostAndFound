@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MasterScript : MonoBehaviour
 {
+    public GameObject sectionStart;
     public List<GameObject> sectionsList = new List<GameObject>();
 
     void Start()
@@ -17,6 +18,8 @@ public class MasterScript : MonoBehaviour
         {
             sectionsList[i].GetComponent<InstantiateObjectsScript>().SetupEnvironment();
         }
+
+        sectionStart.GetComponent<InstantiateObjectsScript>().StartSectionSetupEnvironment(sectionsList);
 
         yield return null;
     }

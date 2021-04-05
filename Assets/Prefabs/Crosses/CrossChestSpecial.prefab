@@ -47,5 +47,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: CrossChestSpecial
       objectReference: {fileID: 0}
+    - target: {fileID: 8426050581345966767, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426050581345969491, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426050581345969491, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426050581345969491, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426050581345969491, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fc443ad9e2dc44242bd886ce32572fbc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 712ac05e421968b49ba9b86fc5f2e5e4, type: 3}
