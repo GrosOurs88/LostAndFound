@@ -25,9 +25,14 @@ public class SearchObjectScript : MonoBehaviour
 
     public float digStaminaDecreaseValueAmount;
 
-    private bool isTakingSomething = false;
+    [HideInInspector]
+    public bool isTakingSomething = false;
     private bool takenObjectIsAMap;
     private bool takenObjectIsAChest;
+  //  [HideInInspector]
+    public bool canTheAvatarDig = true;
+  //  [HideInInspector]
+    public bool canTheAvatarTake = true;
     private GameObject takenObject;
 
     public float launchObjectForce;
@@ -55,7 +60,7 @@ public class SearchObjectScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GetComponent<MovementScript>().canTheAvatarMove)
+        if (Input.GetMouseButtonDown(0) && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarDig)
         {
             RaycastHit hit;
             LayerMask layerDefault = LayerMask.GetMask("Default");
@@ -193,14 +198,14 @@ public class SearchObjectScript : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove)
+        if (Input.GetMouseButtonDown(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarTake)
         {
             PanelLaunchObjectForce.gameObject.SetActive(true);
             launchObjectBar.fillAmount = 0f;
             launchObjectForce = minLaunchObjectForce;
         }
 
-        if (Input.GetMouseButton(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove)
+        if (Input.GetMouseButton(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarTake)
         {
             if (launchObjectForce < maxLaunchObjectForce)
             {

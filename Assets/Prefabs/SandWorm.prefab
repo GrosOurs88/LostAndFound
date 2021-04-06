@@ -903,6 +903,7 @@ GameObject:
   - component: {fileID: 3172598792772081828}
   - component: {fileID: 3172598792772081829}
   - component: {fileID: 3172598792772081834}
+  - component: {fileID: 3411303362015842862}
   m_Layer: 2
   m_Name: DetectionZone
   m_TagString: Untagged
@@ -985,6 +986,20 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &3411303362015842862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3172598792772081832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e9c28b0e29952449eebcde3b1b215b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sandWorm: {fileID: 7418363127327744363}
+  minChestMagnitudeToHunt: 10
 --- !u!1 &5739348850827478853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,6 +1626,7 @@ GameObject:
   - component: {fileID: 6776488956682405726}
   - component: {fileID: 2655946674788964384}
   - component: {fileID: 3972504441916285683}
+  - component: {fileID: 8238565520540564875}
   - component: {fileID: 2907017996151801797}
   m_Layer: 2
   m_Name: SandWorm
@@ -1627,7 +1643,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7418363127327744363}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children:
   - {fileID: 2806751470824217160}
@@ -1689,11 +1705,27 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7418363127327744363}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &8238565520540564875
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7418363127327744363}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
 --- !u!114 &2907017996151801797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1709,7 +1741,12 @@ MonoBehaviour:
   sandWormMovePointsFolder: {fileID: 8422632525101973830}
   offsetToGoToNextPoint: 0.1
   speed: 7
+  runSpeed: 20
+  isHuntingPlayer: 0
   sandWormMovePoints: []
+  playersbumpForce: 2000
+  chestsbumpForce: 500
+  huntedElementsInTheDetectionZone: []
 --- !u!1 &7421521300496844722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1994,7 +2031,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8422632525101973830}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4959347366006164343}

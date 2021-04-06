@@ -44,7 +44,11 @@ public class SwitchPlayerScript : MonoBehaviour
 
         players[activatedPlayerIndex].gameObject.transform.GetChild(0).gameObject.GetComponent<MovementScript>().canTheAvatarMove = true;
         players[activatedPlayerIndex].gameObject.transform.GetChild(0).gameObject.GetComponent<Camera>().enabled = true;
-        players[activatedPlayerIndex].gameObject.transform.GetChild(1).gameObject.SetActive(true);
+
+        if(players[activatedPlayerIndex].gameObject.GetComponent<AvatarDeathScript>().isThePlayerDead == false)
+        {
+            players[activatedPlayerIndex].gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
 
     public void SwitchPreviousPlayer()

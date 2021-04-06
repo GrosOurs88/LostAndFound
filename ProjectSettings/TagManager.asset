@@ -16,6 +16,7 @@ TagManager:
   - Lava
   - Decor
   - Map
+  - PlayerDead
   layers:
   - Default
   - TransparentFX
@@ -40,8 +41,8 @@ TagManager:
   - J3
   - J4
   - CrossSpecial
-  - 
-  - 
+  - PlayerDead
+  - PostProcessingDeath
   - 
   - 
   - 

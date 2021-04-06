@@ -7,11 +7,13 @@ public class MovementScript : MonoBehaviour
 {
 	public float speed;
     public float speedRun;
-    private bool isAvatarRunning;
+    [HideInInspector]
+    public  bool isAvatarRunning;
 
     private GameObject avatar;
 
-    public bool canTheAvatarMove;
+    public bool canTheAvatarMove = true;
+    public bool canTheAvatarRun = true;
 
     public string inputHorizontalAxis;
     public string inputVerticalAxis;
@@ -22,6 +24,13 @@ public class MovementScript : MonoBehaviour
 
     public float staminaIncreaseValueAmount;
     public float runStaminaDecreaseValueAmount;
+
+    //***TEST***
+    [HideInInspector]
+    public bool isAvatarOnFire = false;
+    private float staminaLossMultiplierWhenOnFire = 5f;
+    private float speedOnFire = 15f;
+    //***TEST***
 
     public void Awake()
     {
@@ -40,7 +49,22 @@ public class MovementScript : MonoBehaviour
     {
         if (canTheAvatarMove)
         {
-            if (isAvatarRunning)
+            //***TEST
+            if (isAvatarOnFire)
+            {
+                isAvatarRunning = true;
+
+                staminaBarImage.fillAmount -= runStaminaDecreaseValueAmount * staminaLossMultiplierWhenOnFire * Time.fixedDeltaTime;
+
+                float movX = Input.GetAxis(inputHorizontalAxis) * speedOnFire;
+                float movZ = speedOnFire;
+
+                transform.parent.transform.Translate(movX * Time.fixedDeltaTime, 0, movZ * Time.fixedDeltaTime);
+            }
+
+            //***TEST
+
+            else if (isAvatarRunning) //Remove the else
             {
                 staminaBarImage.fillAmount -= runStaminaDecreaseValueAmount * Time.fixedDeltaTime;
 
@@ -61,7 +85,7 @@ public class MovementScript : MonoBehaviour
 
     void Update()
     {
-        if (canTheAvatarMove)
+        if (canTheAvatarMove && canTheAvatarRun)
         {      
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
@@ -71,7 +95,6 @@ public class MovementScript : MonoBehaviour
             {
                 isAvatarRunning = false;
             }
-
             if (staminaBarImage.fillAmount == 0)
             {
                 isAvatarRunning = false;

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1455508592244417810}
   - component: {fileID: -1776094423491767244}
   m_Layer: 12
-  m_Name: sf_chest_common
+  m_Name: Chest_Common
   m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +111,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 2
 --- !u!114 &-1776094423491767244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,5 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b5f9874e106b1418cdaa2833819701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   isTaken: 0
+  canBeTaken: 1
   emitterLinked: {fileID: 0}

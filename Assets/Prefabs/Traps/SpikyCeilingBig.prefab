@@ -14276,7 +14276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4329599701886130565
 Transform:
   m_ObjectHideFlags: 0
@@ -31860,7 +31860,7 @@ PrefabInstance:
     - target: {fileID: 1187930842427260256, guid: b21c41ba1f9671c44bb46271c03a48b7,
         type: 3}
       propertyPath: m_Name
-      value: SpikyCeilingLong
+      value: SpikyCeilingBig
       objectReference: {fileID: 0}
     - target: {fileID: 1210397005855929478, guid: b21c41ba1f9671c44bb46271c03a48b7,
         type: 3}
