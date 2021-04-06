@@ -1115,9 +1115,14 @@ MonoBehaviour:
   - {fileID: 3672833270871007909}
   escapeCanvas: {fileID: 1265071052}
   scoreCanvas: {fileID: 8389810972630103686}
+  commonChestNumber: {fileID: 3595695360775899868}
+  bigChestNumber: {fileID: 866830586540897174}
+  giantChestNumber: {fileID: 7307608116783485640}
+  rareChestNumber: {fileID: 6392006078425886132}
+  specialChestNumber: {fileID: 6854433856539967260}
   boat: {fileID: 6872243824899630401}
   boatSpeed: 20
-  escapeCamera: {fileID: 0}
+  escapeCamera: {fileID: 1160789551}
 --- !u!1 &30796775625368536
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,27 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7983155586350568522
+--- !u!1001 &3284104806831299630
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1776094423491767244, guid: 33dcdfbc105b1a746932742af1eb3d20,
+        type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -1455508592244417810, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_Mass
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2476306706555744521, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_Name
-      value: sf_chest_Big
+      value: sf_chest_Giant
       objectReference: {fileID: 0}
     - target: {fileID: 2534385446951723854, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f28bd0579d115984380fd80005be5542, type: 2}
+      objectReference: {fileID: 2100000, guid: 6f105f60a739aed4caca31cdeab8a4ec, type: 2}
     - target: {fileID: 7432961501595272219, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -80,17 +85,17 @@ PrefabInstance:
     - target: {fileID: 7432961501595272219, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 50
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 7432961501595272219, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 50
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 7432961501595272219, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 50
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33dcdfbc105b1a746932742af1eb3d20, type: 3}

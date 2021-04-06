@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EscapeTriggerScript : MonoBehaviour
 {
@@ -11,6 +12,16 @@ public class EscapeTriggerScript : MonoBehaviour
     private List<GameObject> players = new List<GameObject>();
     public Canvas escapeCanvas;
     public Canvas scoreCanvas;
+    public TextMeshProUGUI commonChestNumber;
+    private int commonChestNumberAmount;
+    public TextMeshProUGUI bigChestNumber;
+    private int bigChestNumberAmount;
+    public TextMeshProUGUI giantChestNumber;
+    private int giantChestNumberAmount;
+    public TextMeshProUGUI rareChestNumber;
+    private int rareChestNumberAmount;
+    public TextMeshProUGUI specialChestNumber;
+    private int specialChestNumberAmount;
     private bool canBoatMove;
     public GameObject boat;
     public float boatSpeed;
@@ -50,11 +61,51 @@ public class EscapeTriggerScript : MonoBehaviour
                 pS.Play();
             }
 
+            CountChestsType();
+            DisplayChestsType();
+
             escapeCamera.enabled = true;
             escapeCanvas.enabled = false;
             scoreCanvas.enabled = true;
             canBoatMove = true;
         }        
+    }
+
+    private void CountChestsType()
+    {
+        foreach (GameObject gO in BoatCargoScript.instance.chestsInTheBoat)
+        {
+            switch (gO.GetComponent<ChestScript>().type)
+            {
+                case ChestScript.Type.Common:
+                    commonChestNumberAmount++;
+                    break;
+                case ChestScript.Type.Big:
+                    bigChestNumberAmount++;
+                    break;
+                case ChestScript.Type.Giant:
+                    giantChestNumberAmount++;
+                    break;
+                case ChestScript.Type.Rare:
+                    rareChestNumberAmount++;
+                    break;
+                case ChestScript.Type.Special:
+                    specialChestNumberAmount++;
+                    break;
+                default:
+                    Debug.Log("NOTHING");
+                    break;
+            }
+        }
+    }
+
+    private void DisplayChestsType()
+    {
+        commonChestNumber.text = "x" + commonChestNumberAmount.ToString();
+        bigChestNumber.text = "x" + bigChestNumberAmount.ToString();
+        giantChestNumber.text = "x" + giantChestNumberAmount.ToString();
+        rareChestNumber.text = "x" + rareChestNumberAmount.ToString();
+        specialChestNumber.text = "x" + specialChestNumberAmount.ToString();
     }
 
     private void FixedUpdate()
