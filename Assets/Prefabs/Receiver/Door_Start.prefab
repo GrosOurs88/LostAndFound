@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2260877220721194641, guid: c638351a9710f814c974495f4206d278,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2260877220721194641, guid: c638351a9710f814c974495f4206d278,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2260877220721194646, guid: c638351a9710f814c974495f4206d278,
         type: 3}
       propertyPath: isItLockedWhenActivated
@@ -76,6 +86,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Door_Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794099260404725909, guid: c638351a9710f814c974495f4206d278,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c638351a9710f814c974495f4206d278, type: 3}

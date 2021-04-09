@@ -283,9 +283,7 @@ MonoBehaviour:
   screenshotCamerasInstiatedFolder: {fileID: 7201543485334446966}
   crossesInstiatedFolder: {fileID: 2454187946649139467}
   numberOfObjectsToInstantiate: 125
-  randomizeRotationX: 0
   randomizeRotationY: 1
-  randomizeRotationZ: 0
   objectsToInstantiate:
   - {fileID: 124032, guid: 45b8cac9ed2e6a142ae411672ba866f9, type: 3}
   - {fileID: 136472, guid: e9ef501c03d9e0f4f8965162fd6bfbba, type: 3}
@@ -310,8 +308,6 @@ MonoBehaviour:
     type: 3}
   cameraOrthographicSize: 8
   instantiationOffsetCameraHeight: 50
-  instantiationOffsetCameraX: 4
-  instantiationOffsetCameraZ: 4
   crossPlacementYOffset: 0.06
   crossChestCommon: {fileID: 8426050581345966767, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
     type: 3}
@@ -748,11 +744,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4191438853192996109, guid: e4b62afc1a9c18b46844d8fc1e7e1fe6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 20.5
       objectReference: {fileID: 0}
     - target: {fileID: 4191438853192996109, guid: e4b62afc1a9c18b46844d8fc1e7e1fe6,
         type: 3}

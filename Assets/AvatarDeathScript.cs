@@ -47,6 +47,11 @@ public class AvatarDeathScript : MonoBehaviour
     {
         isThePlayerDead = true;
 
+        if (gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().isTakingSomething)
+        {
+            gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().LaunchTakenObject();
+        }
+
         gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().canTheAvatarTake = false;
         gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().canTheAvatarDig = false;
         gameObject.transform.GetChild(0).GetComponent<PostProcessLayer>().volumeLayer = layerPostProcessDeath;
@@ -57,7 +62,7 @@ public class AvatarDeathScript : MonoBehaviour
         gameObject.GetComponent<Renderer>().material = avatarMaterialDead;
         gameObject.layer = LayerMask.NameToLayer("PlayerDead");
         gameObject.tag = "PlayerDead";
-        
+
         glasses.SetActive(false);
         hat.SetActive(false);
         glassesDead.SetActive(true);
