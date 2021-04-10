@@ -5,40 +5,33 @@ using UnityEngine.UI;
 
 public class MovementScript : MonoBehaviour 
 {
-	public float speed;
+    [Header("Inputs")]
+    public string inputHorizontalAxis;
+    public string inputVerticalAxis;
+    public string inputRun;
+
+    [Header("Movement")]
+    public float speed;
     public float speedRun;
-    [HideInInspector]
-    public  bool isAvatarRunning;
+    public bool isAvatarRunning = false;
 
-    private GameObject avatar;
-
+    [Header("Movements Constraints")]
     public bool canTheAvatarMove = true;
     public bool canTheAvatarRun = true;
 
-    public string inputHorizontalAxis;
-    public string inputVerticalAxis;
-
-    private float staminaValue;
+    [Header("Stamina")]
     public float staminaMaxValue;
-    public Image staminaBarImage;
-
     public float staminaIncreaseValueAmount;
     public float runStaminaDecreaseValueAmount;
+    public Image staminaBarImage;
 
-    //***TEST***
-    [HideInInspector]
+    [Header("OnFire Mode")]
     public bool isAvatarOnFire = false;
-    private float staminaLossMultiplierWhenOnFire = 5f;
-    private float speedOnFire = 15f;
-    //***TEST***
+    public float staminaLossMultiplierWhenOnFire = 5f;
+    public float speedOnFire = 15f;
 
-    public void Awake()
-    {
-        avatar = transform.parent.gameObject;
-
-        //transform.parent.transform.position = avatarStartPositionAndRotation.transform.position; //Replace avatar at the specific transform in the editor
-        //transform.parent.transform.rotation = avatarStartPositionAndRotation.transform.rotation; //Reoriente avatar at the specific transform in the editor
-    }
+    // Check input to run
+    private bool thePlayerCanUseTheTrigger = true;
 
     private void Start()
     {
@@ -49,7 +42,6 @@ public class MovementScript : MonoBehaviour
     {
         if (canTheAvatarMove)
         {
-            //***TEST
             if (isAvatarOnFire)
             {
                 isAvatarRunning = true;
@@ -61,10 +53,7 @@ public class MovementScript : MonoBehaviour
 
                 transform.parent.transform.Translate(movX * Time.fixedDeltaTime, 0, movZ * Time.fixedDeltaTime);
             }
-
-            //***TEST
-
-            else if (isAvatarRunning) //Remove the else
+            else if (isAvatarRunning)
             {
                 staminaBarImage.fillAmount -= runStaminaDecreaseValueAmount * Time.fixedDeltaTime;
 
@@ -86,21 +75,26 @@ public class MovementScript : MonoBehaviour
     void Update()
     {
         if (canTheAvatarMove && canTheAvatarRun)
-        {      
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (Input.GetAxisRaw(inputRun) == 1)
             {
-                isAvatarRunning = true;
+                if(thePlayerCanUseTheTrigger == true)
+                {
+                    isAvatarRunning = true;
+                }
             }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            else if (Input.GetAxisRaw(inputRun) == 0)
             {
                 isAvatarRunning = false;
+                thePlayerCanUseTheTrigger = true;
             }
+
             if (staminaBarImage.fillAmount == 0)
             {
                 isAvatarRunning = false;
+                thePlayerCanUseTheTrigger = false;
             }
         }
-
         RaiseStaminaBar();
     }
 

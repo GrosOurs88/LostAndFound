@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 50}
+  m_SizeDelta: {x: 500, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &500572245
 CanvasRenderer:
@@ -181,10 +181,10 @@ RectTransform:
   m_Father: {fileID: 1655852667}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -500}
-  m_SizeDelta: {x: 0, y: -1000}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -248.6}
+  m_SizeDelta: {x: 0, y: -497.25073}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &566149761
 CanvasRenderer:
@@ -259,7 +259,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 50}
+  m_SizeDelta: {x: 500, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1445366462
 CanvasRenderer:
@@ -432,10 +432,10 @@ RectTransform:
   m_Father: {fileID: 1655852667}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 20}
+  m_SizeDelta: {x: -945, y: -525}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1780534774
 CanvasRenderer:
@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -509,8 +509,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -451.4}
-  m_SizeDelta: {x: 0, y: -1046.9769}
+  m_AnchoredPosition: {x: -480, y: 53.99}
+  m_SizeDelta: {x: -960, y: -1057.5723}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1954008019
 CanvasRenderer:
@@ -787,18 +787,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcccaaad8b0c8f84791e9b6e485d8056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputHorizontalAxis: HorizontalJ1
+  inputVerticalAxis: VerticalJ1
+  inputRun: RunJ1
   speed: 5
   speedRun: 8
   isAvatarRunning: 0
   canTheAvatarMove: 1
   canTheAvatarRun: 1
-  inputHorizontalAxis: HorizontalJ1
-  inputVerticalAxis: VerticalJ1
   staminaMaxValue: 10
-  staminaBarImage: {fileID: 1445366461}
   staminaIncreaseValueAmount: 0.15
   runStaminaDecreaseValueAmount: 0.3
+  staminaBarImage: {fileID: 1445366461}
   isAvatarOnFire: 0
+  staminaLossMultiplierWhenOnFire: 5
+  speedOnFire: 15
 --- !u!114 &394873148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,6 +815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastLength: 3
+  inputTakeAndDig: TakeAndDigJ1
+  inputLaunch: LaunchJ1
   hole: {fileID: 2936971265122613430, guid: 98edcdd3a56d480478307acf92a6f509, type: 3}
   holeWin: {fileID: 2936971265122613430, guid: ae98079f67f6e9f4cbd98526a22b2e7b, type: 3}
   chestCommon: {fileID: 2476306706555744521, guid: 33dcdfbc105b1a746932742af1eb3d20,
@@ -824,26 +829,28 @@ MonoBehaviour:
     type: 3}
   chestSpecial: {fileID: 69425380097863715, guid: cb15d7484981b8b448b27ef075525ee6,
     type: 3}
+  smallChestWeight: 1
+  bigChestWeight: 3
+  giantChestWeight: 10
   avatarHandMap: {fileID: 2616642609592060327}
   avatarHandSmallChest: {fileID: 605452381}
   avatarHandBigChest: {fileID: 8592593202979429007}
   avatarHandGiantChest: {fileID: 5974808271126536198}
-  digStaminaDecreaseValueAmount: 0.15
-  isTakingSomething: 0
   canTheAvatarDig: 1
+  digStaminaDecreaseValueAmount: 0.15
+  holePlacementYOffset: 0.01
+  holeWinPlacementYOffset: 0.02
+  chestSpawnedYOffset: -0.5
   canTheAvatarTake: 1
+  isTakingSomething: 0
+  takenObjectIsAMap: 0
+  takenObjectIsAChest: 0
   launchObjectForce: 500
   minLaunchObjectForce: 200
   maxLaunchObjectForce: 2000
   launchObjectIncreaseValueAmount: 700
   PanelLaunchObjectForce: {fileID: 1954008017}
   launchObjectBar: {fileID: 2117778326}
-  smallChestWeight: 1
-  bigChestWeight: 3
-  giantChestWeight: 10
-  holePlacementYOffset: 0.01
-  holeWinPlacementYOffset: 0.02
-  chestSpawnedYOffset: -0.5
 --- !u!114 &394873149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,16 +863,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7277814ad32f2824ea591b1c75a358f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axes: 0
-  sensitivityX: 3
-  sensitivityY: 3
+  inputMouseXAxis: LookAtHorizontalJ1
+  inputMouseYAxis: LookAtVerticalJ1
+  sensitivityX: 2.5
+  sensitivityY: 2.5
   minimumX: -360
   maximumX: 360
   minimumY: -60
   maximumY: 80
-  isCursorVisible: 0
-  inputMouseXAxis: 
-  inputMouseYAxis: 
 --- !u!1 &3351590950770031184
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,9 +1002,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0236695b66fbe7e419bf1ecebc1b3248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireParticleEffect: {fileID: 19800000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
   isOnFire: 0
+  timePlayerIsOnFire: 5
+  timePlayerCannotTakeObjectsAfterBeingOnFire: 10
   panelHands: {fileID: 7914708488189010146}
+  fireParticleEffect: {fileID: 19800000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
 --- !u!114 &7090035105795336759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1013,6 +1020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isThePlayerDead: 0
+  canThePlayerTurnDead: 0
   turnAliveParticleSystem: {fileID: 19811986, guid: 76c037952c2061d46931432c36911226,
     type: 3}
   avatarMaterialDead: {fileID: 2100000, guid: 923b1421473d61347af7df39c81dc4eb, type: 2}
@@ -1020,7 +1028,6 @@ MonoBehaviour:
   hat: {fileID: 3250498106381553673}
   glassesDead: {fileID: 3921507507634014963}
   hatDead: {fileID: 7227255306799682049}
-  canTurnDead: 0
 --- !u!1 &3921507507634014963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,8 +1220,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 70}
+  m_AnchoredPosition: {x: 0, y: 6}
+  m_SizeDelta: {x: 108, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6360171711637932252
 CanvasRenderer:
@@ -1317,8 +1324,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -500}
-  m_SizeDelta: {x: 0, y: -1000}
+  m_AnchoredPosition: {x: -480, y: 21.401978}
+  m_SizeDelta: {x: -960, y: -1037.2473}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7162561691970419222
 CanvasRenderer:

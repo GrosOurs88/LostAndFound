@@ -9,32 +9,45 @@ public class SearchObjectScript : MonoBehaviour
 {
     public float raycastLength;
 
+    [Header("Inputs")]
+    public string inputTakeAndDig;
+    public string inputLaunch;
+
+    [Header("Holes")]
     public GameObject hole;
     public GameObject holeWin;
 
+    [Header("Chests")]
     public GameObject chestCommon;
     public GameObject chestBig;
     public GameObject chestGiant;
     public GameObject chestRare;
     public GameObject chestSpecial;
+    public float smallChestWeight;
+    public float bigChestWeight;
+    public float giantChestWeight;
 
+    [Header("HandPositions")]
     public Transform avatarHandMap;
     public Transform avatarHandSmallChest;
     public Transform avatarHandBigChest;
     public Transform avatarHandGiantChest;
 
-    public float digStaminaDecreaseValueAmount;
-
-    [HideInInspector]
-    public bool isTakingSomething = false;
-    private bool takenObjectIsAMap;
-    private bool takenObjectIsAChest;
-  //  [HideInInspector]
+    [Header("Dig")]
     public bool canTheAvatarDig = true;
-  //  [HideInInspector]
+    public float digStaminaDecreaseValueAmount;
+    public float holePlacementYOffset;
+    public float holeWinPlacementYOffset;
+    public float chestSpawnedYOffset;
+
+    [Header("Take")]
     public bool canTheAvatarTake = true;
+    public bool isTakingSomething = false;
+    public bool takenObjectIsAMap = false;
+    public bool takenObjectIsAChest = false;
     private GameObject takenObject;
 
+    [Header("Launch")]
     public float launchObjectForce;
     public float minLaunchObjectForce = 200f;
     public float maxLaunchObjectForce = 600f;
@@ -42,16 +55,10 @@ public class SearchObjectScript : MonoBehaviour
     public GameObject PanelLaunchObjectForce;
     public Image launchObjectBar;
 
-    public float smallChestWeight;
-    public float bigChestWeight;
-    public float giantChestWeight;
+    // Check input to launch
+    private bool thePlayerJustPushedTheTrigger = false;
 
-    MovementScript movementScript;
-
-    public float holePlacementYOffset;
-    public float holeWinPlacementYOffset;
-
-    public float chestSpawnedYOffset;
+    MovementScript movementScript;    
 
     private void Start()
     {
@@ -60,7 +67,7 @@ public class SearchObjectScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarDig)
+        if (Input.GetButtonDown(inputTakeAndDig) && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarDig)
         {
             RaycastHit hit;
             LayerMask layerDefault = LayerMask.GetMask("Default");
@@ -198,14 +205,15 @@ public class SearchObjectScript : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarTake)
+        if (Input.GetAxisRaw(inputLaunch) == 1 && thePlayerJustPushedTheTrigger == false && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarTake)
         {
             PanelLaunchObjectForce.gameObject.SetActive(true);
             launchObjectBar.fillAmount = 0f;
             launchObjectForce = minLaunchObjectForce;
+            thePlayerJustPushedTheTrigger = true;
         }
 
-        if (Input.GetMouseButton(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarTake)
+        if (Input.GetAxisRaw(inputLaunch) == 1 && thePlayerJustPushedTheTrigger == true && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarTake)
         {
             if (launchObjectForce < maxLaunchObjectForce)
             {
@@ -219,9 +227,10 @@ public class SearchObjectScript : MonoBehaviour
             launchObjectBar.fillAmount = (launchObjectForce / maxLaunchObjectForce);
         }
 
-        if (Input.GetMouseButtonUp(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove)
+        if (Input.GetAxisRaw(inputLaunch) == 0 && thePlayerJustPushedTheTrigger == true && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove)
         {
             LaunchTakenObject();
+            thePlayerJustPushedTheTrigger = false;
         }
     }
 

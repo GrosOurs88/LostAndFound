@@ -6,10 +6,13 @@ using UnityEngine.Rendering.PostProcessing;
 public class AvatarDeathScript : MonoBehaviour
 {
     public bool isThePlayerDead = false;
+    public bool canThePlayerTurnDead = false;
+
     public ParticleSystem turnAliveParticleSystem;
 
     public Material avatarMaterialDead;
     private Material avatarNormalMaterial;
+
     public GameObject glasses;
     public GameObject hat;
     public GameObject glassesDead;
@@ -17,8 +20,6 @@ public class AvatarDeathScript : MonoBehaviour
 
     LayerMask layerPostProcessDeath;
     LayerMask layerPostProcess;
-
-    public bool canTurnDead = false;
 
     private void Start()
     {
@@ -30,7 +31,7 @@ public class AvatarDeathScript : MonoBehaviour
 
     public void Update()
     {
-        if (canTurnDead)
+        if (canThePlayerTurnDead)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {

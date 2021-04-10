@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class OnFireByLavaScript : MonoBehaviour
 {
-    public ParticleSystem fireParticleEffect;
     public bool isOnFire = false;
+    public float timePlayerIsOnFire;
+    public float timePlayerCannotTakeObjectsAfterBeingOnFire;
     public GameObject panelHands;
+    public ParticleSystem fireParticleEffect;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -17,7 +19,7 @@ public class OnFireByLavaScript : MonoBehaviour
                 gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().LaunchTakenObject();
             }            
 
-            StartCoroutine(avatarIsOnFire(5f, 10f));
+            StartCoroutine(avatarIsOnFire(timePlayerIsOnFire, timePlayerCannotTakeObjectsAfterBeingOnFire));
         }
     }
 
