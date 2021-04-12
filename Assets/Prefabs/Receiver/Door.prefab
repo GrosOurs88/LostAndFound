@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2260877220721194641}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1.9}
+  m_LocalScale: {x: 20, y: 20, z: 1.75}
   m_Children:
   - {fileID: 2260877222277606762}
   m_Father: {fileID: 2794099260404725908}
@@ -117,10 +117,11 @@ MonoBehaviour:
   numberOfEmittersOn: 0
   doorLevel: {fileID: 2260877220824767248}
   isItLockedWhenActivated: 1
-  openPositionVector: {x: 0, y: -1, z: 0}
+  openPositionVector: {x: 0, y: 1, z: 0}
   openPositionDistance: 25
   closeTime: 1
-  openTime: 3
+  openTime: 4
+  shakeAmount: 0.05
 --- !u!1 &2260877220824767342
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,6 +32,8 @@ public class ReceiverScript : MonoBehaviour
     public float closeTime;
     public float openTime;
 
+    public float shakeAmount;
+
     private void Start()
     {
         SetupEmitters();
@@ -91,6 +93,9 @@ public class ReceiverScript : MonoBehaviour
         while (elapsedTime < time)
         {
             transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
+
+            transform.position += Random.insideUnitSphere * shakeAmount;
+
             elapsedTime += Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
