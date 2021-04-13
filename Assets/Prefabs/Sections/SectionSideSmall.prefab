@@ -307,9 +307,7 @@ MonoBehaviour:
   screenshotCamerasInstiatedFolder: {fileID: 6595276397807866032}
   crossesInstiatedFolder: {fileID: 1907595205367384781}
   numberOfObjectsToInstantiate: 70
-  randomizeRotationX: 0
   randomizeRotationY: 1
-  randomizeRotationZ: 0
   objectsToInstantiate:
   - {fileID: 124032, guid: 45b8cac9ed2e6a142ae411672ba866f9, type: 3}
   - {fileID: 136472, guid: e9ef501c03d9e0f4f8965162fd6bfbba, type: 3}
@@ -334,9 +332,8 @@ MonoBehaviour:
     type: 3}
   cameraOrthographicSize: 3
   instantiationOffsetCameraHeight: 50
-  instantiationOffsetCameraX: 2
-  instantiationOffsetCameraZ: 2
   crossPlacementYOffset: 0.06
+  crossPlacementMaxIterationNumber: 5
   crossChestCommon: {fileID: 8426050581345966767, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
     type: 3}
   numberOfCrossChestCommon: 3

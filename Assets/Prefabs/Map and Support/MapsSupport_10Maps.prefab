@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2842083120698635201}
   - component: {fileID: 2842083120698635200}
   - component: {fileID: 2842083120698635207}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Support
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6652668173546042281}
   m_Layer: 11
-  m_Name: MapsSupportEnd
+  m_Name: MapsSupport_10Maps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

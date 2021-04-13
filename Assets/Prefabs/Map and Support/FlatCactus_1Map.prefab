@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5502308574162675758}
   - component: {fileID: 5502308574163573540}
   - component: {fileID: 2719951326440220980}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: FlatCactus_1Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2703701290380456170}
   - component: {fileID: 7818666783078900}
   - component: {fileID: 3962100652860203160}
+  - component: {fileID: 4389700299835332278}
   m_Layer: 13
   m_Name: LavaRiver_2
   m_TagString: Lava
@@ -2418,3 +2419,16 @@ MonoBehaviour:
   scrollSpeed: -0.05
   moveOnXAxis: 1
   moveOnYAxis: 0
+--- !u!114 &4389700299835332278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3318072343371656516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0950f6f5bbebfa347a11f8f1ea3d31a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapBurnedParticle: {fileID: 0}

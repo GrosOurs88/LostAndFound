@@ -582,6 +582,7 @@ MonoBehaviour:
   cameraOrthographicSize: 10
   instantiationOffsetCameraHeight: 50
   crossPlacementYOffset: 0.06
+  crossPlacementMaxIterationNumber: 5
   crossChestCommon: {fileID: 8426050581345966767, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
     type: 3}
   numberOfCrossChestCommon: 7

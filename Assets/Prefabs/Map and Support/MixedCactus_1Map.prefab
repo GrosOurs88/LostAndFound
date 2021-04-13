@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2003220296241125985}
   - component: {fileID: 2003220296242253639}
   - component: {fileID: 7306803230263147870}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: MixedCactus_1Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}

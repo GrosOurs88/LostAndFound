@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 4102031124766708243}
   - component: {fileID: 4102031124766708242}
   m_Layer: 0
-  m_Name: SectionSideSpikesLong
+  m_Name: SectionSideLong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,9 +270,7 @@ MonoBehaviour:
   screenshotCamerasInstiatedFolder: {fileID: 386533759075064922}
   crossesInstiatedFolder: {fileID: 4945864076358043175}
   numberOfObjectsToInstantiate: 110
-  randomizeRotationX: 0
   randomizeRotationY: 1
-  randomizeRotationZ: 0
   objectsToInstantiate:
   - {fileID: 124032, guid: 45b8cac9ed2e6a142ae411672ba866f9, type: 3}
   - {fileID: 136472, guid: e9ef501c03d9e0f4f8965162fd6bfbba, type: 3}
@@ -297,9 +295,8 @@ MonoBehaviour:
     type: 3}
   cameraOrthographicSize: 5
   instantiationOffsetCameraHeight: 50
-  instantiationOffsetCameraX: 3
-  instantiationOffsetCameraZ: 3
   crossPlacementYOffset: 0.06
+  crossPlacementMaxIterationNumber: 5
   crossChestCommon: {fileID: 8426050581345966767, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
     type: 3}
   numberOfCrossChestCommon: 3

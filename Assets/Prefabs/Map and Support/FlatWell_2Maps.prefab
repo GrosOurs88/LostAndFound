@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4398009719903043835}
   - component: {fileID: 4398009719904128855}
   - component: {fileID: 4856315406158418803}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: FlatWell_2Maps
   m_TagString: Untagged
   m_Icon: {fileID: 0}

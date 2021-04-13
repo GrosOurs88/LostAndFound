@@ -37,6 +37,7 @@ public class InstantiateObjectsScript : MonoBehaviour
 
     [Header("Crosses")]
     public float crossPlacementYOffset;
+    public int crossPlacementMaxIterationNumber = 5;
     private List<GameObject> crossList = new List<GameObject>();
     public GameObject crossChestCommon;
     public int numberOfCrossChestCommon;
@@ -51,8 +52,8 @@ public class InstantiateObjectsScript : MonoBehaviour
 
     void Start()
     {
-        instantiationOffsetCameraX = cameraOrthographicSize / 2;
-        instantiationOffsetCameraZ = cameraOrthographicSize / 2;
+        instantiationOffsetCameraX = cameraOrthographicSize / 2; //automatically calculated relatively to the cameraOrthographicSize
+        instantiationOffsetCameraZ = cameraOrthographicSize / 2; //automatically calculated relatively to the cameraOrthographicSize
     }   
 
     public void SetupEnvironment()
@@ -64,24 +65,24 @@ public class InstantiateObjectsScript : MonoBehaviour
 
         for (int i = 0; i < crossList.Count; i++)
         {
-            PlaceCamera(i);
-            PlaceCross(i, i);
-            StartCoroutine(TakeScreenshot(i, i, i, i));
+            PlaceCross(i);
+            PlaceCamera(i, i);
+            StartCoroutine(TakeScreenshot(i, i, i));
         }
     }
 
     public void StartSectionSetupEnvironment(List<GameObject> _sectionsList)
     {
-        InstantiateEnvironment(); //OK
-        CreateMapsList(); //OK
-        CreateCrossesList(); //OK
-        CreateScreenshotCamerasList(); //number of screenshotCameras = number of crosses //OK
+        InstantiateEnvironment();
+        CreateMapsList();
+        CreateCrossesList();
+        CreateScreenshotCamerasList(); //number of screenshotCameras = number of crosses
 
         for (int i = 0; i < crossList.Count; i++)
         {
-            PlaceCameraOnRandomSection(i, _sectionsList);
-            PlaceCross(i, i);
-            StartCoroutine(TakeScreenshot(i, i, i, i));
+            PlaceCrossOnRandomSection(i, _sectionsList);
+            PlaceCamera(i, i);
+            StartCoroutine(TakeScreenshot(i, i, i));
         }
     }
 
@@ -164,38 +165,81 @@ public class InstantiateObjectsScript : MonoBehaviour
         }
     }
 
-    public void PlaceCameraOnRandomSection(int _cameraIndex, List<GameObject> _sectionsList)
+    public void PlaceCross(int _crossIndex)
+    {
+        //layer for shooting raycast on ground
+        RaycastHit hit;
+        LayerMask layerLava = LayerMask.GetMask("Lava");
+        LayerMask layerDefault = LayerMask.GetMask("Default");
+        LayerMask layerCross = LayerMask.GetMask("Cross");
+        LayerMask combinedLayer = layerLava | layerDefault | layerCross;
+
+        int i = 0;
+        while (i < crossPlacementMaxIterationNumber)
+        {
+            //Place the screenshot camera in a random X-Z position inside the floor gameobject box
+            crossList[_crossIndex].transform.position = new Vector3(Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
+                                                                    floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + crossPlacementYOffset,
+                                                                    Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
+
+            Vector3 crossPosWithYOffset = new Vector3(crossList[_crossIndex].transform.position.x, crossList[_crossIndex].transform.position.y + 2f, crossList[_crossIndex].transform.position.z); 
+
+            if (Physics.Raycast(crossPosWithYOffset, transform.TransformDirection(Vector3.down), out hit, 3f, combinedLayer)) //Si la croix est placée sur un élément de décor, une autre croix ou de la lave
+            {
+                i++; //Replace la croix à un autre endroit
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    //Used for the start zone maps
+    public void PlaceCrossOnRandomSection(int _crossIndex, List<GameObject> _sectionsList)
+    {
+        //layer for shooting raycast on ground
+        RaycastHit hit;
+        LayerMask layerLava = LayerMask.GetMask("Lava");
+        LayerMask layerDefault = LayerMask.GetMask("Default");
+        LayerMask layerCross = LayerMask.GetMask("Cross");
+        LayerMask combinedLayer = layerLava | layerDefault | layerCross;
+
+        int i = 0;
+        while (i < crossPlacementMaxIterationNumber)
+        {
+            //Take random section from sectionsList
+            randomSectionToPutSpecialChestOn = Random.Range(0, _sectionsList.Count);
+
+            //Place the screenshot camera in a random X-Z position inside the floor gameobject box
+            crossList[_crossIndex].transform.position = new Vector3(Random.Range(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
+                                                                    _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + crossPlacementYOffset,                                                                    
+                                                                    Random.Range(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
+            
+            Vector3 crossPosWithYOffset = new Vector3(crossList[_crossIndex].transform.position.x, crossList[_crossIndex].transform.position.y + 2f, crossList[_crossIndex].transform.position.z);
+
+            if (Physics.Raycast(crossPosWithYOffset, transform.TransformDirection(Vector3.down), out hit, 3f, combinedLayer)) //Si la croix est placée sur un élément de décor, une autre croix ou de la lave
+            {
+                i++; //Replace la croix à un autre endroit
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    //Used for all the maps, except the start zone ones
+    public void PlaceCamera(int _cameraIndex, int _crossIndex)
     {
         cameraList[_cameraIndex].GetComponent<Camera>().orthographicSize = cameraOrthographicSize;
 
-        //Take random section from sectionsList
-        randomSectionToPutSpecialChestOn = Random.Range(0, _sectionsList.Count);
- 
-
-        //Place the screenshot camera in a random X-Z position inside the floor gameobject box
-        cameraList[_cameraIndex].transform.position = new Vector3(Random.Range(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
-                                                                 (cameraList[_cameraIndex].transform.position.y + instantiationOffsetCameraHeight),
-                                                                  Random.Range(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
+        cameraList[_cameraIndex].transform.position = new Vector3(crossList[_crossIndex].transform.position.x,
+                                                                 (crossList[_crossIndex].transform.position.y + instantiationOffsetCameraHeight),
+                                                                  crossList[_crossIndex].transform.position.z);        
     }
 
-    public void PlaceCamera(int _cameraIndex)
-    {
-        cameraList[_cameraIndex].GetComponent<Camera>().orthographicSize = cameraOrthographicSize;        
-
-        //Place the screenshot camera in a random X-Z position inside the floor gameobject box
-        cameraList[_cameraIndex].transform.position = new Vector3(Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
-                                                                 (cameraList[_cameraIndex].transform.position.y + instantiationOffsetCameraHeight),
-                                                                  Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
-    }
-
-    public void PlaceCross(int _crossIndex, int _cameraIndex)
-    {
-        //Place a new cross under the random X-Z screenshot camera position
-        crossList[_crossIndex].transform.position = new Vector3(cameraList[_cameraIndex].transform.position.x, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + crossPlacementYOffset, cameraList[_cameraIndex].transform.position.z);
-    }
-
-
-    public IEnumerator TakeScreenshot(int _materialIndex, int _mapIndex, int _cameraIndex, int _crossIndex)
+    public IEnumerator TakeScreenshot(int _mapIndex, int _cameraIndex, int _crossIndex)
     {
         yield return new WaitForEndOfFrame();
 

@@ -7,7 +7,7 @@ public class MasterScript : MonoBehaviour
     public GameObject sectionStart;
     public List<GameObject> sectionsList = new List<GameObject>();
 
-    void Start()
+    void Awake()
     {
         StartCoroutine(GlobalEnvironmentInstantiation());
     }

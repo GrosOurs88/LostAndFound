@@ -69,12 +69,7 @@ public class SearchObjectScript : MonoBehaviour
             LayerMask layerMap = LayerMask.GetMask("Map");
             LayerMask layerChest = LayerMask.GetMask("Chest");
 
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerDefault))
-            {
-                return;
-            }
-
-            else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerMap) && isTakingSomething == false)
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerMap) && isTakingSomething == false)
             {
                 hit.collider.transform.parent = avatarHandMap;
                 hit.collider.transform.SetPositionAndRotation(avatarHandMap.position, avatarHandMap.rotation);
@@ -178,6 +173,11 @@ public class SearchObjectScript : MonoBehaviour
                             break;
                     }
                 }
+            }
+
+            else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerDefault))
+            {
+                return;
             }
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerFloor))
