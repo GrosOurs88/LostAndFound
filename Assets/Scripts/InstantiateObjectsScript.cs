@@ -9,15 +9,18 @@ public class InstantiateObjectsScript : MonoBehaviour
     public GameObject decorInstiatedFolder;
     public GameObject screenshotCamerasInstiatedFolder;
     public GameObject crossesInstiatedFolder;
+    public enum shapeType { Parallelepiped, Circle };
+    public shapeType shape;
+    public float circleShapeRadius;
+    public float yOffsetForInstantiationRaycast;
 
     [Header("Decor")]
     public int numberOfObjectsToInstantiate;
-   // public bool randomizeRotationX = false;
-    public bool randomizeRotationY = true;
-   // public bool randomizeRotationZ = false;
     public List<GameObject> objectsToInstantiate = new List<GameObject>();
     private GameObject nextObjectToInstantiate;
     private Vector3 nextObjectToInstanciatePosition;
+    public float yOffsetForDecorInstanciation;
+    public float decorInstanciationRaycastLength;
     private int x;
 
     [Header("Maps")]
@@ -32,8 +35,6 @@ public class InstantiateObjectsScript : MonoBehaviour
     private List<GameObject> cameraList = new List<GameObject>();
     public float cameraOrthographicSize = 5;
     public float instantiationOffsetCameraHeight = 50f;
-    private float instantiationOffsetCameraX; //automatically calculated relatively to the cameraOrthographicSize
-    private float instantiationOffsetCameraZ; //automatically calculated relatively to the cameraOrthographicSize
 
     [Header("Crosses")]
     public float crossPlacementYOffset;
@@ -50,11 +51,6 @@ public class InstantiateObjectsScript : MonoBehaviour
     public GameObject crossChestSpecial;
     public int numberOfCrossChestSpecial;
 
-    void Start()
-    {
-        instantiationOffsetCameraX = cameraOrthographicSize / 2; //automatically calculated relatively to the cameraOrthographicSize
-        instantiationOffsetCameraZ = cameraOrthographicSize / 2; //automatically calculated relatively to the cameraOrthographicSize
-    }   
 
     public void SetupEnvironment()
     {
@@ -89,29 +85,62 @@ public class InstantiateObjectsScript : MonoBehaviour
     public void InstantiateEnvironment()
     {
         //Remove previous objects if exists
-        foreach(Transform trans in decorInstiatedFolder.transform)
+        foreach (Transform trans in decorInstiatedFolder.transform)
         {
             Destroy(trans.gameObject);
         }
 
         //Loop for all the objects that have to be placed
-        for (int i = 0; i < numberOfObjectsToInstantiate; i++)
+        switch (shape)
         {
-            //Choose an object to instantiate randomly
-            x = Random.Range(0, objectsToInstantiate.Count-1);
-            nextObjectToInstantiate = objectsToInstantiate[x];
+            case shapeType.Parallelepiped:
+                for (int i = 0; i < numberOfObjectsToInstantiate; i++)
+                {
+                    //Choose an object to instantiate randomly
+                    x = Random.Range(0, objectsToInstantiate.Count - 1);
+                    nextObjectToInstantiate = objectsToInstantiate[x];
 
-            //Choose a random position to spawn the object
-            nextObjectToInstanciatePosition = new Vector3(Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x),
-                                                          floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y,
-                                                          Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z));
+                    //Choose a random position to spawn the object
+                    nextObjectToInstanciatePosition = new Vector3(Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x),
+                                                                  floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + yOffsetForInstantiationRaycast,
+                                                                  Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z));
 
-            //Instantiate the object and rotate it randomly
-            if (randomizeRotationY)
-            {
-                Instantiate(nextObjectToInstantiate, nextObjectToInstanciatePosition, Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f), decorInstiatedFolder.transform);
-            }
-        }
+                    RaycastHit hit;
+                    LayerMask layerFloor = LayerMask.GetMask("Floor");
+                    if (Physics.Raycast(nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), out hit, decorInstanciationRaycastLength, layerFloor)) //Si la croix est placée sur un élément de décor, une autre croix ou de la lave
+                    {
+                        Vector3 decorInstanciationNewPos = new Vector3(hit.point.x, hit.point.y - yOffsetForDecorInstanciation, hit.point.z);
+                        //Instantiate the object and rotate it randomly
+                        Instantiate(nextObjectToInstantiate, decorInstanciationNewPos, Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f), decorInstiatedFolder.transform);
+                    }
+                }
+                break;
+
+            case shapeType.Circle:
+                for (int i = 0; i < numberOfObjectsToInstantiate; i++)
+                {
+                    //Choose an object to instantiate randomly
+                    x = Random.Range(0, objectsToInstantiate.Count - 1);
+                    nextObjectToInstantiate = objectsToInstantiate[x];
+
+                    //Choose a random position to spawn the object
+                    Vector2 circlePos = Random.insideUnitCircle * circleShapeRadius;
+
+                    nextObjectToInstanciatePosition = new Vector3(floorToInstantiateObjectsInto.transform.position.x + circlePos.x,
+                                                                  floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + yOffsetForInstantiationRaycast,
+                                                                  floorToInstantiateObjectsInto.transform.position.z + circlePos.y); //y because circlePos is Vector2                    
+
+                    RaycastHit hit;
+                    LayerMask layerFloor = LayerMask.GetMask("Floor");
+                    if (Physics.Raycast(nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), out hit, decorInstanciationRaycastLength, layerFloor)) //Si la croix est placée sur un élément de décor, une autre croix ou de la lave
+                    {
+                        Vector3 decorInstanciationNewPos = new Vector3(hit.point.x, hit.point.y - yOffsetForDecorInstanciation, hit.point.z);
+                        //Instantiate the object and rotate it randomly
+                        Instantiate(nextObjectToInstantiate, decorInstanciationNewPos, Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f), decorInstiatedFolder.transform);
+                    }
+                }
+                break;
+        }       
     }
 
     private void CreateMapsList()
@@ -174,24 +203,60 @@ public class InstantiateObjectsScript : MonoBehaviour
         LayerMask layerCross = LayerMask.GetMask("Cross");
         LayerMask combinedLayer = layerLava | layerDefault | layerCross;
 
-        int i = 0;
-        while (i < crossPlacementMaxIterationNumber)
+        switch (shape)
         {
-            //Place the screenshot camera in a random X-Z position inside the floor gameobject box
-            crossList[_crossIndex].transform.position = new Vector3(Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
-                                                                    floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + crossPlacementYOffset,
-                                                                    Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
+            case shapeType.Parallelepiped:
+                {
+                    int i = 0;
+                    while (i < crossPlacementMaxIterationNumber)
+                    {
+                        //Place the screenshot camera in a random X-Z position inside the floor gameobject box
+                        crossList[_crossIndex].transform.position = new Vector3(Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x),
+                                                                                floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + crossPlacementYOffset,
+                                                                                Random.Range(floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z, floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z));
+                        
+                        //Create a specific position above the cross to instantiate a raycast
+                        Vector3 crossPosWithYOffset = new Vector3(crossList[_crossIndex].transform.position.x, crossList[_crossIndex].transform.position.y + 2f, crossList[_crossIndex].transform.position.z);
 
-            Vector3 crossPosWithYOffset = new Vector3(crossList[_crossIndex].transform.position.x, crossList[_crossIndex].transform.position.y + 2f, crossList[_crossIndex].transform.position.z); 
+                        if (Physics.Raycast(crossPosWithYOffset, transform.TransformDirection(Vector3.down), out hit, 3f, combinedLayer)) //Si la croix est placée sur un élément de décor, une autre croix ou de la lave
+                        {
+                            i++; //Replace la croix à un autre endroit
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
 
-            if (Physics.Raycast(crossPosWithYOffset, transform.TransformDirection(Vector3.down), out hit, 3f, combinedLayer)) //Si la croix est placée sur un élément de décor, une autre croix ou de la lave
-            {
-                i++; //Replace la croix à un autre endroit
-            }
-            else
-            {
+                }
                 break;
-            }
+
+            case shapeType.Circle:
+                {
+                    int i = 0;
+                    while (i < crossPlacementMaxIterationNumber)
+                    {
+                        //Place the screenshot camera in a random X-Z position inside the floor gameobject circle
+                        Vector2 circlePos = Random.insideUnitCircle * circleShapeRadius;
+
+                        crossList[_crossIndex].transform.position = new Vector3(floorToInstantiateObjectsInto.transform.position.x + circlePos.x,
+                                                                                floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + crossPlacementYOffset,
+                                                                                floorToInstantiateObjectsInto.transform.position.z + circlePos.y); //y because circlePos is Vector2
+
+                        //Create a specific position above the cross to instantiate a raycast
+                        Vector3 crossPosWithYOffset = new Vector3(crossList[_crossIndex].transform.position.x, crossList[_crossIndex].transform.position.y + 2f, crossList[_crossIndex].transform.position.z);
+
+                        if (Physics.Raycast(crossPosWithYOffset, transform.TransformDirection(Vector3.down), out hit, 3f, combinedLayer)) //Si la croix est placée sur un élément de décor, une autre croix ou de la lave
+                        {
+                            i++; //Replace la croix à un autre endroit
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+                break;
         }
     }
 
@@ -204,27 +269,58 @@ public class InstantiateObjectsScript : MonoBehaviour
         LayerMask layerDefault = LayerMask.GetMask("Default");
         LayerMask layerCross = LayerMask.GetMask("Cross");
         LayerMask combinedLayer = layerLava | layerDefault | layerCross;
-
+       
         int i = 0;
         while (i < crossPlacementMaxIterationNumber)
         {
             //Take random section from sectionsList
             randomSectionToPutSpecialChestOn = Random.Range(0, _sectionsList.Count);
 
-            //Place the screenshot camera in a random X-Z position inside the floor gameobject box
-            crossList[_crossIndex].transform.position = new Vector3(Random.Range(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x + instantiationOffsetCameraX, _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x - instantiationOffsetCameraX),
-                                                                    _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + crossPlacementYOffset,                                                                    
-                                                                    Random.Range(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z + instantiationOffsetCameraZ, _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z - instantiationOffsetCameraZ));
-            
-            Vector3 crossPosWithYOffset = new Vector3(crossList[_crossIndex].transform.position.x, crossList[_crossIndex].transform.position.y + 2f, crossList[_crossIndex].transform.position.z);
+            switch (_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().shape)
+            {
+                case shapeType.Parallelepiped:
+                    {
+                        //Place the screenshot camera in a random X-Z position inside the floor gameobject box
+                        crossList[_crossIndex].transform.position = new Vector3(Random.Range(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.x, _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.x),
+                                                                                _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + crossPlacementYOffset,
+                                                                                Random.Range(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.min.z, _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.z));
 
-            if (Physics.Raycast(crossPosWithYOffset, transform.TransformDirection(Vector3.down), out hit, 3f, combinedLayer)) //Si la croix est placée sur un élément de décor, une autre croix ou de la lave
-            {
-                i++; //Replace la croix à un autre endroit
-            }
-            else
-            {
-                break;
+                        //Create a specific position above the cross to instantiate a raycast
+                        Vector3 crossPosWithYOffset = new Vector3(crossList[_crossIndex].transform.position.x, crossList[_crossIndex].transform.position.y + 2f, crossList[_crossIndex].transform.position.z);
+
+                        if (Physics.Raycast(crossPosWithYOffset, transform.TransformDirection(Vector3.down), out hit, 3f, combinedLayer)) //Si la croix est placée sur un élément de décor, une autre croix ou de la lave
+                        {
+                            i++; //Replace la croix à un autre endroit
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    break;
+
+                case shapeType.Circle:
+                    {                        
+                        //Place the screenshot camera in a random X-Z position inside the floor gameobject circle
+                        Vector2 circlePos = Random.insideUnitCircle * circleShapeRadius;
+
+                        crossList[_crossIndex].transform.position = new Vector3(_sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.transform.position.x + circlePos.x,
+                                                                                _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + crossPlacementYOffset,
+                                                                                _sectionsList[randomSectionToPutSpecialChestOn].GetComponent<InstantiateObjectsScript>().floorToInstantiateObjectsInto.transform.position.z + circlePos.y); //y because circlePos is Vector2
+
+                        //Create a specific position above the cross to instantiate a raycast
+                        Vector3 crossPosWithYOffset = new Vector3(crossList[_crossIndex].transform.position.x, crossList[_crossIndex].transform.position.y + 2f, crossList[_crossIndex].transform.position.z);
+
+                        if (Physics.Raycast(crossPosWithYOffset, transform.TransformDirection(Vector3.down), out hit, 3f, combinedLayer)) //Si la croix est placée sur un élément de décor, une autre croix ou de la lave
+                        {
+                            i++; //Replace la croix à un autre endroit
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    break;
             }
         }
     }
