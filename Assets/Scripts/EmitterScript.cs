@@ -100,6 +100,8 @@ public class EmitterScript : MonoBehaviour
         receiverToActivate.GetComponent<ReceiverScript>().numberOfEmittersOn++;
         receiverToActivate.GetComponent<ReceiverScript>().UpdateDoorLevel();
 
+        objectOnEmitter.transform.parent = transform;
+
         objectOnEmitter.transform.GetComponent<Rigidbody>().isKinematic = true;
 
         objectOnEmitter.GetComponent<ChestScript>().canBeTaken = false;
