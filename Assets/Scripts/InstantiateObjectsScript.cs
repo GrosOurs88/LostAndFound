@@ -254,7 +254,6 @@ public class InstantiateObjectsScript : MonoBehaviour
     {
         circleShapeRadius = floorToInstantiateObjectsInto.transform.localScale.x / 2;
         numberOfTotalChestsToInstanciate = numberOfCrossChestCommon + numberOfCrossChestBig + numberOfCrossChestGiant + numberOfCrossChestRare + numberOfCrossChestSpecial;
-        screenshotCameraComponent = screenshotCameraPrefab.GetComponent<Camera>();
         layerCheckForObstacles = LayerMask.GetMask("Lava") | LayerMask.GetMask("Default") | LayerMask.GetMask("Cross");
         layerFloor = LayerMask.GetMask("Floor");
     }
@@ -290,6 +289,7 @@ public class InstantiateObjectsScript : MonoBehaviour
     public void InstanciateScreenshotCamera()
     {
         screenshotCamera = Instantiate(screenshotCameraPrefab, Vector3.zero, Quaternion.Euler(90.0f, Random.Range(0.0f, 360.0f), 0.0f), screenshotCamerasInstiatedFolder.transform);
+        screenshotCameraComponent = screenshotCamera.GetComponent<Camera>();
     }
 
     public void GetAllCrosses()
