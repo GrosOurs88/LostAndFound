@@ -29,9 +29,7 @@ public class SearchObjectScript : MonoBehaviour
     public bool isTakingSomething = false;
     private bool takenObjectIsAMap;
     private bool takenObjectIsAChest;
-  //  [HideInInspector]
     public bool canTheAvatarDig = true;
-  //  [HideInInspector]
     public bool canTheAvatarTake = true;
     private GameObject takenObject;
 
@@ -47,11 +45,7 @@ public class SearchObjectScript : MonoBehaviour
     public float giantChestWeight;
 
     MovementScript movementScript;
-
     public float holePlacementYOffset;
-    public float holeWinPlacementYOffset;
-
-    public float chestSpawnedYOffset;
 
     private void Start()
     {
@@ -110,24 +104,8 @@ public class SearchObjectScript : MonoBehaviour
                     {
                         hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().canAChestBePlaced = true;
                         hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfEmittersOn--;
-
-                        if (hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfEmittersOn == hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().emitters.Count - 1
-                            && hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().isItLockedWhenActivated == false)
-                        {
-                            switch (hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().type)
-                            {
-                                case ReceiverScript.Type.Door:
-                                    //hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().SwitchToClose();
-                                    break;
-                                case ReceiverScript.Type.Stairs:
-                                    break;
-                                default:
-                                    Debug.Log("NOTHING");
-                                    break;
-                            }
-                        }
                     }
-                }                
+                }
             }
 
             else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerCross))
@@ -136,37 +114,27 @@ public class SearchObjectScript : MonoBehaviour
                 {
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
 
-                    GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.Euler(90, 0, 0));
-                    newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + holeWinPlacementYOffset, newHole.transform.position.z);
+                    GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.LookRotation(hit.normal));
+                    newHole.transform.position += newHole.transform.TransformDirection(Vector3.forward) * holePlacementYOffset;
 
                     Destroy(hit.collider.gameObject); //Destroy cross
 
                     switch (hit.collider.GetComponent<CrossChestTypeScript>().type)
                     {
                         case CrossChestTypeScript.Type.Common:
-                            GameObject newChestCommon = Instantiate(chestCommon, hit.point, Quaternion.Euler(0, 0, 0));
-                            newChestCommon.GetComponent<Rigidbody>().isKinematic = true;
-                            newChestCommon.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                            SpawnChest(chestCommon, hit.point, -hit.normal);                            
                             break;
                         case CrossChestTypeScript.Type.Big:
-                            GameObject newChestBig = Instantiate(chestBig, hit.point, Quaternion.Euler(0, 0, 0));
-                            newChestBig.GetComponent<Rigidbody>().isKinematic = true;
-                            newChestBig.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                            SpawnChest(chestBig, hit.point, -hit.normal);
                             break;
                         case CrossChestTypeScript.Type.Giant:
-                            GameObject newChestGiant = Instantiate(chestGiant, hit.point, Quaternion.Euler(0, 0, 0));
-                            newChestGiant.GetComponent<Rigidbody>().isKinematic = true;
-                            newChestGiant.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                            SpawnChest(chestGiant, hit.point, -hit.normal);
                             break;
                         case CrossChestTypeScript.Type.Rare:
-                            GameObject newChestRare = Instantiate(chestRare, hit.point, Quaternion.Euler(0, 0, 0));
-                            newChestRare.GetComponent<Rigidbody>().isKinematic = true;
-                            newChestRare.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                            SpawnChest(chestRare, hit.point, -hit.normal);
                             break;
                         case CrossChestTypeScript.Type.Special:
-                            GameObject newChestSpecial = Instantiate(chestSpecial, hit.point, Quaternion.Euler(0, 0, 0));
-                            newChestSpecial.GetComponent<Rigidbody>().isKinematic = true;
-                            newChestSpecial.transform.position = new Vector3(hit.point.x, hit.point.y + chestSpawnedYOffset, hit.point.z);
+                            SpawnChest(chestSpecial, hit.point, -hit.normal);
                             break;
                         default:
                             Debug.Log("NOTHING");
@@ -186,8 +154,9 @@ public class SearchObjectScript : MonoBehaviour
                 {
                     movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
 
-                    GameObject newHole = Instantiate(hole, hit.point, Quaternion.Euler(90, 0, 0));
-                    newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + holePlacementYOffset, newHole.transform.position.z);
+                    GameObject newHole = Instantiate(hole, hit.point, Quaternion.LookRotation(hit.normal)); //instanciate hole with surface normal rotation
+
+                    newHole.transform.position += newHole.transform.TransformDirection(Vector3.forward) * holePlacementYOffset;
                 }
             }
 
@@ -223,6 +192,14 @@ public class SearchObjectScript : MonoBehaviour
         {
             LaunchTakenObject();
         }
+    }
+
+    public void SpawnChest (GameObject _chestType, Vector3 _rayPoint, Vector3 _rayNormal)
+    {
+        GameObject newChest = Instantiate(_chestType, _rayPoint, Quaternion.LookRotation(_rayNormal));
+        newChest.GetComponent<Rigidbody>().isKinematic = true;
+        newChest.transform.Rotate(Vector3.left, 90f);
+        newChest.transform.position -= newChest.transform.TransformDirection(Vector3.up) * (newChest.GetComponent<Collider>().bounds.extents.y);
     }
 
     public void LaunchTakenObject()

@@ -46,8 +46,6 @@ public class InstantiateObjectsScript : MonoBehaviour
     public Color color;
     public List<GameObject> mapObjectsToInstantiateList = new List<GameObject>();
     private int numberOfTotalChestsToInstanciate;
-    private int newMapObjectToInstanciateIndex;
-    private GameObject lastmapInstantiated;
     private List<GameObject> mapsList = new List<GameObject>();
 
     [Header("Cameras")]
@@ -57,7 +55,6 @@ public class InstantiateObjectsScript : MonoBehaviour
     public float cameraOrthographicSize = 5;
 
     [Header("Other")]
-    private float chestInstanciationRaycastLength = 35f; //Modify only if instanciation bugs
     private LayerMask layerCheckForObstacles;
     private LayerMask layerFloor;
 
@@ -120,7 +117,7 @@ public class InstantiateObjectsScript : MonoBehaviour
         }
     }
 
-    public void PlaceMaps(int _numberOfMaps)
+    public void PlaceMaps(int _numberOfMaps) //*****ADD PRINT WITH LAYER ENCOUNTERED
     {
         switch (shape)
         {
@@ -186,7 +183,7 @@ public class InstantiateObjectsScript : MonoBehaviour
         }
     }
 
-    public void PlaceCrosses(int _numberOfChest, GameObject _crossChest)
+    public void PlaceCrosses(int _numberOfChest, GameObject _crossChest) //*****ADD PRINT WITH LAYER ENCOUNTERED
     {
         switch (shape)
         {
@@ -210,8 +207,6 @@ public class InstantiateObjectsScript : MonoBehaviour
                             {
                                 //Check for floor to spawn the object
                                 FireRaycastAndInstantiateCross(layerFloor, _crossChest, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength, crossPlacementYOffset, crossesInstiatedFolder);
-                                ////Instanciate camera
-                                //InstanciateAndSetupCamera(nextObjectToInstanciatePosition);
                                 break;
                             }
                         }
@@ -239,8 +234,6 @@ public class InstantiateObjectsScript : MonoBehaviour
                             {
                                 //Check for floor to spawn the object
                                 FireRaycastAndInstantiateCross(layerFloor, _crossChest, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength, crossPlacementYOffset, crossesInstiatedFolder);
-                                ////Instanciate camera
-                                //InstanciateAndSetupCamera(nextObjectToInstanciatePosition);
                                 break;
                             }
                         }
@@ -327,7 +320,7 @@ public class InstantiateObjectsScript : MonoBehaviour
         if (Physics.Raycast(_nextObjectToInstanciatePosition, _transformDirection, out hit, _raycastLength, _layer))
         {
             Vector3 decorInstanciationNewPos = new Vector3(hit.point.x, hit.point.y - _yNegativeOffset, hit.point.z);
-            lastmapInstantiated = Instantiate(_nextObjectToInstantiate, decorInstanciationNewPos, Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f), _parent.transform); //Instantiate the object and rotate it randomly
+            Instantiate(_nextObjectToInstantiate, decorInstanciationNewPos, Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f), _parent.transform); //Instantiate the object and rotate it randomly
         }       
     }
 
@@ -337,7 +330,7 @@ public class InstantiateObjectsScript : MonoBehaviour
         if (Physics.Raycast(_nextObjectToInstanciatePosition, _transformDirection, out hit, _raycastLength, _layer))
         {
             Vector3 decorInstanciationNewPos = new Vector3(hit.point.x, hit.point.y + _yPositiveOffset, hit.point.z);
-            lastmapInstantiated = Instantiate(_nextObjectToInstantiate, decorInstanciationNewPos, Quaternion.Euler(90.0f, Random.Range(0.0f, 360.0f), 0.0f), _parent.transform); //Instantiate the object and rotate it randomly
+            Instantiate(_nextObjectToInstantiate, decorInstanciationNewPos, Quaternion.LookRotation(-hit.normal), _parent.transform); //Instantiate the object and rotate it randomly
         }
     }
 
