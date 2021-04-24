@@ -639,6 +639,7 @@ GameObject:
   - component: {fileID: 394873147}
   - component: {fileID: 394873148}
   - component: {fileID: 394873149}
+  - component: {fileID: 5441316757354490610}
   m_Layer: 0
   m_Name: AvatarCamera
   m_TagString: MainCamera
@@ -688,7 +689,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 200
+  far clip plane: 350
   field of view: 80
   orthographic: 0
   orthographic size: 5
@@ -842,8 +843,6 @@ MonoBehaviour:
   bigChestWeight: 3
   giantChestWeight: 10
   holePlacementYOffset: 0.015
-  holeWinPlacementYOffset: 0.02
-  chestSpawnedYOffset: -0.5
 --- !u!114 &394873149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,6 +865,23 @@ MonoBehaviour:
   isCursorVisible: 0
   inputMouseXAxis: 
   inputMouseYAxis: 
+--- !u!114 &5441316757354490610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3351590950211229214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6dc64064135244cbd17c0f0a1c3c5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pingPoint: {fileID: 145809977114009840, guid: 366a8ce0d53e1f348932990a96a5b181,
+    type: 3}
+  timeBeforePingPointScaleDown: 5
+  timePingPointScaleDown: 1
+  pingPointParent: {fileID: 0}
 --- !u!1 &3351590950770031184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,15 +1455,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0dfaf0497ab5334a99165f16b697e6e, type: 3}
---- !u!4 &3250498106381585449 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: a0dfaf0497ab5334a99165f16b697e6e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3250498106381457065}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3250498106381553673 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: a0dfaf0497ab5334a99165f16b697e6e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3250498106381457065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3250498106381585449 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: a0dfaf0497ab5334a99165f16b697e6e,
     type: 3}
   m_PrefabInstance: {fileID: 3250498106381457065}
   m_PrefabAsset: {fileID: 0}

@@ -219,6 +219,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 5441316757354490610, guid: 13cdc49a144f65746ac6950bfd1b1c88,
+        type: 3}
+      propertyPath: pingPoint
+      value: 
+      objectReference: {fileID: 538947208116797156, guid: b070bb9f5acedae46a5734a83ea009e3,
+        type: 3}
     - target: {fileID: 6225412580903665365, guid: 13cdc49a144f65746ac6950bfd1b1c88,
         type: 3}
       propertyPath: m_fontColor32.rgba

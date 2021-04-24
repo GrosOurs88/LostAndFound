@@ -2837,7 +2837,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7404779311500804527}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: -0.4}
   m_LocalScale: {x: 120, y: 0.1, z: 120}
   m_Children: []
   m_Father: {fileID: 2263780366663206613}
@@ -2914,7 +2914,7 @@ GameObject:
   - component: {fileID: 7404779311669588112}
   - component: {fileID: 7404779311669588113}
   m_Layer: 0
-  m_Name: Section_Parallelepiped_Circle_1
+  m_Name: Section_Parallelepiped_Ring_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2972,7 +2972,7 @@ MonoBehaviour:
   - {fileID: 2588306718839791764, guid: b07ae93eefa23ac4389961cadfb629f3, type: 3}
   - {fileID: 133420, guid: 42985cb6b1fec6248bddd7b24b713466, type: 3}
   - {fileID: 7526875415859945107, guid: 9b78f7824644074498e9b3a97703e153, type: 3}
-  decorPlacementMaxIterationNumber: 20
+  decorPlacementMaxIterationNumber: 10
   crossPlacementMaxIterationNumber: 5
   crossChestCommon: {fileID: 8426050581345966767, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
     type: 3}

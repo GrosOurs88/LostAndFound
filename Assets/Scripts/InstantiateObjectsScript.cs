@@ -55,26 +55,26 @@ public class InstantiateObjectsScript : MonoBehaviour
     public float cameraOrthographicSize = 5;
 
     [Header("Other")]
-    private LayerMask layerCheckForObstacles;
+    //private LayerMask layerCheckForObstacles;
     private LayerMask layerFloor;
 
     public void SetupEnvironment()
     {
-        SetupGlobalValues(); //WORKING NICELY
+        SetupGlobalValues();
 
-        InstantiateEnvironment(); //WORKING NICELY
+        InstantiateEnvironment();
 
-        PlaceMaps(numberOfTotalChestsToInstanciate); //WORKING NICELY
+        PlaceMaps(numberOfTotalChestsToInstanciate);
 
-        PlaceCrosses(numberOfCrossChestCommon, crossChestCommon); //WORKING NICELY
-        PlaceCrosses(numberOfCrossChestBig, crossChestBig); //WORKING NICELY
-        PlaceCrosses(numberOfCrossChestGiant, crossChestGiant); //WORKING NICELY
-        PlaceCrosses(numberOfCrossChestRare, crossChestRare); //WORKING NICELY
+        PlaceCrosses(numberOfCrossChestCommon, crossChestCommon);
+        PlaceCrosses(numberOfCrossChestBig, crossChestBig);
+        PlaceCrosses(numberOfCrossChestGiant, crossChestGiant);
+        PlaceCrosses(numberOfCrossChestRare, crossChestRare);
 
-        GetAllMaps(); //WORKING NICELY
-        GetAllCrosses(); //WORKING NICELY
+        GetAllMaps();
+        GetAllCrosses();
 
-        InstanciateScreenshotCamera(); //WORKING NICELY
+        InstanciateScreenshotCamera();
 
         for (int i = 0; i < numberOfTotalChestsToInstanciate; i++)
         {
@@ -134,17 +134,17 @@ public class InstantiateObjectsScript : MonoBehaviour
                             //Choose a random position to spawn the object
                             nextObjectToInstanciatePosition = GetRandomParallelepipedRaycastPosition(yOffsetForInstantiationRaycast);
 
-                            //Check for obstacles with a raycast
-                            if(CheckForObstaclesWithRaycast(layerCheckForObstacles, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength) == true)
+                            //Check for floor with a raycast
+                            if(CheckForObstaclesWithRaycast(layerFloor, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength) == true)
                             {
-                                x++; //Replace la map à un autre endroit
+                                //spawn the object on the floor
+                                FireRaycastAndInstantiateElement(layerFloor, nextObjectToInstantiate, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength, yOffsetForDecorInstanciation, mapsInstiatedFolder);
+                                break;
                             }
 
                             else 
                             {
-                                //Check for floor to spawn the object
-                                FireRaycastAndInstantiateElement(layerFloor, nextObjectToInstantiate, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength, yOffsetForDecorInstanciation, mapsInstiatedFolder);
-                                break;
+                                x++; //Replace the map to other location
                             }
                         }
                     }
@@ -164,17 +164,17 @@ public class InstantiateObjectsScript : MonoBehaviour
                             //Choose a random position to spawn the object
                             nextObjectToInstanciatePosition = GetRandomCircleRaycastPosition(yOffsetForInstantiationRaycast);
 
-                            //Check for obstacles with a raycast
-                            if (CheckForObstaclesWithRaycast(layerCheckForObstacles, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength) == true)
-                            {
-                                x++; //Replace la map à un autre endroit
-                            }
-
-                            else
+                            //Check for floor with a raycast
+                            if (CheckForObstaclesWithRaycast(layerFloor, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength) == true)
                             {
                                 //Check for floor to spawn the object
                                 FireRaycastAndInstantiateElement(layerFloor, nextObjectToInstantiate, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength, yOffsetForDecorInstanciation, mapsInstiatedFolder);
                                 break;
+                            }
+
+                            else
+                            {
+                                x++; //Replace the map to other location
                             }
                         }
                     }
@@ -198,16 +198,16 @@ public class InstantiateObjectsScript : MonoBehaviour
                             nextObjectToInstanciatePosition = GetRandomParallelepipedRaycastPosition(yOffsetForInstantiationRaycast);
 
                             //Check for obstacles with a raycast
-                            if (CheckForObstaclesWithRaycast(layerCheckForObstacles, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength) == true)
-                            {
-                                x++; //Replace la croix à un autre endroit
-                            }
-
-                            else
+                            if (CheckForObstaclesWithRaycast(layerFloor, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength) == true)
                             {
                                 //Check for floor to spawn the object
                                 FireRaycastAndInstantiateCross(layerFloor, _crossChest, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength, crossPlacementYOffset, crossesInstiatedFolder);
-                                break;
+                                break;                               
+                            }
+
+                            else
+                            {                                                               
+                                x++; //Replace the map to other location
                             }
                         }
                     }
@@ -225,16 +225,16 @@ public class InstantiateObjectsScript : MonoBehaviour
                             nextObjectToInstanciatePosition = GetRandomCircleRaycastPosition(yOffsetForInstantiationRaycast);
 
                             //Check for obstacles with a raycast
-                            if (CheckForObstaclesWithRaycast(layerCheckForObstacles, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength) == true)
-                            {
-                                x++; //Replace la croix à un autre endroit
-                            }
-
-                            else
+                            if (CheckForObstaclesWithRaycast(layerFloor, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength) == true)
                             {
                                 //Check for floor to spawn the object
                                 FireRaycastAndInstantiateCross(layerFloor, _crossChest, nextObjectToInstanciatePosition, transform.TransformDirection(Vector3.down), decorInstanciationRaycastLength, crossPlacementYOffset, crossesInstiatedFolder);
                                 break;
+                            }
+
+                            else
+                            {
+                                x++; //Replace the map to other location
                             }
                         }
                     }
@@ -247,7 +247,7 @@ public class InstantiateObjectsScript : MonoBehaviour
     {
         circleShapeRadius = floorToInstantiateObjectsInto.transform.localScale.x / 2;
         numberOfTotalChestsToInstanciate = numberOfCrossChestCommon + numberOfCrossChestBig + numberOfCrossChestGiant + numberOfCrossChestRare + numberOfCrossChestSpecial;
-        layerCheckForObstacles = LayerMask.GetMask("Lava") | LayerMask.GetMask("Default") | LayerMask.GetMask("Cross");
+       // layerCheckForObstacles = LayerMask.GetMask("Lava") | LayerMask.GetMask("Default") | LayerMask.GetMask("Cross");
         layerFloor = LayerMask.GetMask("Floor");
     }
 
@@ -272,11 +272,6 @@ public class InstantiateObjectsScript : MonoBehaviour
         return nextObjectToInstanciatePosition = new Vector3(floorToInstantiateObjectsInto.transform.position.x + circlePos.x,
                                                              floorToInstantiateObjectsInto.GetComponent<Collider>().bounds.max.y + _yOffsetForInstantiationRaycast,
                                                              floorToInstantiateObjectsInto.transform.position.z + circlePos.y); //y because circlePos is Vector2  
-    }
-
-    private GameObject InstantiateElement(GameObject _gO, Vector3 pos, Quaternion _quat, GameObject _parent)
-    {
-        return Instantiate(_gO, pos, _quat, _parent.transform);
     }
 
     public void InstanciateScreenshotCamera()
