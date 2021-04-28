@@ -20,7 +20,7 @@ PrefabInstance:
     - target: {fileID: 2476306706555744521, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_Name
-      value: sf_chest_Giant
+      value: Chest_Giant
       objectReference: {fileID: 0}
     - target: {fileID: 2534385446951723854, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
@@ -85,17 +85,17 @@ PrefabInstance:
     - target: {fileID: 7432961501595272219, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 7432961501595272219, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 7432961501595272219, guid: 33dcdfbc105b1a746932742af1eb3d20,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33dcdfbc105b1a746932742af1eb3d20, type: 3}
