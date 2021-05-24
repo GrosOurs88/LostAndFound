@@ -5,44 +5,44 @@ using TMPro;
 
 public class ChestCounterTriggerScript : MonoBehaviour
 {
-    // public int numberOfChests;
-    // public List<GameObject> chests = new List<GameObject>();
     public bool displayChestsNumber;
 
     public TextMeshProUGUI commonChestsText;
-    private int commonChestsNumber;
+    public int commonChestsNumber;
     public TextMeshProUGUI bigChestsText;
-    private int bigChestsNumber;
+    public int bigChestsNumber;
     public TextMeshProUGUI giantChestsText;
-    private int giantChestsNumber;
+    public int giantChestsNumber;
     public TextMeshProUGUI rareChestsText;
-    private int rareChestsNumber;
+    public int rareChestsNumber;
     public TextMeshProUGUI specialChestsText;
-    private int specialChestsNumber;
+    public int specialChestsNumber;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Chest"))
         {
-            //numberOfChests++;
-            //chests.Add(other.gameObject);
-
             switch (other.GetComponent<ChestScript>().type)
             {
                 case ChestScript.Type.Common:
-                    UpdateNumber(commonChestsText, commonChestsNumber, true);
+                    commonChestsNumber++;
+                    commonChestsText.text = commonChestsNumber.ToString();
                     break;
                 case ChestScript.Type.Big:
-                    UpdateNumber(bigChestsText, bigChestsNumber, true);
+                    bigChestsNumber++;
+                    bigChestsText.text = bigChestsNumber.ToString();
                     break;
                 case ChestScript.Type.Giant:
-                    UpdateNumber(giantChestsText, giantChestsNumber, true);
+                    giantChestsNumber++;
+                    giantChestsText.text = giantChestsNumber.ToString();
                     break;
                 case ChestScript.Type.Rare:
-                    UpdateNumber(rareChestsText, rareChestsNumber, true);
+                    rareChestsNumber++;
+                    rareChestsText.text = rareChestsNumber.ToString();
                     break;
                 case ChestScript.Type.Special:
-                    UpdateNumber(specialChestsText, specialChestsNumber, true);
+                    specialChestsNumber++;
+                    specialChestsText.text = specialChestsNumber.ToString();
                     break;
                 default:
                     Debug.Log("UNKNOWN CHEST TYPE");
@@ -55,40 +55,32 @@ public class ChestCounterTriggerScript : MonoBehaviour
     {
         if (other.CompareTag("Chest"))
         {
-            //numberOfChests --;
-            //chests.Remove(other.gameObject);
-
             switch (other.GetComponent<ChestScript>().type)
             {
                 case ChestScript.Type.Common:
-                    UpdateNumber(commonChestsText, commonChestsNumber, false);
+                    commonChestsNumber--;
+                    commonChestsText.text = commonChestsNumber.ToString();
                     break;
                 case ChestScript.Type.Big:
-                    UpdateNumber(bigChestsText, bigChestsNumber, false);
+                    bigChestsNumber--;
+                    bigChestsText.text = bigChestsNumber.ToString();
                     break;
                 case ChestScript.Type.Giant:
-                    UpdateNumber(giantChestsText, giantChestsNumber, false);
+                    giantChestsNumber--;
+                    giantChestsText.text = giantChestsNumber.ToString();
                     break;
                 case ChestScript.Type.Rare:
-                    UpdateNumber(rareChestsText, rareChestsNumber, false);
+                    rareChestsNumber--;
+                    rareChestsText.text = rareChestsNumber.ToString();
                     break;
                 case ChestScript.Type.Special:
-                    UpdateNumber(specialChestsText, specialChestsNumber, false);
+                    specialChestsNumber--;
+                    specialChestsText.text = specialChestsNumber.ToString();
                     break;
                 default:
                     Debug.Log("UNKNOWN CHEST TYPE");
                     break;
             }
         }
-    }
-
-    private void UpdateNumber(TextMeshProUGUI _text, int _number, bool _numberIncrease)
-    {
-        if (_numberIncrease)
-        { _number++; }
-        else
-        { _number--; }
-
-        _text.text = _number.ToString();
-    }
+    }    
 }

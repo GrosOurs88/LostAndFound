@@ -73,9 +73,9 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _MBAmplitude: 4
-    - _MBAmplitudeOffset: 3
+    - _MBAmplitudeOffset: 2
     - _MBDefaultBending: 0
-    - _MBFrequency: 1.11
+    - _MBFrequency: 1.1
     - _MBFrequencyOffset: 0.4
     - _MBMaxHeight: 11
     - _MBPhase: 1

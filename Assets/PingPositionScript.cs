@@ -7,7 +7,7 @@ public class PingPositionScript : MonoBehaviour
     public GameObject pingPoint;
     public float timeBeforePingPointScaleDown;
     public float timePingPointScaleDown;
-    public GameObject pingPointParent;
+  //  public GameObject pingPointParent;
     private LayerMask layerPingPoint;
     private Coroutine pingPointCoroutine = null;
     private GameObject playerPingPoint = null;
@@ -16,8 +16,8 @@ public class PingPositionScript : MonoBehaviour
     { 
         layerPingPoint = LayerMask.GetMask("Default") | LayerMask.GetMask("Floor") | LayerMask.GetMask("Map") | LayerMask.GetMask("Chest");
 
-        playerPingPoint = Instantiate(pingPoint, Vector3.zero, Quaternion.identity, pingPointParent.transform);
-        playerPingPoint.transform.localScale = Vector3.zero;
+      //  playerPingPoint = Instantiate(pingPoint, Vector3.zero, Quaternion.identity, pingPointParent.transform);
+      //  playerPingPoint.transform.localScale = Vector3.zero;
     }
 
     void Update()

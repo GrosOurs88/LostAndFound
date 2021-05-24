@@ -2992,20 +2992,11 @@ MonoBehaviour:
   shader: {fileID: 10761, guid: 0000000000000000f000000000000000, type: 0}
   color: {r: 1, g: 1, b: 1, a: 1}
   mapObjectsToInstantiateList:
-  - {fileID: 124032, guid: 82478d320245cb943b44f6d651022061, type: 3}
-  - {fileID: 8009776732067605668, guid: ef43808b6beced740ae9ade5a4022e82, type: 3}
-  - {fileID: 185962, guid: 1f0067825a159f6478e1c72551842295, type: 3}
-  - {fileID: 6587402330881258324, guid: 3c35493e3cf81db47b0af73b227af647, type: 3}
-  - {fileID: 145826, guid: 77363f784019fbf4fa5556de56a773b1, type: 3}
-  - {fileID: 5997196437828902616, guid: cb61584aa9fc06a40a70f4944111650a, type: 3}
-  - {fileID: 116276, guid: 459f97021e031204a826ee5383fd9938, type: 3}
-  - {fileID: 4398585002974463315, guid: 5a88ea46b31be8b4db38e3fa5e4aab0f, type: 3}
-  - {fileID: 136472, guid: edb5c4e35a8795c4fb153ffabd67f062, type: 3}
-  - {fileID: 5657447133584371065, guid: d5b52723926946646b35446eb515851e, type: 3}
-  - {fileID: 131104, guid: 317add2e3ab64a0478691ea7191db960, type: 3}
-  - {fileID: 3511039869961149993, guid: b6ceb62eb4a967040985ab6d939699f0, type: 3}
-  - {fileID: 133420, guid: a8bf915fd9c79b44a8d7225cee1be66a, type: 3}
-  - {fileID: 238607404436427988, guid: e61a4ed5405274c4ca120b91fa15dd99, type: 3}
+  - {fileID: 8672003455025440434, guid: e658a68b225837a488aa897cb8390ee3, type: 3}
+  - {fileID: 3133429536943949068, guid: c85c86545996ca5499edad28f3fc572f, type: 3}
+  - {fileID: 8758888183437167707, guid: 2c240d60b4a62ee4cba9f52e071c6ba1, type: 3}
+  - {fileID: 6759448882052246062, guid: 19ca7058b67a4db449cf9486fb4dce97, type: 3}
+  - {fileID: 2035405497521452412, guid: e3ffcbd25ea463e4b8876b18c59b7f07, type: 3}
   screenshotCameraPrefab: {fileID: 976070494492141539, guid: 6a7a044c4f336064a8cfe2cca7c0b5f3,
     type: 3}
   cameraOrthographicSize: 10
