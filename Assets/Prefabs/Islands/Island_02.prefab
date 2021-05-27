@@ -93,8 +93,8 @@ MonoBehaviour:
   - {fileID: 3637134996410867462, guid: 9c6178fe943216540b276b975dafae16, type: 3}
   - {fileID: 5707813131339405077, guid: b995a96a7ca36d04b851e46870b5aadf, type: 3}
   - {fileID: 1810836374240917309, guid: 962996e23ffcbc44d92fb20cd03940cd, type: 3}
-  decorPlacementMaxIterationNumber: 10
-  crossPlacementMaxIterationNumber: 5
+  decorPlacementMaxIterationNumber: 20
+  crossPlacementMaxIterationNumber: 20
   crossChestCommon: {fileID: 8426050581345966767, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
     type: 3}
   numberOfCrossChestCommon: 8
@@ -240,6 +240,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -264,6 +265,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &9170852694690382961
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2948,6 +2950,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2972,6 +2975,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &4251748533938394315
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3080,6 +3084,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3104,6 +3109,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &7422468670627681239
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3256,7 +3262,7 @@ GameObject:
   - component: {fileID: 7422468672386962923}
   - component: {fileID: 7422468672386962920}
   - component: {fileID: 7422468672386962921}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Skybox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3300,6 +3306,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3324,6 +3331,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7892917526601924658
 GameObject:
   m_ObjectHideFlags: 0
@@ -3380,6 +3388,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3404,6 +3413,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &7892917526601924656
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3473,6 +3483,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3497,6 +3508,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &7892917526686197922
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3616,6 +3628,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3640,6 +3653,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &7892917527595107807
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3710,6 +3724,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3734,6 +3749,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &7892917528203885486
 BoxCollider:
   m_ObjectHideFlags: 0

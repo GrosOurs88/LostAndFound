@@ -2,18 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchPlayerScript : MonoBehaviour
+public class SwitchPlayerWithCameraScript : MonoBehaviour
 {
     public List<GameObject> players = new List<GameObject>();
 
     int index = 0;
-
-    public static SwitchPlayerScript instance;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     void Start()
     {
@@ -37,18 +30,10 @@ public class SwitchPlayerScript : MonoBehaviour
     {
         foreach (GameObject gO in players)
         {
-            gO.transform.GetChild(0).gameObject.GetComponent<MovementScript>().canTheAvatarMove = false;
-            gO.transform.GetChild(0).gameObject.GetComponent<Camera>().enabled = false;
-            gO.transform.GetChild(1).gameObject.SetActive(false);
+            gO.GetComponent<PlayerMovementScript>().canTheAvatarMove = false;
         }
 
-        players[activatedPlayerIndex].gameObject.transform.GetChild(0).gameObject.GetComponent<MovementScript>().canTheAvatarMove = true;
-        players[activatedPlayerIndex].gameObject.transform.GetChild(0).gameObject.GetComponent<Camera>().enabled = true;
-
-        if(players[activatedPlayerIndex].gameObject.GetComponent<AvatarDeathScript>().isThePlayerDead == false)
-        {
-            players[activatedPlayerIndex].gameObject.transform.GetChild(1).gameObject.SetActive(true);
-        }
+        players[activatedPlayerIndex].gameObject.GetComponent<PlayerMovementScript>().canTheAvatarMove = true;
     }
 
     public void SwitchPreviousPlayer()

@@ -8,7 +8,7 @@ public class testScript : MonoBehaviour
     {
         if(collision.collider.CompareTag("Untagged"))
         {
-            transform.GetChild(0).GetComponent<MovementScript>().canTheAvatarMove = false;
+            transform.GetComponent<PlayerMovementScript>().canTheAvatarMove = false;
         }
     }
 
@@ -16,7 +16,7 @@ public class testScript : MonoBehaviour
     {
         if (collision.collider.CompareTag("Untagged"))
         {
-            transform.GetChild(0).GetComponent<MovementScript>().canTheAvatarMove = true;
+            transform.GetComponent<PlayerMovementScript>().canTheAvatarMove = true;
         }
     }
 }

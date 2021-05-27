@@ -2701,6 +2701,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2725,6 +2726,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &8166634231109838684
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2838,6 +2840,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2862,6 +2865,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &2872679732174239304
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2932,6 +2936,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2956,6 +2961,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &2872679732657031225
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3037,6 +3043,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3061,6 +3068,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &2872679733150260021
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3130,6 +3138,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3154,6 +3163,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &2872679733200909223
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3262,7 +3272,7 @@ GameObject:
   - component: {fileID: 3266639963111843452}
   - component: {fileID: 3266639963111843455}
   - component: {fileID: 3266639963111843454}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Skybox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3306,6 +3316,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3330,6 +3341,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3266639963764940867
 GameObject:
   m_ObjectHideFlags: 0
@@ -3386,10 +3398,11 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 541d89427b42b4040b80b215bdd9a767, type: 2}
+  - {fileID: 2100000, guid: 87a85ec3a83177443ba3c455594fad47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3410,6 +3423,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &3266639963764940864
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3633,6 +3647,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3657,6 +3672,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &3824085758566938598
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3764,8 +3780,8 @@ MonoBehaviour:
   - {fileID: 3637134996410867462, guid: 9c6178fe943216540b276b975dafae16, type: 3}
   - {fileID: 5707813131339405077, guid: b995a96a7ca36d04b851e46870b5aadf, type: 3}
   - {fileID: 1810836374240917309, guid: 962996e23ffcbc44d92fb20cd03940cd, type: 3}
-  decorPlacementMaxIterationNumber: 10
-  crossPlacementMaxIterationNumber: 5
+  decorPlacementMaxIterationNumber: 20
+  crossPlacementMaxIterationNumber: 20
   crossChestCommon: {fileID: 8426050581345966767, guid: 712ac05e421968b49ba9b86fc5f2e5e4,
     type: 3}
   numberOfCrossChestCommon: 8

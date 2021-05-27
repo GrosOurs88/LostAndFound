@@ -53,7 +53,7 @@ public class EscapeTriggerScript : MonoBehaviour
             foreach (GameObject gO in players)
             {
                 gO.transform.GetChild(1).gameObject.SetActive(false);
-                gO.transform.GetChild(0).GetComponent<MovementScript>().canTheAvatarMove = false;
+                gO.GetComponent<PlayerMovementScript>().canTheAvatarMove = false;
             }
 
             foreach(ParticleSystem pS in fXsBoatWater)

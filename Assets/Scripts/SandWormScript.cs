@@ -81,9 +81,9 @@ public class SandWormScript : MonoBehaviour
             Vector3 bumpVector = (collision.transform.position - transform.position);
             collision.gameObject.GetComponent<Rigidbody>().AddForce(bumpVector * playersbumpForce);
 
-            if(collision.gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().isTakingSomething)
+            if(collision.gameObject.GetComponent<PlayerSearchObjectScript>().isTakingSomething)
             {
-                collision.gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().LaunchTakenObject();
+                collision.gameObject.GetComponent<PlayerSearchObjectScript>().LaunchTakenObject();
             }
         }
 

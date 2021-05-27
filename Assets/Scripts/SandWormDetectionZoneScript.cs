@@ -10,6 +10,8 @@ public class SandWormDetectionZoneScript : MonoBehaviour
 
     public float minChestMagnitudeToHunt = 10f;
 
+    private GameObject objectTriggered;
+
     private void Awake()
     {
         sandWormScript = sandWorm.GetComponent<SandWormScript>();
@@ -17,20 +19,22 @@ public class SandWormDetectionZoneScript : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && other.gameObject.transform.GetChild(0).GetComponent<MovementScript>().isAvatarRunning == true)
+        objectTriggered = other.gameObject;
+
+        if (objectTriggered.CompareTag("Player") && objectTriggered.GetComponent<PlayerControllerScript>().speedMode == PlayerControllerScript.PlayerSpeed.Run)
         {
-            if (!CheckIfObjectAlreadyOnTheList(other.gameObject, sandWormScript.huntedElementsInTheDetectionZone))
+            if (!CheckIfObjectAlreadyOnTheList(objectTriggered, sandWormScript.huntedElementsInTheDetectionZone))
             {
-                sandWormScript.huntedElementsInTheDetectionZone.Add(other.gameObject);
+                sandWormScript.huntedElementsInTheDetectionZone.Add(objectTriggered);
                 CheckForSandWormActivation();
             }
         }
 
-        else if (other.gameObject.CompareTag("Chest") && other.gameObject.GetComponent<ChestScript>().isTaken == false && other.gameObject.GetComponent<Rigidbody>().velocity.magnitude > minChestMagnitudeToHunt)
+        else if (objectTriggered.CompareTag("Chest") && objectTriggered.GetComponent<ChestScript>().isTaken == false && objectTriggered.GetComponent<Rigidbody>().velocity.magnitude > minChestMagnitudeToHunt)
         {
-            if (!CheckIfObjectAlreadyOnTheList(other.gameObject, sandWormScript.huntedElementsInTheDetectionZone))
+            if (!CheckIfObjectAlreadyOnTheList(objectTriggered, sandWormScript.huntedElementsInTheDetectionZone))
             {
-                sandWormScript.huntedElementsInTheDetectionZone.Add(other.gameObject);
+                sandWormScript.huntedElementsInTheDetectionZone.Add(objectTriggered);
                 CheckForSandWormActivation();
             }
         }
@@ -43,18 +47,20 @@ public class SandWormDetectionZoneScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        objectTriggered = other.gameObject;
+
+        if (objectTriggered.CompareTag("Player"))
         {
-            sandWorm.GetComponent<SandWormScript>().huntedElementsInTheDetectionZone.Remove(other.gameObject);
+            sandWorm.GetComponent<SandWormScript>().huntedElementsInTheDetectionZone.Remove(objectTriggered);
 
             CheckForSandWormActivation();
         }
 
-        else if (other.gameObject.CompareTag("Chest"))
+        else if (objectTriggered.CompareTag("Chest"))
         {
-            if (CheckIfObjectAlreadyOnTheList(other.gameObject, sandWormScript.huntedElementsInTheDetectionZone))
+            if (CheckIfObjectAlreadyOnTheList(objectTriggered, sandWormScript.huntedElementsInTheDetectionZone))
             {
-                sandWorm.GetComponent<SandWormScript>().huntedElementsInTheDetectionZone.Remove(other.gameObject);
+                sandWorm.GetComponent<SandWormScript>().huntedElementsInTheDetectionZone.Remove(objectTriggered);
                 CheckForSandWormActivation();
             }
         }

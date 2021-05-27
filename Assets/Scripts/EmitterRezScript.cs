@@ -23,7 +23,7 @@ public class EmitterRezScript : MonoBehaviour
         {
             antiAvatarCollision.SetActive(false);
             resurectionParticleSystem.Stop();
-            other.gameObject.GetComponent<AvatarDeathScript>().TurnAvatarAlive();
+            other.gameObject.GetComponent<PlayerDeathScript>().TurnAvatarAlive();
         }
     }
 }

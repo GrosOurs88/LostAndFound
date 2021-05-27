@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-public class AvatarDeathScript : MonoBehaviour
+public class PlayerDeathScript : MonoBehaviour
 {
     public bool isThePlayerDead = false;
     public ParticleSystem turnAliveParticleSystem;
@@ -20,8 +20,14 @@ public class AvatarDeathScript : MonoBehaviour
 
     public bool canTurnDead = false;
 
+    private PlayerSearchObjectScript playerSearchObjectScript;
+    private PlayerMovementScript playerMovementScript;
+
     private void Start()
     {
+        playerSearchObjectScript = GetComponent<PlayerSearchObjectScript>();
+        playerMovementScript = GetComponent<PlayerMovementScript>();
+
         layerPostProcessDeath = LayerMask.GetMask("PostProcessingDeath");
         layerPostProcess = LayerMask.GetMask("PostProcessing");
 
@@ -47,17 +53,16 @@ public class AvatarDeathScript : MonoBehaviour
     {
         isThePlayerDead = true;
 
-        if (gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().isTakingSomething)
+        if (playerSearchObjectScript.isTakingSomething)
         {
-            gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().LaunchTakenObject();
+            playerSearchObjectScript.LaunchTakenObject();
         }
 
-        gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().canTheAvatarTake = false;
-        gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().canTheAvatarDig = false;
+        playerSearchObjectScript.canTheAvatarTake = false;
+        playerSearchObjectScript.canTheAvatarDig = false;
         gameObject.transform.GetChild(0).GetComponent<PostProcessLayer>().volumeLayer = layerPostProcessDeath;
 
         gameObject.transform.GetChild(1).gameObject.SetActive(false);
-        gameObject.transform.GetChild(0).GetComponent<MovementScript>().canTheAvatarRun = false;
 
         gameObject.GetComponent<Renderer>().material = avatarMaterialDead;
         gameObject.layer = LayerMask.NameToLayer("PlayerDead");
@@ -75,12 +80,11 @@ public class AvatarDeathScript : MonoBehaviour
 
         Instantiate(turnAliveParticleSystem, transform.position, Quaternion.identity);
 
-        gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().canTheAvatarTake = true;
-        gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().canTheAvatarDig = true;
+        playerSearchObjectScript.canTheAvatarTake = true;
+        playerSearchObjectScript.canTheAvatarDig = true;
         gameObject.transform.GetChild(0).GetComponent<PostProcessLayer>().volumeLayer = layerPostProcess;
 
         gameObject.transform.GetChild(1).gameObject.SetActive(true);
-        gameObject.transform.GetChild(0).GetComponent<MovementScript>().canTheAvatarRun = true;
 
         gameObject.GetComponent<Renderer>().material = avatarNormalMaterial;
         gameObject.layer = LayerMask.NameToLayer("Player");
