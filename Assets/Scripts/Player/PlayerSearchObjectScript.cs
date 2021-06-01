@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+
 public class PlayerSearchObjectScript : MonoBehaviour
 {
     public float raycastLength;
@@ -42,6 +43,12 @@ public class PlayerSearchObjectScript : MonoBehaviour
 
     public float holePlacementYOffset;
 
+    [SerializeField]
+    private Camera cam;
+
+    [SerializeField]
+    public LayerMask layerDefault, layerCross, layerFloor, layerMap, layerChest;
+
     private PlayerMovementScript playerMovementScript;
 
     private void Start()
@@ -52,138 +59,133 @@ public class PlayerSearchObjectScript : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && playerMovementScript.canTheAvatarMove && canTheAvatarDig)
-            {
-                RaycastHit hit;
-                LayerMask layerDefault = LayerMask.GetMask("Default");
-                LayerMask layerCross = LayerMask.GetMask("Cross");
-                LayerMask layerFloor = LayerMask.GetMask("Floor");
-                LayerMask layerMap = LayerMask.GetMask("Map");
-                LayerMask layerChest = LayerMask.GetMask("Chest");
+        {
+            RaycastHit hit;
 
-                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerMap) && isTakingSomething == false)
+            if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerMap) && isTakingSomething == false)
+            {
+                hit.collider.transform.parent = avatarHandMap;
+                hit.collider.transform.SetPositionAndRotation(avatarHandMap.position, avatarHandMap.rotation);
+                hit.collider.GetComponent<Rigidbody>().isKinematic = true;
+                isTakingSomething = true;
+                takenObjectIsAMap = true;
+                takenObject = hit.collider.gameObject;
+            }
+
+            else if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerChest) && isTakingSomething == false)
+            {
+                if (hit.collider.transform.GetComponent<ChestScript>().canBeTaken)
                 {
-                    hit.collider.transform.parent = avatarHandMap;
-                    hit.collider.transform.SetPositionAndRotation(avatarHandMap.position, avatarHandMap.rotation);
+                    if (hit.collider.GetComponent<Rigidbody>().mass == smallChestWeight)
+                    {
+                        hit.collider.transform.parent = avatarHandSmallChest;
+                        hit.collider.transform.SetPositionAndRotation(avatarHandSmallChest.position, avatarHandSmallChest.rotation);
+                    }
+                    else if (hit.collider.GetComponent<Rigidbody>().mass == bigChestWeight)
+                    {
+                        hit.collider.transform.parent = avatarHandBigChest;
+                        hit.collider.transform.SetPositionAndRotation(avatarHandBigChest.position, avatarHandBigChest.rotation);
+                    }
+                    else if (hit.collider.GetComponent<Rigidbody>().mass == giantChestWeight)
+                    {
+                        hit.collider.transform.parent = avatarHandGiantChest;
+                        hit.collider.transform.SetPositionAndRotation(avatarHandGiantChest.position, avatarHandGiantChest.rotation);
+                    }
+
                     hit.collider.GetComponent<Rigidbody>().isKinematic = true;
+
                     isTakingSomething = true;
-                    takenObjectIsAMap = true;
+                    takenObjectIsAChest = true;
                     takenObject = hit.collider.gameObject;
-                }
+                    hit.collider.GetComponent<ChestScript>().isTaken = true;
 
-                else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerChest) && isTakingSomething == false)
-                {
-                    if (hit.collider.transform.GetComponent<ChestScript>().canBeTaken)
+                    if (hit.collider.GetComponent<ChestScript>().emitterLinked != null)
                     {
-                        if (hit.collider.GetComponent<Rigidbody>().mass == smallChestWeight)
-                        {
-                            hit.collider.transform.parent = avatarHandSmallChest;
-                            hit.collider.transform.SetPositionAndRotation(avatarHandSmallChest.position, avatarHandSmallChest.rotation);
-                        }
-                        else if (hit.collider.GetComponent<Rigidbody>().mass == bigChestWeight)
-                        {
-                            hit.collider.transform.parent = avatarHandBigChest;
-                            hit.collider.transform.SetPositionAndRotation(avatarHandBigChest.position, avatarHandBigChest.rotation);
-                        }
-                        else if (hit.collider.GetComponent<Rigidbody>().mass == giantChestWeight)
-                        {
-                            hit.collider.transform.parent = avatarHandGiantChest;
-                            hit.collider.transform.SetPositionAndRotation(avatarHandGiantChest.position, avatarHandGiantChest.rotation);
-                        }
-
-                        hit.collider.GetComponent<Rigidbody>().isKinematic = true;
-
-                        isTakingSomething = true;
-                        takenObjectIsAChest = true;
-                        takenObject = hit.collider.gameObject;
-                        hit.collider.GetComponent<ChestScript>().isTaken = true;
-
-                        if (hit.collider.GetComponent<ChestScript>().emitterLinked != null)
-                        {
-                            hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().canAChestBePlaced = true;
-                            hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfEmittersOn--;
-                        }
+                        hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().canAChestBePlaced = true;
+                        hit.collider.GetComponent<ChestScript>().emitterLinked.gameObject.GetComponent<EmitterScript>().receiverToActivate.GetComponent<ReceiverScript>().numberOfEmittersOn--;
                     }
-                }
-
-                else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerCross))
-                {
-                    if (playerMovementScript.staminaBarImage.fillAmount >= digStaminaDecreaseValueAmount)
-                    {
-                        playerMovementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
-
-                        GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.LookRotation(hit.normal));
-                        newHole.transform.position += newHole.transform.TransformDirection(Vector3.forward) * holePlacementYOffset;
-
-                        Destroy(hit.collider.gameObject); //Destroy cross
-
-                        switch (hit.collider.GetComponent<CrossChestTypeScript>().type)
-                        {
-                            case CrossChestTypeScript.Type.Common:
-                                SpawnChest(chestCommon, hit.point, -hit.normal);
-                                break;
-                            case CrossChestTypeScript.Type.Big:
-                                SpawnChest(chestBig, hit.point, -hit.normal);
-                                break;
-                            case CrossChestTypeScript.Type.Giant:
-                                SpawnChest(chestGiant, hit.point, -hit.normal);
-                                break;
-                            case CrossChestTypeScript.Type.Rare:
-                                SpawnChest(chestRare, hit.point, -hit.normal);
-                                break;
-                            case CrossChestTypeScript.Type.Special:
-                                SpawnChest(chestSpecial, hit.point, -hit.normal);
-                                break;
-                            default:
-                                Debug.Log("NOTHING");
-                                break;
-                        }
-                    }
-                }
-
-                else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerDefault))
-                {
-                    return;
-                }
-
-                else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerFloor))
-                {
-                    if (playerMovementScript.staminaBarImage.fillAmount >= digStaminaDecreaseValueAmount)
-                    {
-                        playerMovementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
-
-                        GameObject newHole = Instantiate(hole, hit.point, Quaternion.LookRotation(hit.normal)); //instanciate hole with surface normal rotation
-
-                        newHole.transform.position += newHole.transform.TransformDirection(Vector3.forward) * holePlacementYOffset;
-                    }
-                }
-
-                else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength))
-                {
-                    print("NEW : " + hit.collider.gameObject.name);
-                    print("NEWLAYER : " + hit.collider.gameObject.layer);
                 }
             }
 
-            if (Input.GetMouseButtonDown(1) && isTakingSomething && playerMovementScript.canTheAvatarMove && canTheAvatarTake)
+            else if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerCross))
             {
-                PanelLaunchObjectForce.gameObject.SetActive(true);
-                launchObjectBar.fillAmount = 0f;
-                launchObjectForce = minLaunchObjectForce;
+                if (playerMovementScript.staminaBarImage.fillAmount >= digStaminaDecreaseValueAmount)
+                {
+                    playerMovementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
+
+                    GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.LookRotation(hit.normal));
+                    newHole.transform.position += newHole.transform.TransformDirection(Vector3.forward) * holePlacementYOffset;
+
+                    Destroy(hit.collider.gameObject); //Destroy cross
+
+                    switch (hit.collider.GetComponent<CrossChestTypeScript>().type)
+                    {
+                        case CrossChestTypeScript.Type.Common:
+                            SpawnChest(chestCommon, hit.point, -hit.normal);
+                            break;
+                        case CrossChestTypeScript.Type.Big:
+                            SpawnChest(chestBig, hit.point, -hit.normal);
+                            break;
+                        case CrossChestTypeScript.Type.Giant:
+                            SpawnChest(chestGiant, hit.point, -hit.normal);
+                            break;
+                        case CrossChestTypeScript.Type.Rare:
+                            SpawnChest(chestRare, hit.point, -hit.normal);
+                            break;
+                        case CrossChestTypeScript.Type.Special:
+                            SpawnChest(chestSpecial, hit.point, -hit.normal);
+                            break;
+                        default:
+                            Debug.Log("NOTHING");
+                            break;
+                    }
+                }
             }
 
-            if (Input.GetMouseButton(1) && isTakingSomething && playerMovementScript.canTheAvatarMove && canTheAvatarTake)
+            else if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerDefault))
             {
-                if (launchObjectForce < maxLaunchObjectForce)
-                {
-                    launchObjectForce += launchObjectIncreaseValueAmount * Time.deltaTime;
-                }
-                if (launchObjectForce > maxLaunchObjectForce)
-                {
-                    launchObjectForce = maxLaunchObjectForce;
-                }
-
-                launchObjectBar.fillAmount = (launchObjectForce / maxLaunchObjectForce);
+                return;
             }
+
+            else if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, raycastLength, layerFloor))
+            {
+                if (playerMovementScript.staminaBarImage.fillAmount >= digStaminaDecreaseValueAmount)
+                {
+                    playerMovementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
+
+                    GameObject newHole = Instantiate(hole, hit.point, Quaternion.LookRotation(hit.normal)); //instanciate hole with surface normal rotation
+
+                    newHole.transform.position += newHole.transform.TransformDirection(Vector3.forward) * holePlacementYOffset;
+                }
+            }
+
+            else if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, raycastLength))
+            {
+                print("NEW : " + hit.collider.gameObject.name);
+                print("NEWLAYER : " + hit.collider.gameObject.layer);
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1) && isTakingSomething && playerMovementScript.canTheAvatarMove && canTheAvatarTake)
+        {
+            PanelLaunchObjectForce.gameObject.SetActive(true);
+            launchObjectBar.fillAmount = 0f;
+            launchObjectForce = minLaunchObjectForce;
+        }
+
+        if (Input.GetMouseButton(1) && isTakingSomething && playerMovementScript.canTheAvatarMove && canTheAvatarTake)
+        {
+            if (launchObjectForce < maxLaunchObjectForce)
+            {
+                launchObjectForce += launchObjectIncreaseValueAmount * Time.deltaTime;
+            }
+            if (launchObjectForce > maxLaunchObjectForce)
+            {
+                launchObjectForce = maxLaunchObjectForce;
+            }
+
+            launchObjectBar.fillAmount = (launchObjectForce / maxLaunchObjectForce);
+        }
 
         if (Input.GetMouseButtonUp(1) && isTakingSomething && playerMovementScript.canTheAvatarMove)
         {

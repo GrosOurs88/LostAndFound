@@ -58,17 +58,17 @@ public class PlayerMovementScript : MonoBehaviour
         IncreaseStaminaBar();
     }
 
-    public void Move(Vector3 _velocity)
+    public void Move(Vector3 _velocity) //Stocke la valeur de velocite de l'avatar
     {
         velocity = _velocity;
     }
 
-    public void Rotate(Vector3 _rotation)
+    public void Rotate(Vector3 _rotation) //Stocke la valeur de rotation de l'avatar
     {
         rotation = _rotation;
     }
 
-    private void PerformMovement()
+    private void PerformMovement() //Fais rotater l'avatar s'il a une velocité
     {
         if (velocity != Vector3.zero)
         {
@@ -76,17 +76,17 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
-    private void PerformRotation()
+    private void PerformRotation() //Bouge le rigidbody
     {
         rb.MoveRotation(rb.rotation * Quaternion.Euler(rotation));
     }
 
-    public void IncreaseStaminaBar()
+    public void IncreaseStaminaBar() //Augmente la barre de stamina
     {
         staminaBarImage.fillAmount += staminaIncreaseValueAmount * Time.deltaTime;
     }
 
-    public void DecreaseStaminaBar()
+    public void DecreaseStaminaBar() //Réduit la barre de stamina
     {
         staminaBarImage.fillAmount -= runStaminaDecreaseValueAmount * Time.deltaTime;
     }

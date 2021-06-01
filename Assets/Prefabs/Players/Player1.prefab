@@ -922,15 +922,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7277814ad32f2824ea591b1c75a358f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivityX: 5
-  mouseSensitivityY: 5
-  minimumX: -360
-  maximumX: 360
-  minimumY: -60
-  maximumY: 80
-  isCursorVisible: 1
-  inputMouseXAxis: 
-  inputMouseYAxis: 
+  mouseSensitivityX: 10
+  mouseSensitivityY: 8
+  cameraRotationLimit: 85
+  isCursorVisible: 0
   cam: {fileID: 3351590950211229214}
 --- !u!114 &8865238241637672985
 MonoBehaviour:
@@ -975,6 +970,22 @@ MonoBehaviour:
   bigChestWeight: 3
   giantChestWeight: 10
   holePlacementYOffset: 0.015
+  cam: {fileID: 3351590950211229212}
+  layerDefault:
+    serializedVersion: 2
+    m_Bits: 1
+  layerCross:
+    serializedVersion: 2
+    m_Bits: 256
+  layerFloor:
+    serializedVersion: 2
+    m_Bits: 512
+  layerMap:
+    serializedVersion: 2
+    m_Bits: 1024
+  layerChest:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!114 &4258331006731821315
 MonoBehaviour:
   m_ObjectHideFlags: 0
