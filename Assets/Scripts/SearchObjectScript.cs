@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class SearchObjectScript : MonoBehaviour
 {
+    public string inputTakeAndLaunchObject;
+
     public float raycastLength;
 
     public GameObject hole;
@@ -29,10 +31,12 @@ public class SearchObjectScript : MonoBehaviour
     public bool isTakingSomething = false;
     private bool takenObjectIsAMap;
     private bool takenObjectIsAChest;
-  //  [HideInInspector]
+    // [HideInInspector]
     public bool canTheAvatarDig = true;
-  //  [HideInInspector]
+    public bool isTheAvatarDigging = false;
+    // [HideInInspector]
     public bool canTheAvatarTake = true;
+    public bool isTheAvatarTaking = false;
     private GameObject takenObject;
 
     public float launchObjectForce;
@@ -60,8 +64,10 @@ public class SearchObjectScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarDig)
+        if (Input.GetAxis(inputTakeAndLaunchObject) == 1 && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarDig && isTheAvatarDigging == false)
         {
+            isTheAvatarDigging = true;
+
             RaycastHit hit;
             LayerMask layerDefault = LayerMask.GetMask("Default");
             LayerMask layerCross = LayerMask.GetMask("Cross");
@@ -75,6 +81,8 @@ public class SearchObjectScript : MonoBehaviour
                 hit.collider.transform.SetPositionAndRotation(avatarHandMap.position, avatarHandMap.rotation);
                 hit.collider.GetComponent<Rigidbody>().isKinematic = true;
                 isTakingSomething = true;
+                canTheAvatarTake = false;
+                canTheAvatarDig = false;
                 takenObjectIsAMap = true;
                 takenObject = hit.collider.gameObject;
             }
@@ -102,6 +110,8 @@ public class SearchObjectScript : MonoBehaviour
                     hit.collider.GetComponent<Rigidbody>().isKinematic = true;
 
                     isTakingSomething = true;
+                    canTheAvatarTake = false;
+                    canTheAvatarDig = false;
                     takenObjectIsAChest = true;
                     takenObject = hit.collider.gameObject;
                     hit.collider.GetComponent<ChestScript>().isTaken = true;
@@ -198,14 +208,21 @@ public class SearchObjectScript : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarTake)
+        if (Input.GetAxis(inputTakeAndLaunchObject) == 0)
         {
+            isTheAvatarDigging = false;
+        }
+
+        if (Input.GetAxis(inputTakeAndLaunchObject) == 1 && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarTake == false && isTheAvatarTaking == false)
+        {
+            isTheAvatarTaking = true;
+            canTheAvatarDig = false;
             PanelLaunchObjectForce.gameObject.SetActive(true);
             launchObjectBar.fillAmount = 0f;
             launchObjectForce = minLaunchObjectForce;
         }
 
-        if (Input.GetMouseButton(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarTake)
+        if (Input.GetAxis(inputTakeAndLaunchObject) == 1 && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove && canTheAvatarTake == false)
         {
             if (launchObjectForce < maxLaunchObjectForce)
             {
@@ -219,7 +236,7 @@ public class SearchObjectScript : MonoBehaviour
             launchObjectBar.fillAmount = (launchObjectForce / maxLaunchObjectForce);
         }
 
-        if (Input.GetMouseButtonUp(1) && isTakingSomething && GetComponent<MovementScript>().canTheAvatarMove)
+        if (Input.GetAxis(inputTakeAndLaunchObject) == 0 && isTheAvatarTaking == true)
         {
             LaunchTakenObject();
         }
@@ -247,5 +264,7 @@ public class SearchObjectScript : MonoBehaviour
         }
 
         PanelLaunchObjectForce.gameObject.SetActive(false);
+        isTheAvatarTaking = false;
+        canTheAvatarDig = true;
     }
 }

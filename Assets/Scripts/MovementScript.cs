@@ -17,6 +17,7 @@ public class MovementScript : MonoBehaviour
 
     public string inputHorizontalAxis;
     public string inputVerticalAxis;
+    public string inputRun;
 
     private float staminaValue;
     public float staminaMaxValue;
@@ -35,9 +36,6 @@ public class MovementScript : MonoBehaviour
     public void Awake()
     {
         avatar = transform.parent.gameObject;
-
-        //transform.parent.transform.position = avatarStartPositionAndRotation.transform.position; //Replace avatar at the specific transform in the editor
-        //transform.parent.transform.rotation = avatarStartPositionAndRotation.transform.rotation; //Reoriente avatar at the specific transform in the editor
     }
 
     private void Start()
@@ -86,12 +84,14 @@ public class MovementScript : MonoBehaviour
     void Update()
     {
         if (canTheAvatarMove && canTheAvatarRun)
-        {      
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            // if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetAxis(inputRun) > 0)               
             {
                 isAvatarRunning = true;
             }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            // if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetAxis(inputRun) == 0)
             {
                 isAvatarRunning = false;
             }
