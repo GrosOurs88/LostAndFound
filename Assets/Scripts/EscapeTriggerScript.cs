@@ -5,11 +5,12 @@ using TMPro;
 
 public class EscapeTriggerScript : MonoBehaviour
 {
+    public string inputExit;
+
     public bool canEscape;
-    public int numberOfPlayersInTheBoatEscapeZone = 0;
     public List<GameObject> playersInTheBoat = new List<GameObject>();
     public List<ParticleSystem> fXsBoatWater = new List<ParticleSystem>();
-    private List<GameObject> players = new List<GameObject>();
+    public List<GameObject> players = new List<GameObject>();
     public Canvas escapeCanvas;
     public Canvas scoreCanvas;
     public TextMeshProUGUI commonChestNumber;
@@ -35,12 +36,7 @@ public class EscapeTriggerScript : MonoBehaviour
     }
 
     private void Start()
-    {
-        foreach (GameObject gO in SwitchPlayerScript.instance.players)
-        {
-            players.Add(gO);
-        }
-
+    {     
         escapeCamera.enabled = false;
         escapeCanvas.enabled = false;
         scoreCanvas.enabled = false;
@@ -48,7 +44,7 @@ public class EscapeTriggerScript : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.KeypadEnter) && canEscape == true)
+        if(Input.GetButtonDown(inputExit) && canEscape == true)
         {
             foreach (GameObject gO in players)
             {
@@ -130,10 +126,10 @@ public class EscapeTriggerScript : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            numberOfPlayersInTheBoatEscapeZone++;
             playersInTheBoat.Add(other.gameObject);
-            escapeCanvas.enabled = true;
-            canEscape = true;
+            players.Add(other.gameObject);
+
+            CheckPlayersCount();
         }
     }
 
@@ -141,18 +137,25 @@ public class EscapeTriggerScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            numberOfPlayersInTheBoatEscapeZone--;
             playersInTheBoat.Remove(other.gameObject);
+            players.Remove(other.gameObject);
 
-            if (numberOfPlayersInTheBoatEscapeZone == 0)
-            {
-                escapeCanvas.enabled = false;
-                canEscape = false;
-            }
-            else
-            {
-                return;
-            }            
+            CheckPlayersCount();
+        }
+    }
+
+    public void CheckPlayersCount()
+    {
+        if (playersInTheBoat.Count == Input.GetJoystickNames().Length)
+        {
+            canEscape = true;
+            escapeCanvas.enabled = true;
+        }
+
+        else if (players.Count < Input.GetJoystickNames().Length)
+        {
+            canEscape = false;
+            escapeCanvas.enabled = false;
         }
     }
 }

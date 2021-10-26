@@ -116,11 +116,19 @@ PrefabInstance:
       propertyPath: inputVerticalAxis
       value: VerticalJ3
       objectReference: {fileID: 0}
+    - target: {fileID: 394873147, guid: e9d2f30a01207c240a6d0bf4d8e68792, type: 3}
+      propertyPath: inputRun
+      value: RunJ3
+      objectReference: {fileID: 0}
     - target: {fileID: 394873148, guid: e9d2f30a01207c240a6d0bf4d8e68792, type: 3}
       propertyPath: hole
       value: 
       objectReference: {fileID: 2936971265122613430, guid: 9171e74fe11edf84e86861378c87afc4,
         type: 3}
+    - target: {fileID: 394873148, guid: e9d2f30a01207c240a6d0bf4d8e68792, type: 3}
+      propertyPath: inputTakeAndLaunchObject
+      value: TakeAndLaunchJ3
+      objectReference: {fileID: 0}
     - target: {fileID: 394873149, guid: e9d2f30a01207c240a6d0bf4d8e68792, type: 3}
       propertyPath: inputMouseYAxis
       value: VerticalCameraJ3

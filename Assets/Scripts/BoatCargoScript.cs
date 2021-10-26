@@ -24,8 +24,10 @@ public class BoatCargoScript : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            EscapeTriggerScript.instance.numberOfPlayersInTheBoatEscapeZone++;
+            EscapeTriggerScript.instance.players.Add(other.gameObject);
             EscapeTriggerScript.instance.playersInTheBoat.Add(other.gameObject);
+
+            EscapeTriggerScript.instance.CheckPlayersCount();
         }
     }
 
@@ -39,8 +41,10 @@ public class BoatCargoScript : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            EscapeTriggerScript.instance.numberOfPlayersInTheBoatEscapeZone--;
+            EscapeTriggerScript.instance.players.Remove(other.gameObject);
             EscapeTriggerScript.instance.playersInTheBoat.Remove(other.gameObject);
+
+            EscapeTriggerScript.instance.CheckPlayersCount();
         }
     }
 }

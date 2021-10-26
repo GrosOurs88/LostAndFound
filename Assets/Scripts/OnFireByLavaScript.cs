@@ -6,7 +6,7 @@ public class OnFireByLavaScript : MonoBehaviour
 {
     public ParticleSystem fireParticleEffect;
     public bool isOnFire = false;
-    public GameObject panelHands;
+    public GameObject noHandsIcon;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -27,7 +27,7 @@ public class OnFireByLavaScript : MonoBehaviour
 
         transform.GetChild(0).GetComponent<SearchObjectScript>().canTheAvatarDig = false;
         transform.GetChild(0).GetComponent<SearchObjectScript>().canTheAvatarTake = false;
-        panelHands.gameObject.SetActive(true);
+        noHandsIcon.gameObject.SetActive(true);
 
         transform.GetChild(0).GetComponent<MovementScript>().isAvatarOnFire = true;
         ParticleSystem newParticle = Instantiate(fireParticleEffect, transform.position, Quaternion.identity);
@@ -41,7 +41,7 @@ public class OnFireByLavaScript : MonoBehaviour
         yield return new WaitForSeconds(_timeNoHands);
         transform.GetChild(0).GetComponent<SearchObjectScript>().canTheAvatarDig = true;
         transform.GetChild(0).GetComponent<SearchObjectScript>().canTheAvatarTake = true;
-        panelHands.gameObject.SetActive(false);
+        noHandsIcon.gameObject.SetActive(false);
 
         yield return null;
     }
