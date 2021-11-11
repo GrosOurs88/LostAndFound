@@ -8,6 +8,9 @@ public class OnFireByLavaScript : MonoBehaviour
     public bool isOnFire = false;
     public GameObject noHandsIcon;
 
+    public float timeOnFire;
+    public float timeNoHandAfterOnFire;
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Lava") && isOnFire == false)
@@ -17,7 +20,7 @@ public class OnFireByLavaScript : MonoBehaviour
                 gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().LaunchTakenObject();
             }            
 
-            StartCoroutine(avatarIsOnFire(5f, 10f));
+            StartCoroutine(avatarIsOnFire(timeOnFire, timeNoHandAfterOnFire));
         }
     }
 
