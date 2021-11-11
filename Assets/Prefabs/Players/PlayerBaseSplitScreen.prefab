@@ -921,8 +921,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7277814ad32f2824ea591b1c75a358f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivityX: 0.75
-  sensitivityY: 0.5
+  sensitivityX: 1.75
+  sensitivityY: 1.25
   minimumX: -360
   maximumX: 360
   minimumY: -60
@@ -1111,6 +1111,8 @@ MonoBehaviour:
   fireParticleEffect: {fileID: 19800000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
   isOnFire: 0
   noHandsIcon: {fileID: 551875038540583697}
+  timeOnFire: 5
+  timeNoHandAfterOnFire: 0
 --- !u!1 &5440937627376057786
 GameObject:
   m_ObjectHideFlags: 0
