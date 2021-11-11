@@ -610,7 +610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1160789549
 Transform:
   m_ObjectHideFlags: 0
@@ -1107,12 +1107,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a99d2fed1c1633f4a9764660a5b39a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputExit: ExitJAll
   canEscape: 0
-  numberOfPlayersInTheBoatEscapeZone: 0
   playersInTheBoat: []
   fXsBoatWater:
   - {fileID: 5052449792158055669}
   - {fileID: 3672833270871007909}
+  players: []
   escapeCanvas: {fileID: 1265071052}
   scoreCanvas: {fileID: 8389810972630103686}
   commonChestNumber: {fileID: 3595695360775899868}
