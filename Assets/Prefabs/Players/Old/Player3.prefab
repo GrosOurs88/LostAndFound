@@ -102,6 +102,10 @@ PrefabInstance:
       propertyPath: inputVerticalAxis
       value: VerticalJ3
       objectReference: {fileID: 0}
+    - target: {fileID: 394873147, guid: 13cdc49a144f65746ac6950bfd1b1c88, type: 3}
+      propertyPath: inputRun
+      value: RunJ3
+      objectReference: {fileID: 0}
     - target: {fileID: 394873148, guid: 13cdc49a144f65746ac6950bfd1b1c88, type: 3}
       propertyPath: mapMaterial
       value: 
@@ -111,6 +115,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2936971265122613430, guid: 9171e74fe11edf84e86861378c87afc4,
         type: 3}
+    - target: {fileID: 394873149, guid: 13cdc49a144f65746ac6950bfd1b1c88, type: 3}
+      propertyPath: inputMouseXAxis
+      value: HorizontalCameraJ3
+      objectReference: {fileID: 0}
+    - target: {fileID: 394873149, guid: 13cdc49a144f65746ac6950bfd1b1c88, type: 3}
+      propertyPath: inputMouseYAxis
+      value: VerticalPlayerJ3
+      objectReference: {fileID: 0}
     - target: {fileID: 1445366461, guid: 13cdc49a144f65746ac6950bfd1b1c88, type: 3}
       propertyPath: m_Color.r
       value: 0
