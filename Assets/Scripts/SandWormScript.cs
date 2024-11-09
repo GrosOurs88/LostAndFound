@@ -78,7 +78,7 @@ public class SandWormScript : MonoBehaviour
         if(collision.gameObject.CompareTag("Player"))
         {
             print("Player touched");
-            Vector3 bumpVector = (collision.transform.position - transform.position);
+            Vector3 bumpVector = collision.transform.position - transform.position;
             collision.gameObject.GetComponent<Rigidbody>().AddForce(bumpVector * playersbumpForce);
 
             if(collision.gameObject.transform.GetChild(0).GetComponent<SearchObjectScript>().isTakingSomething)
