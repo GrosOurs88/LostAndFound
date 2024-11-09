@@ -28,7 +28,6 @@ public class InstantiateObjectsScript : MonoBehaviour
     private int x;
 
     [Header("Crosses")]
-    public int crossPlacementMaxIterationNumber = 5;
     public GameObject crossChestCommon;
     public int numberOfCrossChestCommon;
     public GameObject crossChestBig;
@@ -39,6 +38,7 @@ public class InstantiateObjectsScript : MonoBehaviour
     public int numberOfCrossChestRare;
     public GameObject crossChestSpecial;
     public int numberOfCrossChestSpecial;
+    public int crossPlacementMaxIterationNumber = 5;
     private float crossPlacementYOffset = 0.06f; //Modify only if instanciation bugs
     private List<GameObject> crossesList = new List<GameObject>();
 
@@ -129,7 +129,7 @@ public class InstantiateObjectsScript : MonoBehaviour
                         int x = 0;
                         while (x < crossPlacementMaxIterationNumber)
                         {
-                            //Choose an object to instantiate randomly
+                            //Choose an object to instantiate randomlyzddddDzddddddddddds
                             nextObjectToInstantiate = GetRandomElement(mapObjectsToInstantiateList);
 
                             //Choose a random position to spawn the object
