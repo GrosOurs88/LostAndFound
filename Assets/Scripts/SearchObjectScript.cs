@@ -85,6 +85,8 @@ public class SearchObjectScript : MonoBehaviour
                     hit.collider.transform.parent = avatarHandMap;
                     hit.collider.transform.SetPositionAndRotation(avatarHandMap.position, avatarHandMap.rotation);
                     hit.collider.GetComponent<Rigidbody>().isKinematic = true;
+                    hit.collider.gameObject.GetComponent<MapScript>().isCurrentlyTaken = true;
+                    hit.collider.gameObject.GetComponent<MapScript>().playerWhoOwnsTheMap = gameObject;
                     isTakingSomething = true;
                     canTheAvatarTake = false;
                     canTheAvatarDig = false;
@@ -154,7 +156,7 @@ public class SearchObjectScript : MonoBehaviour
                         GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.LookRotation(hit.normal));
                         newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + holeWinPlacementYOffset, newHole.transform.position.z);
 
-                        Destroy(hit.collider.gameObject); //Destroy cross
+                        hit.collider.gameObject.GetComponent<CrossChestTypeScript>().DestroyCrossAndMap(); //Destroy cross and linked map
 
                         switch (hit.collider.GetComponent<CrossChestTypeScript>().type)
                         {
@@ -270,6 +272,8 @@ public class SearchObjectScript : MonoBehaviour
             takenObject.transform.parent = null;
             takenObject.GetComponent<Rigidbody>().isKinematic = false;
             takenObject.GetComponent<Rigidbody>().AddForce(transform.forward * launchObjectForce);
+            takenObject.gameObject.GetComponent<MapScript>().isCurrentlyTaken = false;
+            takenObject.gameObject.GetComponent<MapScript>().playerWhoOwnsTheMap = null;
             takenObjectIsAMap = false;
             isTakingSomething = false;
         }

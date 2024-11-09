@@ -84,6 +84,8 @@ public class InstantiateObjectsScript : MonoBehaviour
         GetAllMaps();
         GetAllCrosses();
 
+        LinkCrossesToMaps();
+
         InstanciateScreenshotCamera();
 
         for (int i = 0; i < numberOfTotalChestsToInstanciate; i++)
@@ -311,6 +313,14 @@ public class InstantiateObjectsScript : MonoBehaviour
         foreach (Transform tr in mapsInstiatedFolder.transform)
         {
             mapsList.Add(tr.GetChild(0).gameObject);
+        }
+    }
+
+    public void LinkCrossesToMaps()
+    {
+        for(int i = 0; i < crossesList.Count; i++)
+        {
+            crossesList[i].GetComponent<CrossChestTypeScript>().mapLinkedToCross = mapsList[i];
         }
     }
 

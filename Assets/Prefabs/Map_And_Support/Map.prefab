@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4484389884601120884}
   - component: {fileID: 822561797157937187}
   - component: {fileID: 5385137804439105932}
+  - component: {fileID: 3452749697907115387}
   m_Layer: 10
   m_Name: Map
   m_TagString: Map
@@ -150,6 +151,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smokeParticle: {fileID: 19885000, guid: 19a633b31ab206a49bbdb5dbfdb00aff, type: 3}
+--- !u!114 &3452749697907115387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088119057756288512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b882dc834f94c9b4096c2b3ccef9ab55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCurrentlyTaken: 0
+  playerWhoOwnsTheMap: {fileID: 0}
 --- !u!1 &2088119058712317618
 GameObject:
   m_ObjectHideFlags: 0

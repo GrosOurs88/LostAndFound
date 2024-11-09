@@ -17,7 +17,7 @@ public class PlayersMasterScript : MonoBehaviour
 
         for (int x = 0; x < names.Length; x++)
         {
-            Instantiate(playersPrefabList[x], playersStartingPositionsList[x].position, playersStartingPositionsList[x].rotation, transform);          
+            Instantiate(playersPrefabList[x], playersStartingPositionsList[x].position, playersStartingPositionsList[x].rotation);          
         }
     }
 }
