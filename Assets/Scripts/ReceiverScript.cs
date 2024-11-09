@@ -84,15 +84,15 @@ public class ReceiverScript : MonoBehaviour
         }
     }
 
-    public IEnumerator Open(float time)
+    public IEnumerator Open(float _time)
     {
         Vector3 startingPos = transform.position;
         Vector3 finalPos = transform.position + (openPositionVectorLocal * openPositionDistance); ;
         float elapsedTime = 0;
 
-        while (elapsedTime < time)
+        while (elapsedTime < _time)
         {
-            transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
+            transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / _time));
 
             transform.position += Random.insideUnitSphere * shakeAmount;
 

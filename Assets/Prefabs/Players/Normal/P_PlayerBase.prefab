@@ -649,6 +649,7 @@ GameObject:
   - component: {fileID: 394873147}
   - component: {fileID: 394873148}
   - component: {fileID: 394873149}
+  - component: {fileID: 4412203948478952465}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -890,6 +891,23 @@ MonoBehaviour:
   isCursorVisible: 0
   inputMouseXAxis: HorizontalCameraJ1
   inputMouseYAxis: VerticalPlayerJ1
+--- !u!114 &4412203948478952465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3351590950211229214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c47ad2534dd514fa72371a0458eb6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pingInput: PingJ1
+  pingPoint: {fileID: 145809977114009840, guid: 366a8ce0d53e1f348932990a96a5b181,
+    type: 3}
+  timeBeforePingPointScaleDown: 1.5
+  timePingPointScaleDown: 0.5
 --- !u!1 &3351590950770031184
 GameObject:
   m_ObjectHideFlags: 0

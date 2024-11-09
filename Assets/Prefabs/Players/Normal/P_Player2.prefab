@@ -140,6 +140,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 4412203948478952465, guid: 13cdc49a144f65746ac6950bfd1b1c88,
+        type: 3}
+      propertyPath: pingInput
+      value: PingJ2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412203948478952465, guid: 13cdc49a144f65746ac6950bfd1b1c88,
+        type: 3}
+      propertyPath: pingPoint
+      value: 
+      objectReference: {fileID: 6635721618079449240, guid: 129a4c9e1b9af02418e8371b8bf96476,
+        type: 3}
     - target: {fileID: 5440937627376057786, guid: 13cdc49a144f65746ac6950bfd1b1c88,
         type: 3}
       propertyPath: m_Layer

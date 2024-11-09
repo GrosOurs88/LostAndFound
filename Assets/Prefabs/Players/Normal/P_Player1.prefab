@@ -288,6 +288,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 4412203948478952465, guid: 13cdc49a144f65746ac6950bfd1b1c88,
+        type: 3}
+      propertyPath: pingInput
+      value: PingJ1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412203948478952465, guid: 13cdc49a144f65746ac6950bfd1b1c88,
+        type: 3}
+      propertyPath: pingPoint
+      value: 
+      objectReference: {fileID: 3642122351102146399, guid: e3c1b15902c7a6648a2046864b7a71f0,
+        type: 3}
     - target: {fileID: 5440937627376057786, guid: 13cdc49a144f65746ac6950bfd1b1c88,
         type: 3}
       propertyPath: m_Layer
