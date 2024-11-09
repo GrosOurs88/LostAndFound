@@ -24,7 +24,7 @@ public class CameraControlScript : MonoBehaviour
 
     void Update ()
 	{
-        if(GetComponent<MovementScript>().canTheAvatarMove)
+        if(GetComponent<MovementScript>().canTheAvatarRotate)
         {
             float rotationX = transform.localEulerAngles.y + Input.GetAxis(inputMouseXAxis) * sensitivityX;
 

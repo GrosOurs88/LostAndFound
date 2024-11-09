@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 7913209959367710807}
   - component: {fileID: 7913209959367710806}
   m_Layer: 0
-  m_Name: P_Section_Middle_End
+  m_Name: P_Room_End_Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

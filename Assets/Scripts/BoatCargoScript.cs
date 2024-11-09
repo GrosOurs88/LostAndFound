@@ -21,14 +21,6 @@ public class BoatCargoScript : MonoBehaviour
             numberOfChestsInTheBoat++;
             chestsInTheBoat.Add(other.gameObject);
         }
-
-        if (other.CompareTag("Player"))
-        {
-            EscapeTriggerScript.instance.players.Add(other.gameObject);
-            EscapeTriggerScript.instance.playersInTheBoat.Add(other.gameObject);
-
-            EscapeTriggerScript.instance.CheckPlayersCount();
-        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -37,14 +29,6 @@ public class BoatCargoScript : MonoBehaviour
         {
             numberOfChestsInTheBoat--;
             chestsInTheBoat.Remove(other.gameObject);
-        }
-
-        if (other.CompareTag("Player"))
-        {
-            EscapeTriggerScript.instance.players.Remove(other.gameObject);
-            EscapeTriggerScript.instance.playersInTheBoat.Remove(other.gameObject);
-
-            EscapeTriggerScript.instance.CheckPlayersCount();
         }
     }
 }

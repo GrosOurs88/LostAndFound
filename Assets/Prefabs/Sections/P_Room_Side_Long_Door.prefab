@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 4102031124766708243}
   - component: {fileID: 4102031124766708242}
   m_Layer: 0
-  m_Name: P_Section_Side_Long_Door
+  m_Name: P_Room_Side_Long_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

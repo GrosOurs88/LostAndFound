@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 7404779311669588112}
   - component: {fileID: 7404779311669588113}
   m_Layer: 0
-  m_Name: P_Section_Circle_130
+  m_Name: P_Island_Circle_130
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

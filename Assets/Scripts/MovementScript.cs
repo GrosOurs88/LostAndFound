@@ -13,6 +13,7 @@ public class MovementScript : MonoBehaviour
     private GameObject avatar;
 
     public bool canTheAvatarMove = true;
+    public bool canTheAvatarRotate = true;
     public bool canTheAvatarRun = true;
 
     public string inputHorizontalAxis;

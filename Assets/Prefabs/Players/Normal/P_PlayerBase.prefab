@@ -868,8 +868,8 @@ MonoBehaviour:
   bigChestWeight: 3
   giantChestWeight: 10
   holePlacementYOffset: 0.01
-  holeWinPlacementYOffset: 0.02
-  chestSpawnedYOffset: -0.5
+  holeWinPlacementYOffset: -0.11
+  chestSpawnedYOffset: -0.4
 --- !u!114 &394873149
 MonoBehaviour:
   m_ObjectHideFlags: 0

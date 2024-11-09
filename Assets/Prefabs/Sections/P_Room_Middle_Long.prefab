@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 3476769404209896424}
   - component: {fileID: 3476769404209896425}
   m_Layer: 0
-  m_Name: P_Section_Middle_Long
+  m_Name: P_Room_Middle_Long
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

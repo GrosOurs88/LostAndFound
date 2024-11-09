@@ -151,7 +151,7 @@ public class SearchObjectScript : MonoBehaviour
                     {
                         movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
 
-                        GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.Euler(90, 0, 0));
+                        GameObject newHole = Instantiate(holeWin, hit.point, Quaternion.LookRotation(hit.normal));
                         newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + holeWinPlacementYOffset, newHole.transform.position.z);
 
                         Destroy(hit.collider.gameObject); //Destroy cross
@@ -201,7 +201,7 @@ public class SearchObjectScript : MonoBehaviour
                     {
                         movementScript.staminaBarImage.fillAmount -= digStaminaDecreaseValueAmount;
 
-                        GameObject newHole = Instantiate(hole, hit.point, Quaternion.Euler(90, 0, 0));
+                        GameObject newHole = Instantiate(hole, hit.point, Quaternion.LookRotation(hit.normal));
                         newHole.transform.position = new Vector3(newHole.transform.position.x, hit.point.y + holePlacementYOffset, newHole.transform.position.z);
                     }
                 }
