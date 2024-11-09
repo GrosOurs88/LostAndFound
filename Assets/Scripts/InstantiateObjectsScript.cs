@@ -27,7 +27,14 @@ public class InstantiateObjectsScript : MonoBehaviour
     private float decorInstanciationRaycastLength = 50f; //Modify only if instanciation bugs
     private int x;
 
-    [Header("Crosses")]
+    [Header("Maps")]
+    public bool MapsAlreadyPlacedManually = false;
+    public List<GameObject> mapObjectsToInstantiateList = new List<GameObject>();
+    public List<GameObject> mapAlreadyManuallyPlacedList = new List<GameObject>();
+    private int numberOfTotalChestsToInstanciate;
+    private List<GameObject> mapsList = new List<GameObject>();
+
+    [Header("Cross")]
     public GameObject crossChestCommon;
     public int numberOfCrossChestCommon;
     public GameObject crossChestBig;
@@ -42,13 +49,6 @@ public class InstantiateObjectsScript : MonoBehaviour
     private float crossPlacementYOffset = 0.06f; //Modify only if instanciation bugs
     private List<GameObject> crossesList = new List<GameObject>();
 
-    [Header("Maps")]
-    public Shader shader;
-    public Color color;
-    public List<GameObject> mapObjectsToInstantiateList = new List<GameObject>();
-    private int numberOfTotalChestsToInstanciate;
-    private List<GameObject> mapsList = new List<GameObject>();
-
     [Header("Cameras")]
     public GameObject screenshotCameraPrefab;
     private GameObject screenshotCamera;
@@ -57,6 +57,8 @@ public class InstantiateObjectsScript : MonoBehaviour
 
     [Header("Other")]
     //private LayerMask layerCheckForObstacles;
+    public Shader mapsShader;
+    public Color mapsColor;
     private LayerMask layerFloor;
 
     public void SetupEnvironment()
@@ -65,7 +67,14 @@ public class InstantiateObjectsScript : MonoBehaviour
 
         InstantiateEnvironment();
 
-        PlaceMaps(numberOfTotalChestsToInstanciate);
+        if(MapsAlreadyPlacedManually)
+        {
+            GetManuallyPlacedMaps();
+        }
+        else
+        {
+            PlaceMaps(numberOfTotalChestsToInstanciate);
+        }
 
         PlaceCrosses(numberOfCrossChestCommon, crossChestCommon);
         PlaceCrosses(numberOfCrossChestBig, crossChestBig);
@@ -81,6 +90,14 @@ public class InstantiateObjectsScript : MonoBehaviour
         {
             StartCoroutine(TakeScreenshot(crossesList[i], mapsList[i])); //Take a screenshot
         }
+    }
+
+    private void SetupGlobalValues()
+    {
+        circleShapeRadius = floorToInstantiateObjectsInto.transform.localScale.x / 2;
+        numberOfTotalChestsToInstanciate = numberOfCrossChestCommon + numberOfCrossChestBig + numberOfCrossChestGiant + numberOfCrossChestRare + numberOfCrossChestSpecial;
+        // layerCheckForObstacles = LayerMask.GetMask("Lava") | LayerMask.GetMask("Default") | LayerMask.GetMask("Cross");
+        layerFloor = LayerMask.GetMask("Floor");
     }
 
     public void InstantiateEnvironment()
@@ -129,7 +146,7 @@ public class InstantiateObjectsScript : MonoBehaviour
                         int x = 0;
                         while (x < crossPlacementMaxIterationNumber)
                         {
-                            //Choose an object to instantiate randomlyzddddDzddddddddddds
+                            //Choose an object to instantiate randomly
                             nextObjectToInstantiate = GetRandomElement(mapObjectsToInstantiateList);
 
                             //Choose a random position to spawn the object
@@ -181,6 +198,14 @@ public class InstantiateObjectsScript : MonoBehaviour
                     }
                 }
                 break;
+        }
+    }
+
+    public void GetManuallyPlacedMaps()
+    {
+        foreach (GameObject gO in mapAlreadyManuallyPlacedList)
+        {
+            mapsList.Add(gO.gameObject);
         }
     }
 
@@ -242,14 +267,6 @@ public class InstantiateObjectsScript : MonoBehaviour
                 }
                 break;
         }
-    }
-
-    private void SetupGlobalValues()
-    {
-        circleShapeRadius = floorToInstantiateObjectsInto.transform.localScale.x / 2;
-        numberOfTotalChestsToInstanciate = numberOfCrossChestCommon + numberOfCrossChestBig + numberOfCrossChestGiant + numberOfCrossChestRare + numberOfCrossChestSpecial;
-       // layerCheckForObstacles = LayerMask.GetMask("Lava") | LayerMask.GetMask("Default") | LayerMask.GetMask("Cross");
-        layerFloor = LayerMask.GetMask("Floor");
     }
 
     private GameObject GetRandomElement(List<GameObject> _listGo)
@@ -350,9 +367,9 @@ public class InstantiateObjectsScript : MonoBehaviour
         texture.Apply();
 
         Renderer rend = _map.GetComponent<Renderer>(); //_map ?? OR _camera ?
-        rend.material = new Material(shader);
+        rend.material = new Material(mapsShader);
         rend.material.mainTexture = texture;
-        rend.material.color = color;
+        rend.material.color = mapsColor;
 
         RenderTexture.active = null;
         screenshotCameraComponent.targetTexture = null;
